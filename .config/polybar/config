@@ -1,0 +1,271 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;==========================================================
+
+[colors]
+white = #ffffff
+red = #e53935
+pink = #d81b60
+purple = #8e24aa
+deep-purple = #5e35b1
+indigo = #3949ab
+blue = #1e88e5
+light-blue = #039be5
+cyan = #00acc1
+teal = #00897b
+green = #43a047
+light-green = #7cb342
+lime = #c0ca33
+yellow = #fdd835
+amber = #ffb300
+orange = #fb8c00
+deep-orange = #f4511e
+brown = #6d4c41
+grey = #757575
+blue-gray = #546e7a
+
+shade1 = #004D40
+shade2 = #00695C
+shade3 = #00796B
+shade4 = #00897B
+shade5 = #009688
+shade6 = #26A69A
+shade7 = #4DB6AC
+shade8 = #80CBC4
+ashade8 = #2C2C2C
+
+[bar/base]
+enable-ipc = true
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+offset-x = 100%
+fixed-center = true
+font-0 = "Hack:size=12;3"
+font-1 = "Font Awesome 5 Free:style=Solid:pixelsize=12;3"
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=12;3"
+padding= 0
+line-size=5
+
+
+
+[bar/top]
+
+inherit = bar/base
+background = #fffffff
+foreground = ${colors.teal}
+height = 26
+radius =4
+enable-ipc = true
+border-size = 5
+border-bottom-size= 0
+modules-center =
+modules-left = i3 wifi
+modules-right = mpd redshift cnetwork vpn time pulseaudio xkeyboard
+
+
+
+[bar/bottom]
+inherit = bar/base
+background = 000f0f0f
+;foreground = ${colors.teal}
+height = 20
+enable-ipc = true
+bottom = true
+tray-position = right
+tray-padding = 1
+wm-restack = i3
+modules-right = temperature memory cpu mpd 
+
+
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:30:...%
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = caps lock
+blacklist-1 = num lock
+blacklist-2 = scroll lock
+format-foreground = ${colors.white}
+format-background = ${colors.shade1}
+label-layout =%layout%
+format-padding = 1.5
+
+[module/i3]
+type = internal/i3
+format = <label-state>
+index-sort = true
+wrapping-scroll = true
+label-state-font = 0
+
+; focused = Active workspace on focused monitor
+label-focused =
+label-focused-background =${colors.white}
+label-focused-foreground =${colors.light-blue}
+label-focused-padding = 1
+
+label-unfocused = 
+label-unfocused-background=${colors.white}
+label-unfocused-foreground=${colors.lime}
+label-unfocused-padding = 1
+label-urgent = 
+label-urgent-background = ${colors.white}
+label-urgent-foreground = ${colors.red}
+label-urgent-padding = 1
+
+
+
+[module/mpd]
+type = internal/mpd
+format-online =<label-song> <icon-prev> <toggle> <icon-next>
+host = 127.0.0.1
+port = 6601
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+label-song= %title%
+label-song-maxlen = 25
+label-song-ellipsis = true
+label-song-padding = 1
+format-online-foreground = ${colors.white}
+format-online-background =${colors.shade7}
+format-online-padding = 2
+
+[module/backlight]
+type = internal/backlight
+card = acpi_video1
+format =<ramp>
+label=%percentage%%
+label-background=${colors.white}
+label-foreground=${colors.teal}
+label-padding=1
+ramp-foreground=FFB200
+ramp-padding=0
+ramp-0 = 
+ramp-1 = 
+
+
+[module/wlan]
+type = internal/network
+interface = wlp9s0
+interval = 2.0
+
+format-connected = <ramp-signal><label-connected>
+label-connected-padding = 1
+label-connected =%{A1:networkmanager_dmenu:}%essid%  %upspeed%  %downspeed%%{A}
+label-connected-foreground = ${colors.white}
+label-connected-background = ${colors.teal}
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-5 = 
+ramp-signal-foreground = #d99196
+ramp-signal-padding = 1
+format-disconnected = <label-disconnected>
+label-disconnected = "%{A1:networkmanager_dmenu:} %{A}"
+
+
+[module/time]
+type = internal/date
+
+interval = 1.0
+format = <label>
+time =  %H:%M 
+date = %e %b %a
+label =%time%
+label-font = 0
+label-foreground = ${colors.white}
+format-background = ${colors.shade3}
+label-padding = 2
+
+
+[module/pulseaudio]
+
+type = internal/pulseaudio
+use-ui-max = true
+format-volume =<ramp-volume><label-volume> 
+format-volume-padding =2
+label-volume = %percentage%
+label-volume-foreground = ${colors.white}
+label-muted =  
+format-volume-background=${colors.shade2}
+label-muted-foreground = ${colors.red}
+label-muted-background = ${colors.shade2}
+label-muted-padding =2
+ramp-volume-foreground=${colors.white}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-headphones-0=
+
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+; pseudo-transparency = true
+; vim:ft=dosini
+
+[module/redshift]
+type = custom/script
+tail = true
+exec = ~/.config/scripts/redshift.sh --output
+click-left =~/.config/scripts/redshift.sh --toggle >/dev/null 2>&1 &
+format-background = ${colors.shade6}
+format-foreground = ${colors.white}
+format-padding = 2
+
+
+[module/vpn]
+type = custom/script
+exec = ~/.config/scripts/winscribe.sh --output
+click-left = .config/scripts/winscribe.sh --click >/dev/null 2>&1 & 
+format-padding=2
+format-background = ${colors.shade4}
+format-foreground = ${colors.white}
+tail = true
+interval =2
+
+[module/wifi]
+type = custom/script
+exec = ~/.config/scripts/networkusage.sh --speed
+tail = true
+format-padding=1
+;interval=1
+format-background = ${colors.white}
+
+[module/cnetwork]
+type = custom/script
+exec = ~/.config/scripts/check-network
+format-background = ${colors.shade5}
+format-foreground = ${colors.white}
+format-padding = 2
+;click-left = networkmanager_dmenu &
+;click-right = networkmanager_dmenu &
+tail = true
+

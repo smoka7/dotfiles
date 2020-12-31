@@ -1,14 +1,14 @@
 #!/bin/bash
 
 disconnect() {
-    nmcli con down id "$active" && notify-send "Network Manager" "Disconnected from $active" || notify-send "Network Manager" "Error disconnecting from $active!"
+    nmcli con down id "$active"
 }
 connect() {
-    nmcli con up id "$chosen" && notify-send "Network Manager" "Now connected to $chosen" || notify-send "Network Manager" "Error connecting to $chosen!"
+    nmcli con up id "$chosen"
 }
 
 # Get the active vpn connection if there's one
-active="$(nmcli -g name,type con show --active | grep vpn | sed -e 's#:vpn$##')"
+active="$(nmcli -g name,type con show --active | grep vpn | sed -e 's#:vpn$##' | head -n 1)"
 
 # Get the list of vpns
 mapfile -t list < <(nmcli -g name,type con | grep vpn | sed -e 's#:vpn$##')
@@ -25,7 +25,7 @@ if [ -n "$active" ]; then
 # No vpn is active
 else
     status="   Disconnected"
-    status_style="#prompt { background-color: @off; }"
+    status_style="#prompt { background-color: @accent; }"
     special=""
     # Variable passed to rofi
     options=""

@@ -1,0 +1,268 @@
+[module/cpu]
+type = internal/cpu
+format = <label> <ramp-coreload>
+format-padding =0
+format-margin =1
+label =  %percentage%
+label-foreground =${colors.accent}
+ramp-foreground =${colors.accent}
+ramp-coreload-spacing = 1
+ramp-coreload-0 = "▁"
+ramp-coreload-0-foreground = ${colors.accent}
+ramp-coreload-1 = "▂"
+ramp-coreload-1-foreground = ${colors.green}
+ramp-coreload-2 = "▃"
+ramp-coreload-2-foreground = ${colors.yellow-m}
+ramp-coreload-3 = "▄"
+ramp-coreload-3-foreground = ${colors.orange}
+ramp-coreload-4 = "▅"
+ramp-coreload-4-foreground = ${colors.pink}
+ramp-coreload-5 = "▆"
+ramp-coreload-5-foreground = ${colors.red}
+ramp-coreload-6 = "▇"
+ramp-coreload-6-foreground = ${colors.amber}
+ramp-coreload-7 = "█"
+ramp-coreload-7-foreground = ${colors.red-m}
+[module/memory]
+type=internal/memory
+format-padding=1
+format-margin =1
+format-foreground =${colors.accent}
+format = <label>
+label=  %percentage_used%  %percentage_swap_used%
+
+[module/temperature]
+type = internal/temperature
+# format-padding =1
+format-margin =1
+# format-background =${colors.minor}
+format-foreground =${colors.accent}
+format-warn = <label-warn>
+label = %temperature-c%
+label-warn =  %temperature-c%
+label-warn-foreground = ${colors.red-m}
+
+[module/mpd]
+type = internal/mpd
+format-online =<icon-prev> <toggle> <icon-next> <bar-progress>
+host = 127.0.0.1
+port = 6601
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+format-online-foreground = ${colors.red-m}
+format-online-padding = 1
+bar-progress-gradient=false
+bar-progress-width = 19
+bar-progress-indicator = 
+bar-progress-fill =█
+bar-progress-empty = 
+bar-progress-foreground = ${colors.accent}
+;bar-progress-foreground-0 = ${colors.green}
+;bar-progress-foreground-1 =${colors.yellow-m}
+;bar-progress-foreground-2 = ${colors.orange}
+;bar-progress-foreground-3 = ${colors.red}
+;bar-progress-foreground-4 = ${colors.amber}
+;bar-progress-foreground-5 = ${colors.indigo}
+;bar-progress-foreground-7 = ${colors.blue}
+;bar-progress-foreground-9 = ${colors.magenta}
+
+
+[module/mpdbar]
+type = internal/mpd
+format-online =<label-song>
+host = 127.0.0.1
+port = 6601
+icon-play = 
+icon-pause = 
+label-song=%title% %artist%
+label-song-maxlen = 22
+label-song-font = 3
+format-online-foreground = ${colors.accent}
+#format-online-background =${colors.red}
+format-online-font = 2
+format-online-padding = 1
+format-online-margin=1
+
+
+[module/backlight]
+type = internal/backlight
+card = acpi_video1
+format =<ramp> <bar>
+label=%percentage%
+format-foreground=${colors.yellow-m}
+label-padding=1
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+
+bar-width = 8
+bar-foreground =${colors.accent}
+;bar-foreground-0 =${colors.white}
+;bar-foreground-1 = ${colors.yellow}
+;bar-foreground-2 = ${colors.orange}
+;bar-foreground-3 = ${colors.red}
+;bar-foreground-4 = ${colors.red-m}
+;bar-foreground-5 = ${colors.indigo}
+;bar-foreground-6 = ${colors.blue}
+bar-gradient = false
+bar-indicator = 
+bar-indicator-font = 2
+bar-fill = █
+bar-fill-font = 2
+bar-empty = █
+bar-empty-font = 2
+bar-empty-foreground = ${colors.main}
+
+[module/time]
+type = internal/date
+interval = 1.0
+format = <label>
+time =  %m-%d %a %b
+;time-alt =  %m-%e %b
+label =%time%
+label-font = 3
+label-foreground = ${colors.yellow-m}
+label-padding-left = 1
+
+
+[module/clock]
+type = internal/date
+interval = 1.0
+format = <label>
+time =  %H:%M
+time-alt =  %m-%d %b
+label =%time%
+label-font = 3
+label-foreground = ${colors.background}
+format-background = ${colors.background-t}
+label-padding= 1
+format-margin=0
+
+[module/pulseaudio]
+
+type = internal/pulseaudio
+use-ui-max = true
+format-volume =<ramp-volume> <label-volume> 
+format-volume-background=${colors.indigo}
+format-volume-padding =1
+label-volume = %percentage%
+format-volume-foreground = ${colors.accent}
+label-volume-font =3
+label-muted =  
+label-muted-foreground = ${colors.shade1}
+label-muted-background = ${colors.red-m}
+label-muted-padding =3
+ramp-volume-0 =" "
+ramp-volume-1 =" "
+ramp-volume-2 =" "
+ramp-volume-3 =" "
+ramp-volume-4 =" "
+ramp-headphones-0=
+
+[module/audiobar]
+type = internal/pulseaudio
+use-ui-max = true
+format-volume =<ramp-volume> <bar-volume> 
+format-volume-padding =0
+format-muted = <bar-volume>
+format-muted-foreground = ${colors.red-m}
+ramp-volume-foreground=${colors.accent}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-headphones-0=
+bar-volume-width = 8
+bar-volume-foreground-0 =${colors.indigo}
+;bar-volume-foreground-1 = ${colors.yellow}
+;bar-volume-foreground-2 = ${colors.orange}
+;bar-volume-foreground-3 = ${colors.red}
+;bar-volume-foreground-4 = ${colors.red-m}
+;bar-volume-foreground-5 = ${colors.indigo}
+;bar-volume-foreground-6 = ${colors.blue}
+bar-volume-gradient = false
+bar-volume-indicator = 
+bar-volume-indicator-font = 2
+bar-volume-fill = █
+bar-volume-fill-font = 2
+bar-volume-empty =█ 
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.main}
+
+
+[module/redshift]
+type = custom/script
+tail = true
+exec = ~/.config/scripts/redshift.sh --output
+click-left =~/.config/scripts/redshift.sh --toggle >/dev/null 2>&1 &
+format-foreground = ${colors.white}
+format-padding = 1
+format-font=4
+
+[module/vpn]
+type = custom/script
+exec = ~/.config/scripts/winscribe.sh --output
+click-left = ~/.config/scripts/winscribe.sh --click >/dev/null 2>&1 & 
+format-padding=1
+format-background = ${colors.deep-purple}
+format-foreground = ${colors.white}
+tail = true
+interval =2
+
+
+[module/wifi]
+type = custom/script
+exec = ~/.config/scripts/networkusage.sh --speed
+tail = true
+format-padding = 2
+;format-margin =1
+interval=1
+format-background = ${colors.minor}
+format-foreground = ${colors.shade1}
+click-left = ~/.config/rofi/scripts/nmclimenu.sh
+
+
+[module/cnetwork]
+type = custom/script
+exec = ~/.config/scripts/check-network
+format-background = ${colors.background}
+format-foreground = ${colors.accent}
+format-font=3
+format-padding = 2
+click-left = ~/.config/rofi/scripts/nmclimenu.sh
+tail = true
+
+[module/wm]
+type = custom/script
+exec = ~/.config/scripts/bspwm.sh count
+;tail = true
+format-padding = 1
+format-margin = 0
+format-font=4
+interval=1
+format-background = ${colors.minor}
+format-foreground = ${colors.yellow}
+;click-left = ~/.config/rofi/scripts/nmclimenu.sh
+
+
+[module/jdate]
+type = custom/script
+tail = true
+interval =100
+exec =~/.config/scripts/pcal/pcal.sh -t
+format-foreground = ${colors.yellow-m}
+format-padding= 1
+format-font = 3
+
+[module/demo]
+type = custom/ipc
+hook-0 = echo 
+format-background = ${colors.minor}
+format-foreground = ${colors.red}
+initial = 1
+format-padding = 1
+format-margin =1
+click-left = polybar-msg cmd toggle 

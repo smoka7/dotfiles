@@ -1,0 +1,41 @@
+
+[colors]
+white = #ffffff
+pink = #d81b60
+purple = #8e24aa
+deep-purple = #5e35b1
+indigo = #3949ab
+light-blue = #039be5
+teal = #00897b
+light-green = #7cb342
+lime = #c0ca33
+amber = #ffb300
+orange = #ffb350
+deep-orange = #f4511e
+brown = #6d4c41
+grey = #757575
+blue-gray = #546e7a
+main= #1B222D
+minor= #39465E
+accent= #f1faee
+red= #E78482
+red-m=#ff5555
+green= #8FC8BB
+yellow= #FFD484
+yellow-m =#fdd835
+blue= #6861e7
+blue-m=#1e88e5
+magenta= #AD82CB
+cyan= #7EDDDE
+background= #1B222D
+background-t= #1B222ff
+
+shade1 = #282a36
+shade2 = #2b2e3b
+shade3 = #363949
+shade4 = #414458
+shade5 = #4c5067
+shade6 = #575b75
+shade7 = #626784
+shade8 = #7c809c
+ashade8 = #8a8ea8

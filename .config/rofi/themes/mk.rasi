@@ -1,0 +1,87 @@
+configuration {
+    drun-display-format: "{icon}";
+    display-drun: "Apps";
+	show-icons: true;
+	icon-theme: "Papirus";
+	location: 0;
+	yoffset: 0;
+    xoffset: 0;	
+	fake-transparency: false;
+	hide-scrollbar: true;
+	bw: 0;
+    fullscreen: true;
+    show-icons: true;
+	terminal: "tilix";
+	sidebar-mode: false;
+}
+
+// Blur 
+* {
+bg: #000000aa;
+find: #00000099;
+txt: #f8f8f2;
+border: #ff5555;
+bg-sel: #000000bb;
+fg: #ffffff;
+}
+
+* {
+  background-color: #00000000;
+  font: "Hack 48";
+}
+
+window {
+  height: 100%;
+  width: 100%;
+  transparency: "real";
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+  padding: 0% 5% 5% 5%;
+  background-color: @bg;
+  border: 0;
+  border-radius: 0;
+  border-color: @border;
+}
+
+listview {
+  columns: 7;
+  padding: 1%;
+  spacing: 2%;
+}
+
+element {
+  border: 0;
+  border-radius: 0;
+  text-color: #1e88e5;
+  orientation: horizontal;
+  padding: 2% 2% 2% 3%;
+}
+
+element selected {
+  background-color: @bg-sel;
+  border: 6 0 0 0;
+  border-radius: 0;
+  border-color: @border;
+  text-color: #1e88e5;
+}
+
+inputbar {
+  children: [entry];
+  padding: 8;
+  margin: 8% 30%;
+  border: 4 4 4 4;
+  border-radius: 8;
+  border-color: @border;
+}
+
+prompt {
+  enabled: false;
+}
+
+entry {
+  font: "Hack 16";
+  text-color: @txt;
+  padding: 8 12 8 12;
+}

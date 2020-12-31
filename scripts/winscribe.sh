@@ -1,18 +1,17 @@
 #!/usr/bin/zsh
+tunnel=$(pgrep openconnect) 
 output() {
-tunnel=$(networkctl -s | grep tun0|head -n1) 
 	if [ "$tunnel" ];then 
-        echo ""
+        echo ""
     else
-        echo ""
+        echo ""
     fi
 }
 connect(){
-tunnel=$(networkctl -s | grep tun0|head -n1) 
     	if [ "$tunnel" ];then 
-            windscribe disconnect
+            nmcli connection down Germany
         else
-            windscribe connect bucharest
+            nmcli connection up Germany
         fi
 }
 case "$1" in

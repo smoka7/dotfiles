@@ -12,7 +12,6 @@ configuration {
   font: @text-font-mono;
 }
 #window {
-  padding: 50px 250px;
 }
 inputbar,
 prompt,

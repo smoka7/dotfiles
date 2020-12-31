@@ -1,23 +1,23 @@
 #!/usr/bin/env bash
 
-count=0
 
-disconnected=""
-disconnected2=""
+ssid=`nmcli device status |grep wifi| awk '{print$4}'`
+disconnected=""
 wireless_connected=""
-ethernet_connected=""
-
-ID="$(ip link | awk '/state UP/ {print $2}')"
+vpn_connected=""
 
 while true; do
-    if (ping -c 1 8.8.8.8|| ping -c 1 google.com) &>/dev/null; then
-        if [[ $ID == e* ]]; then
-            echo "$ethernet_connected" ; sleep 25
+wifi="$(ip link | grep wlp9s0 | grep 'state UP')"
+vpn="$( ip link | grep vpn0 | grep 'state UP')"
+    if (ping -c 1 8.8.8.8) &>/dev/null; then
+        if [[ $vpn && $wifi ]];then
+            echo "$vpn_connected" $ssid ; sleep 5;
+        elif [[ $wifi ]]; then
+            echo "$wireless_connected" $ssid; sleep 5;
         else
-            echo "$wireless_connected" ; sleep 25
+            echo " eth"; sleep 5;
         fi
     else
-        echo "$disconnected" ; sleep 0.5
-        echo "$disconnected2" ; sleep 0.5
+        echo "$disconnected";sleep 2;
     fi
 done

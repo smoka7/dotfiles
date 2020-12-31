@@ -1,11 +1,65 @@
 /**
  * Allows to change the settings of every menu simply by editing this file
  */
-@import "colorschemes/dark-steel-blue.rasi"
-@import "resolutions/1920x1080.rasi"
+@import "colorschemes/gruvbox.rasi"
+@import "resolutions/1366x768.rasi"
 
+* {
+  text-color: @foreground;
+  font: @text-font;
+  background-color: #0000;
+}
 #window {
-  width: 100%;
-  height: 100%;
+  background-color: @background;
+  padding:0;
+border-radius:0 0 0 20;
+border-color: #a2d9b1;
+border: 0 0 0 15;
+width: 70%;
+height: 80%;
+}
+mainbox {
+    background-color:               @background;
+    spacing:                       	2%;
+    padding:                        4% 2% 0% 2%;
+    border-radius:0 0 0 20;
+    border-color:#3f948f;
+    border: 0 0 0 10;
+}
+
+inputbar,
+prompt,
+textbox-prompt-colon,
+entry {
+  background-color: #0000;
+  border-radius: 15px 0px 0px 15px;
+}
+#inputbar {
+  children: [ prompt, textbox-prompt-colon, entry ];
+  margin: @inputbar-margin;
+}
+#prompt {
+  padding: @prompt-padding;
+  background-color: @accent;
+  text-color: @foreground;
+}
+#entry {
+  text-color: @accent;
+  padding: @entry-padding;
+  border-radius: 0px 15px 15px 0px;
+}
+#element {
+  padding: @list-element-padding;
+  margin: @list-element-margin;
+  border: @list-element-border;
+  background-color: @background-focus;
+  border-color: @blue;
+  border-radius: 0px 15px 15px 0px;
+}
+#element.selected {
+  background-color:@blue;
+  text-color:  @background-focus;
+  border-color: @foreground;
+  border-radius: 0px 15px 15px 0px;
 }
 

@@ -1,11 +1,13 @@
 #!/bin/sh
 
 
-clock() {
-echo  `date +"%a  %H:%M"`
+date() {
+txt=$(~/.config/scripts/pcal/pcal.sh -t)
+notify-send -a "today" "$txt"
+
 }
 
-while :; do
-    clock
-    sleep 60
-done
+# while :; do
+    date
+    # sleep 60
+# done

@@ -29,11 +29,13 @@ then
     Current=$(($(get_volume)+$2))
     trim=$(trim_volume $Current)
     set_volume $trim
-    notify-send -a "volume" --hint=string:x-dunst-stack-tag:volume -t 700 $trim
+    echo $trim > /tmp/xobvolume
+    # notify-send -a "volume" --hint=string:x-dunst-stack-tag:volume -t 700 $trim
 elif [ $1 = "down" ];
 then
     Current=$(($(get_volume)-$2))
     trim=$(trim_volume $Current)
     set_volume $trim
-    notify-send -a "volume" --hint=string:x-dunst-stack-tag:volume -t 700 $trim
+    echo $trim > /tmp/xobvolume
+    # notify-send -a "volume" --hint=string:x-dunst-stack-tag:volume -t 700 $trim
 fi

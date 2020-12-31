@@ -11,8 +11,8 @@ syntax enable
 let mapleader=','
 so ~/.vim/plugins.vim
 set clipboard=unnamedplus
-colorscheme jellybeans
-
+set whichwrap=b,s,<,>,[,]
+colorscheme OceanicNext
 "--------------------tab
 set expandtab
 set encoding=utf-8
@@ -22,6 +22,7 @@ set shiftwidth=4
 set wrap
 set ai
 set autoindent
+set smartindent
 let g:indent_guides_enable_on_vim_startup = 1         "indent guides enabled by
 "default
 "-------------------tab
@@ -65,9 +66,10 @@ nnoremap  :Commentary<cr>
 inoremap  <Esc>:Commentary<cr>i
 ""---------------save and quit
 map zz :w<cr>
+map <Leader>w :wq<cr>
 map zq :wq<cr>
 command W w suda://%
-map <Leader>q :q<cr>
+map <Leader>q :q!<cr>
 map <Leader>p :ALEFix prettier<cr>
 "-----------------------tab controls
 nnoremap <C-T> :tabnew<CR>
@@ -82,8 +84,8 @@ inoremap <S-Down> <Esc>:m .+1<CR>i
 inoremap <S-Up> <Esc>:m .-2<CR>i
 vnoremap <S-j> :m '>+1<CR>
 vnoremap <S-k> :m '<-2<CR>
-vnoremap <S-Down> :m '>+1<CR>
-vnoremap <S-UP> :m '<-2<CR>
+vnoremap <S-Down> :m '>+1<CR>v
+vnoremap <S-UP> :m '<-2<CR>v
 "------------------------- auto complete for ( , " , ' , [ , { 
 :inoremap        (  ()<Left>
 :inoremap        "  ""<Left>
@@ -91,6 +93,10 @@ vnoremap <S-UP> :m '<-2<CR>
 :inoremap        '  ''<Left>
 :inoremap        [  []<Left>
 :inoremap      {  {}<Left>
+:inoremap      <  <><Left>
+" Beginning and end of line
+imap <C-a> <home>
+imap <C-e> <end>
 "-----------------octrlp
 let g:ctrlp_custom_ignore='node_modules\|git'
 let g:ctlp_match_window='top,order:ttb,min:1,max:20,result:10'

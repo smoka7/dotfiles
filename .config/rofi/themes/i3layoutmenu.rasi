@@ -1,12 +1,9 @@
 /**
- * This theme is intended for a 3 items option menu.
+ * This theme is intended for a 8x2 items list menu with a headerbar.
  */
-@import "shared/option-menu.rasi"
+@import "shared/settings.rasi"
 #window {
-  padding: @option-3-window-padding;
-}
-#listview {
-  spacing: @option-3-listview-spacing;
-  lines: 3;
+  width: 30%;
+  height:60%;
 }
 

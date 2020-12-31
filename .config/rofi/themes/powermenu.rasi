@@ -3,47 +3,12 @@
  */
 @import "shared/settings.rasi"
 * {
-  background-color: @background;
-  text-color: @foreground-list;
+  text-color: @foreground;
   font: @text-font;
+  background-color: #0000;
 }
 #window {
-  padding: 200px 500px;
-}
-inputbar,
-prompt,
-textbox-prompt-colon,
-entry {
-  background-color: @background-light;
-}
-#inputbar {
-  children: [ prompt, textbox-prompt-colon, entry ];
-  margin: @inputbar-margin;
-}
-#prompt {
-  padding: @prompt-padding;
-  background-color: @accent;
-  text-color: @background;
-}
-#textbox-prompt-colon {
-  expand: false;
-  str: "   ";
-  padding: @apps-textbox-prompt-colon-padding;
-}
-#entry {
-  text-color: @accent;
-  padding: @entry-padding;
-}
-#element {
-  padding: @list-element-padding;
-  margin: @list-element-margin;
-  border: @list-element-border;
-  background-color: @background-light;
-  border-color: @background-light;
-}
-#element.selected {
-  background-color: @background-focus;
-  text-color: @accent;
-  border-color: @accent;
+  width: 30%;
+  height:50%;
 }
 

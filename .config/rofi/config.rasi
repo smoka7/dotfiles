@@ -3,7 +3,7 @@ configuration {
   cycle:              true;
   hide-scrollbar:     true;
   disable-history:    false;
-  modi:               "drun";
+  modi:               "drun,window,run,windowcd,combi,keys";
   display-drun:       "apps";
   columns: 2;
 }

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-rofi_command="rofi -theme themes/mpdmenu.rasi"
-
+rofi_command="rofi -theme /themes/mpdmenu.rasi "
+export MPD_HOST=127.0.0.1
+export MPD_PORT=6601
 ### Options ###
 # Gets the current status of mpd (for us to parse it later on)
 status="$(mpc status)"
@@ -14,26 +15,26 @@ fi
 active=""
 urgent=""
 # Display if repeat mode is on / off
-tog_repeat="凌"
+tog_repeat="🔁"
 if [[ $status == *"repeat: on"* ]]; then
     active="-a 4"
 elif [[ $status == *"repeat: off"* ]]; then
-    urgent="-u 4"
+    urgent=""
 else
     tog_repeat=" Parsing error"
 fi
 # Display if random mode is on / off
-tog_random=""
+tog_random="🔀"
 if [[ $status == *"random: on"* ]]; then
     [ -n "$active" ] && active+=",5" || active="-a 5"
 elif [[ $status == *"random: off"* ]]; then
-    [ -n "$urgent" ] && urgent+=",5" || urgent="-u 5"
+    [ -n "$urgent" ] && urgent+="" || urgent=""
 else
     tog_random=" Parsing error"
 fi
-stop=""
-next=""
-previous=""
+stop=""
+next=""
+previous=""
 # Variable passed to rofi
 options="$previous\n$play_pause\n$stop\n$next\n$tog_repeat\n$tog_random"
 
@@ -45,25 +46,25 @@ if [[ -z "$current" ]]; then
 fi
 
 # Spawn the mpd menu with the "Play / Pause" entry selected by default
-chosen="$(echo -e "$options" | $rofi_command -p "$current" -dmenu $active $urgent -selected-row 1)"
+chosen="$(echo -e "$options" | $rofi_command -p "$current" -dmenu $active $urgent -selected-row 1 -columns 6 active-row 4)"
 case $chosen in
     $previous)
-        mpc -q prev
+        mpc prev
         ;;
     $play_pause)
-        mpc -q toggle
+        mpc toggle
         ;;
     $stop)
-        mpc -q stop
+        mpc stop
         ;;
     $next)
-        mpc -q next
+        mpc next
         ;;
     $tog_repeat)
-        mpc -q repeat
+        mpc repeat
         ;;
     $tog_random)
-        mpc -q random
+        mpc random
         ;;
 esac
 

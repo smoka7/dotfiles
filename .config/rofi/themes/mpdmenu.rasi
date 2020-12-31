@@ -1,67 +1,26 @@
 /**
- * This theme is intended for a 6 items option menu with a headerbar.
+ * This theme is intended for a 8x2 items list menu with a headerbar.
  */
-@import "shared/option-menu.rasi"
-* {
-  font: @text-font;
+@import "shared/settings.rasi"
+*{
+  border-radius:20px ;
 }
 #window {
-  padding: @mpd-window-padding;
-  children: [ inputbar, horibox ];
-}
-#inputbar {
-  children: [ textbox-prompt-colon, prompt ];
-  margin: @mpd-inputbar-margin;
-}
-prompt,
-textbox-prompt-colon {
-  padding: @mpd-prompt-padding;
-  border: 2px;
-  border-color: @accent;
-}
-#prompt {
-  margin: @mpd-prompt-margin;
-  background-color: @background-light;
-  text-color: @accent;
-}
-#textbox-prompt-colon {
-  expand: false;
-  str: "mpd";
-  background-color: @accent;
-  text-color: @background;
-}
-#horibox {
-  padding: 0px;
-}
-#listview {
-  spacing: @option-6-listview-spacing;
-  lines: 6;
-}
+  padding: 10px 10px;
+  width: 70%;
+  height: 40%;
+  }
 #element {
-  font: @icon-font;
-  border: @mpd-element-border;
-  padding: @mpd-element-padding;
-  border-color: @background-light;
-}
-#element.selected {
-  border-color: @accent;
-}
-element.active,
-element.selected.urgent {
-  background-color: @on;
-  text-color: @background;
-  border-color: @on;
-}
-element.selected.urgent {
-  border-color: @accent;
-}
-element.urgent,
-element.selected.active {
-  background-color: @off;
-  text-color: @background;
-  border-color: @off;
-}
-element.selected.active {
-  border-color: @accent;
+  padding: 40px 40px 40px 40px;
+  border:0px;
+  border-radius:20px ;
 }
 
+listview {
+    layout:horizontal;
+    fixed-columns : 6;
+}
+element.active{
+    background-color:@on;
+    text-color: @background-focus;
+}

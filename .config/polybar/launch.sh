@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Terminate already running bar instances
 killall -q polybar
@@ -8,6 +8,11 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
 # polybar white
-polybar top &
+polybar date --reload &
+polybar stat --reload &
+polybar media --reload &
+polybar volume --reload &
+polybar-msg cmd hide
+polybar bottom --reload &
 #polybar bottom &
 echo "Bars launched..."

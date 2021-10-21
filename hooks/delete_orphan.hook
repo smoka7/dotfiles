@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Deleting orphan Packages.
+When = PostTransaction
+Exec = /usr/bin/bash -c " sleep 1 && /usr/bin/pacman -Qtdq && /usr/bin/pacman -Rns $(/usr/bin/pacman -Qtdq) || /usr/bin/echo '==> No orphaned packages found.'"

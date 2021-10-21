@@ -1,0 +1,33 @@
+default = {
+    x         = {relative = 0; offset = 40;};
+    y         = {relative = 0.5; offset =0;};
+    length    = {relative = 0.4; offset = 10;};
+    thickness = 40;
+    outline   = 0;
+    border    = 0;
+    padding   = 0;
+    orientation = "vertical";
+    overflow = "proportional";
+    color = {
+        normal = {
+            fg     = "#539bf5";
+            bg     = "#2d333b";
+            border = "#DFE3EC";
+        };
+        alt = {
+            fg     = "#A3BE8C";
+            bg     = "#DFE3EC";
+            border = "#DFE3EC";
+        };
+        overflow = {
+            fg     = "#BF616A";
+            bg     = "#BF616A";
+            border = "#BF616A";
+        };
+        altoverflow = {
+            fg     = "#550000";
+            bg     = "#DFE3EC";
+            border = "#DFE3EC";
+        };
+    };
+};

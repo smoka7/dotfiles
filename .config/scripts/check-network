@@ -1,0 +1,26 @@
+#!/bin/sh
+
+disconnected="%{F#fdd835}"
+wireless_connected="%{F#fdd835}"
+vpn_connected="%{F#fdd835}"
+
+while true; do
+    ssid=$(iw dev wlp9s0 info |grep ssid | awk '{print$2}')
+    wifi="$(ip link | grep wlp9s0 | grep 'state UP')"
+    vpn="$(nmcli -g name,type con show --active|grep vpn)"
+    if (ping -c 1 8.8.8.8) &>/dev/null; then
+        if [[ $vpn ]]; then
+            echo "$vpn_connected" %{F#ffffff}$ssid
+            sleep 5
+        elif [[ $wifi ]]; then
+            echo "$wireless_connected" %{F#ffffff}$ssid
+            sleep 5
+        else
+            echo " eth"
+            sleep 5
+        fi
+    else
+        echo "$disconnected" %{F#ffffff}$ssid
+        sleep 2
+    fi
+done

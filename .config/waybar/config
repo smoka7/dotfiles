@@ -1,0 +1,144 @@
+{
+    "height": 30, // Waybar height (to be removed for auto height)
+        "modules-left": ["sway/workspaces", "network","custom/networkspeed"],
+        "modules-center": ["clock"],
+        "modules-right": ["mpd", "pulseaudio","temperature", "cpu","memory", "sway/language", "tray"],
+
+        // Modules configuration
+        "sway/workspaces": {
+            "disable-scroll": false,
+            "all-outputs": true,
+            "format": "{index}",
+            "format-icons": {
+                "1": " ",
+                "2": " ",
+                "3": " ﭮ",
+                "4": " ",
+                "5": " ",
+                "6": " ",
+                "7": " ",
+                "8": " ",
+                "9": " ",
+                "10": " ",
+                "urgent": " ",
+                "focused": " ",
+                "default": " "
+            }
+        },
+        "sway/mode": {
+            "format": "<span style=\"italic\">{}</span>"
+        },
+        "sway/language": {
+            "format": "{short} "
+        },
+        "idle_inhibitor": {
+            "format": "{icon}",
+            "format-icons": {
+                "activated": " ",
+                "deactivated": " "
+            }
+        },
+        "tray": {
+            "spacing": 10
+        },
+        "clock": {
+            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+            "format": "{:%H:%M} ",
+            "format-alt": "{:%A, %B %m-%d, %Y}  ",
+            "on-click-right":"notify-send $(.config/scripts/pcal/pcal.sh -t) -a date"
+        },
+        "cpu": {
+            "format": "{usage}% ",
+            "interval":2,
+            "states":{
+                "warning": 30,
+                "critical": 70
+            },
+            "tooltip": "{load}"
+        },
+        "memory": {
+            "interval":10,
+            "format": "{}% "
+        },
+        "temperature": {
+            "interval":2,
+            "thermal_zone":1,
+            "critical-threshold": 80,
+            "format": "{temperatureC}°C {icon}",
+            "format-icons": ["", "", ""]
+        },
+        "backlight": {
+            "format": "{icon} {percent}%",
+            "format-icons": [" ", " "],
+            "on-scroll-up": "light -A 1",
+            "on-scroll-down": "light -U 1"
+        },
+        "battery": {
+            "states": {
+                "warning": 30,
+                "critical": 15
+            },
+            "format": "{icon} {capacity}%",
+            "tooltip-format": "{timeTo}, {capacity}%",
+            "format-charging": " {capacity}%",
+            "format-plugged": " ",
+            "format-alt": "{time} {icon}",
+            "format-icons": ["", "", "", "", ""]
+        },
+        "network": {
+            "format-wifi": "直 {essid} {signalStrength}",
+            "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
+            "format-linked": "{ifname} (No IP)  ",
+            "format-disconnected": "睊 ",
+            "format-alt": "{ifname}: {ipaddr}/{cidr}",
+            "tooltip-format": "{essid} {signalStrength}%"
+        },
+        "pulseaudio": {
+            "format": "{icon} {volume}% {format_source}",
+            "format-bluetooth": "{icon} {volume}% {format_source}",
+            "format-bluetooth-muted": "   {volume}% {format_source}",
+            "format-muted": "  {format_source}",
+            "format-source": "",
+            "format-source-muted": "",
+            "format-icons": {
+                "headphone": "",
+                "hands-free": "",
+                "headset": "",
+                "phone": "",
+                "portable": "",
+                "car": " ",
+                "default": ["", "", ""]
+            },
+            "tooltip-format": "{desc}, {volume}%",
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+            "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+            "on-click-middle": "pavucontrol"
+        },
+        "custom/media": {
+            "format": "{icon} {}",
+            "return-type": "json",
+            "max-length": 40,
+            "format-icons": {
+                "spotify": " ",
+                "default": " "
+            },
+            "escape": true,
+            "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null",
+            "on-click": "playerctl play-pause",
+        },
+        "custom/networkspeed": {
+            "format": "{}",
+            "exec": "$HOME/.config/scripts/networkusage.sh --speed",
+            "escape": true,
+
+        },
+        "mpd": {
+            "interval": 5,
+            "server": "0.0.0.0",
+            "port":6601,
+            "format":"",
+            "format-alt": "{artist}-{title}",
+            "format-paused": "",
+            "tooltip-format": "{artist}-{album}-{title}",
+        }
+}

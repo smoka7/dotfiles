@@ -1,6 +1,7 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
 SETUVAR __fish_initialized:3100
+SETUVAR _fish_abbr_dow:/run/media/smoka/3755A28D6D707C97/
 SETUVAR fish_color_autosuggestion:586e75
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:93a1a1
@@ -30,4 +31,4 @@ SETUVAR fish_pager_color_completion:B3A06D
 SETUVAR fish_pager_color_description:B3A06D
 SETUVAR fish_pager_color_prefix:cyan\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
-SETUVAR fish_user_paths:/usr/local/bin\x1e/usr/local/bin\x1e/home/smoka/\x2elocal/bin\x1e/usr/local/bin\x1e/usr/bin\x1e/usr/local/sbin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl\x1e/home/smoka/go/bin\x1e/home/smoka/\x2econfig/composer/vendor/bin\x1e/home/smoka/\x2econfig/scripts\x1e/home/smoka/\x2econfig/scripts
+SETUVAR fish_user_paths:/usr/local/bin\x1e/usr/local/bin\x1e/home/smoka/\x2elocal/bin\x1e/usr/local/bin\x1e/usr/bin\x1e/usr/local/sbin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl\x1e/home/smoka/go/bin\x1e/home/smoka/\x2econfig/composer/vendor/bin\x1e/home/smoka/\x2econfig/scripts\x1e/home/smoka/\x2econfig/scripts\x1e/home/smoka/\x2enode_modules/bin

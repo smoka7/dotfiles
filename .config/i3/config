@@ -4,22 +4,22 @@ set $alt Mod1
 set $shift Shift
 set $ws workspace
 set $scripts $HOME/.config/scripts
-# set $conn -p 6601 -h 0.0.0.0
 set $mode_default i3-msg mode default
+# set $conn -p 6601 -h 0.0.0.0
 
 floating_modifier $mod
 
 gaps inner 8
 smart_gaps on
 smart_borders on
-for_window [class="^.*"] border pixel 1
+title_align center
+floating_maximum_size 1000 x 800
 for_window [all] title_window_icon on
-for_window [all] title_window_icon padding 2
-for_window [floating] move absolute position center
-# floating_maximum_size 0 x 0
+for_window [class="^.*"] border pixel 0
+for_window [all] title_window_icon padding 20
+for_window [floating] move absolute position center border pixel 2
 
 font pango:Jetbrains Mono 6
-title_align center
 
 workspace_layout tabbed
 focus_follows_mouse yes
@@ -43,13 +43,13 @@ assign [class="cantata"] 4
 
 for_window [class="copyq"] floating enable
 # for_window [class="kitty"] floating enable
-for_window [class="Telegram"] floating enable
+for_window [class="Telegram"] floating enable resize set 800px 600px
 # for_window [class="Alacritty"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Dconf-editor"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
-for_window [class="Gnome-system-monitor"] floating enable
+for_window [class="Gnome-system-monitor"] floating enable resize set 700px 600px
 for_window [title="About Mozilla Firefox"] floating enable
 for_window [class="albert"] floating enable border pixel 0
 for_window [class="feh"] floating enable resize set 800px 600px
@@ -57,13 +57,13 @@ for_window [class="Cisco AnyConnect Secure Mobile Client"] floating enable
 for_window [class="Nautilus" window_type="normal"] floating enable resize set 800px 600px
 for_window [class="Devtools" window_type="normal"] floating enable resize set 1336px 345px
 
-#class                 border  bground text    indicator child_border
+#class                  border  bground text    indicator child_border
 client.urgent           #d81b60 #d81b60 #1b222d #FF5555   #FF5555
-client.focused          #fdd835 #fdd835 #1b222d #6272A4   #6272A4
+client.focused          #fdd835 #fdd835 #1b222d #6272A4   #fdd835
 client.unfocused        #f8f8f2 #f8f8f2 #1b222d #282A36   #282A36
 client.background       #F8F8F2
 client.placeholder      #282A36 #282A36 #1b222d #282A36   #282A36
-client.focused_inactive #aadd33 #aadd33 #1b222d #44475A   #44475A
+client.focused_inactive #aadd33 #aadd33 #1b222d #44475A   #6272A4
 
 # reload the configuration file
 bindsym $mod + $shift + c reload
@@ -71,58 +71,65 @@ bindsym $mod + $shift + r restart
 
 # start a terminal
 bindsym $mod + e exec tilix
-bindsym $mod + t exec alacritty
-bindsym $mod + Return exec kitty
+bindsym $mod + t exec gnome-system-monitor
+bindsym $mod + Return exec kitty -1
 
 # kill focused window
-bindsym $alt + F4 kill
-bindsym $mod + q kill
-bindsym --whole-window Control + button3 kill
+bindsym $alt + F4 exec $scripts/altf4.sh&>/dev/null close && i3-msg kill
+bindsym $mod + q exec $scripts/altf4.sh&>/dev/null close && i3-msg kill
+bindsym $mod + grave exec $scripts/altf4.sh&>/dev/null show
+bindsym --release Control + button3 kill
 
 #windows controls
 bindsym $mod + f fullscreen
+bindsym $mod + $shift + f fullscreen global
 bindsym $mod + g sticky toggle
 bindsym $mod + s floating toggle
 bindsym --whole-window $mod + button3 floating toggle
 bindsym $mod + h move scratchpad
-bindsym $mod + j move position center
 bindsym $mod + $shift + h scratchpad show
-bindsym $mod + $shift + f fullscreen global
+# bindsym $mod + j move position center
 # change focus between tiling / floating windows
-bindsym $mod + m focus mode_toggle
+# bindsym $mod + m focus mode_toggle
 
 # start menu (a program launcher)
+bindsym $mod + d exec albert show
 bindsym $mod + l exec $scripts/lock.sh
+bindsym $mod + Mod2 + KP_5 exec cantata
 bindsym $mod + a exec $scripts/vpnmenu.sh
 bindsym $mod + w exec $scripts/nmclimenu.sh
 bindsym $mod + c exec polybar-msg cmd toggle
 bindsym $mod + k exec $scripts/power.sh menu
 bindsym $mod + space exec $scripts/appsmenu.sh
-bindsym $mod + d exec albert show
-bindsym $alt + Tab exec rofi -show-icons -show window -theme themes/appsmenu.rasi
-bindsym Control + Mod2 + KP_5 exec  $scripts/mpdmenu.sh
-bindsym $mod + Mod2 + KP_5 exec cantata
 bindsym Control + Mod2 + KP_Enter exec copyq toggle
+bindsym Control + Mod2 + KP_5 exec  $scripts/mpdmenu.sh
+bindsym $alt + Tab exec rofi -show-icons -show window -theme themes/appsmenu.rasi
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod + v split toggle
 bindsym $mod + b exec $scripts/i3layoutmenu.sh
 
+#marking
+bindsym $mod + m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $mod + j exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+bindsym $mod + Shift + m unmark
+bindsym $mod + bracketleft mark --toggle A
+bindsym $mod + o swap container with mark A
 # change focus
 bindsym $mod + x [urgent=latest] focus
 bindsym $mod + Tab workspace back_and_forth
 
 bindsym $mod + Shift + x move workspace to output right
 
-bindsym $mod + Up exec i3Helper focus up
-bindsym $mod + Down exec i3Helper focus down
-bindsym $mod + Left exec i3Helper focus left
-bindsym $mod + Right exec i3Helper focus right
+bindsym $mod + Up exec i3Helper focus next
+bindsym $mod + Down exec i3Helper focus prev
+bindsym $mod + Left exec i3Helper focus prev
+bindsym $mod + Right exec i3Helper focus next
 
-bindsym $mod + F1 exec i3Helper snapp left
-bindsym $mod + F2 exec i3Helper snapp top
-bindsym $mod + F3 exec i3Helper snapp down
-bindsym $mod + F4 exec i3Helper snapp right
+bindsym $mod + F1 exec i3Helper snap left
+bindsym $mod + F2 exec i3Helper snap top
+bindsym $mod + F3 exec i3Helper snap bottom
+bindsym $mod + F4 exec i3Helper snap right
 
 bindsym Control + $mod +  Left $ws prev
 bindsym Control + $mod +  Down $ws prev
@@ -165,20 +172,20 @@ bindsym $mod + $shift + 0 move container to $ws 10
 # Pulse Audio controls
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioRaiseVolume exec $scripts/volume.sh up 5
-bindsym XF86AudioLowerVolume exec $scripts/volume.sh down 5
 bindsym Control + Mod2 + KP_6 exec $scripts/volume.sh up 5
+bindsym XF86AudioLowerVolume exec $scripts/volume.sh down 5
 bindsym Control + Mod2 + KP_4 exec $scripts/volume.sh down 5
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec $scripts/brightnessctl.sh up
+bindsym XF86MonBrightnessDown exec  $scripts/brightnessctl.sh down
 bindsym $shift + XF86MonBrightnessUp exec brightnessctl -d acpi_video1 s 100
 bindsym $shift + XF86MonBrightnessDown exec brightnessctl -d acpi_video1 s 0
-bindsym XF86MonBrightnessDown exec  $scripts/brightnessctl.sh down
 
 # Multimedia controls
-bindsym Control + Mod2 + KP_0 exec  mpc toggle
 bindsym Control + Mod2 + KP_1 exec  mpc prev
 bindsym Control + Mod2 + KP_3 exec  mpc next
+bindsym Control + Mod2 + KP_0 exec  mpc toggle
 bindsym Control + Mod2 + KP_2 exec  $scripts/likeCurrentSong.sh &>/dev/null
 
 # resize window (you can also use the mouse for that)
@@ -193,6 +200,10 @@ mode resize {
         bindsym Escape mode default
         bindsym $mod + r mode default
 }
+bindsym $mod + $alt + Up resize shrink height 10 px or 10 ppt
+bindsym $mod + $alt + Down resize grow height 10 px or 10 ppt
+bindsym $mod + $alt + Right resize grow width 10 px or 10 ppt
+bindsym $mod + $alt + Left resize shrink width 10 px or 10 ppt
 
 # app shortcuts
 bindsym $mod + n exec $scripts/shortcuts.sh

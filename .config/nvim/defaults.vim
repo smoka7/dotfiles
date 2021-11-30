@@ -1,6 +1,4 @@
-set ai
-set autoread
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 set cursorline
 set encoding=utf-8
 set expandtab
@@ -12,6 +10,7 @@ set number
 set numberwidth=3
 set relativenumber
 set shiftwidth=4
+set scrolloff=4
 set showmatch
 set smartcase
 set smartindent
@@ -24,3 +23,4 @@ set whichwrap=b,s,<,>,[,]
 set wildignorecase
 set wildmenu
 set wrap
+set completeopt=menu,menuone,noselect

@@ -9,7 +9,11 @@ vim.g.calvera_borders = true
 vim.g.calvera_disable_background = false
 vim.g.transparent_bg = false
 -- vim.g.calvera_custom_colors = { black = "#000000", bg = "#0F111A" }
--- require('calvera').set()
-vim.g.tokyonight_style = "day"
-vim.cmd [[colorscheme celeste-nvim]]
+-- vim.g.tokyonight_style = "day"
+local hour = tonumber(os.date("%H"))
+if hour < 19 then
+    vim.cmd [[colorscheme celeste-nvim]]
+else
+    require('calvera').set()
+end
 vim.g.tokyonight_italic_functions = true

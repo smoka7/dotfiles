@@ -1,13 +1,22 @@
 starship init fish | source
 source ~/.config/fish/conf.d/done.fish
-set MPD_HOST "0.0.0.0"
-set MPD_PORT 6601
-set EDITOR "nvim"
-set VISUAL "$EDITOR"
+set GOPATH /home/smoka/go
+fish_add_path -a $GOPATH/bin
+fish_add_path -a $HOME/.node_modules/bin
+fish_add_path -a $HOME/.config/composer/vendor/bin 
+set -gx npm_config_prefix ~/.node_modules
+set -gx MPD_HOST "0.0.0.0"
+set -gx MPD_PORT 6601
+set -gx EDITOR nvim
+#set -gx MANPAGER "nvim -R"
+set -gx VISUAL "$EDITOR"
 
-
+alias chromium="chromium --ozone-platform=wayland" 
+alias brave-beta="brave-beta --ozone-platform=wayland" 
 alias vim="nvim"
 alias pas="sudo pacman -S"
+alias pay="sudo pacman -Syu"
+alias pau="sudo pacman -Sy"
 alias pai="pacman -Si"
 alias par="sudo pacman -Rusnc"
 

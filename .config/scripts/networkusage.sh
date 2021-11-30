@@ -13,7 +13,8 @@ netspeed() {
         if [ $RKBPS -eq 0 ] && [ $RKBPS -eq 0 ]; then
             echo ""
         else
-            echo %{F#e63946}"$TKBPS K %{F#12f84b}$RKBPS K"
+            echo "$TKBPS K $RKBPS K"
+            # echo %{F#e63946}"$TKBPS K %{F#12f84b}$RKBPS K"
             # notify-send -a "volume" --hint=string:x-dunst-stack-tag:volume -t 1000 echo "$TKBPS kB/s $RKBPS kB/s"
         fi
     done

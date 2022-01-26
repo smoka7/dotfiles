@@ -1,5 +1,5 @@
 #!/bin/fish
-if test $argv[1] = "close" 
+if test $argv[1] = "close"
     xdotool getwindowfocus getwindowname > ~/.cache/altf4.txt
 else
 echo $argv

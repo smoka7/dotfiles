@@ -29,6 +29,8 @@ config=(
     'starship.toml'
     'sxhkd'
     'xob*'
+    'waybar'
+    'sway'
 )
 for i in "${config[@]}"; do
     cp -v -r $HOME/.config/${i} ./.config/

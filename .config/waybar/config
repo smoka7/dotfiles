@@ -48,7 +48,7 @@
             "on-click-right":"notify-send $(.config/scripts/pcal/pcal.sh -t) -a date"
         },
         "cpu": {
-            "format": "{usage}% ",
+            "format": "{usage} ",
             "interval":2,
             "states":{
                 "warning": 30,
@@ -58,13 +58,13 @@
         },
         "memory": {
             "interval":10,
-            "format": "{}% "
+            "format": "{},{swapPercentage} "
         },
         "temperature": {
             "interval":2,
             "thermal_zone":1,
             "critical-threshold": 80,
-            "format": "{temperatureC}°C {icon}",
+            "format": "{temperatureC} {icon}",
             "format-icons": ["", "", ""]
         },
         "backlight": {
@@ -86,7 +86,7 @@
             "format-icons": ["", "", "", "", ""]
         },
         "network": {
-            "format-wifi": "直 {essid} {signalStrength}",
+            "format-wifi": "直 {essid}",
             "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
             "format-linked": "{ifname} (No IP)  ",
             "format-disconnected": "睊 ",
@@ -94,7 +94,7 @@
             "tooltip-format": "{essid} {signalStrength}%"
         },
         "pulseaudio": {
-            "format": "{icon} {volume}% {format_source}",
+            "format": "{icon} {volume} {format_source}",
             "format-bluetooth": "{icon} {volume}% {format_source}",
             "format-bluetooth-muted": "   {volume}% {format_source}",
             "format-muted": "  {format_source}",
@@ -139,6 +139,7 @@
             "format":"",
             "format-alt": "{artist}-{title}",
             "format-paused": "",
+            "format-stopped": "⏹️",
             "tooltip-format": "{artist}-{album}-{title}",
         }
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 get_volume() {
-    # Volume=$(amixer -D pulse get Master | grep -o "\[.*%\]" | grep -o "[0-9]*" | head -n1)
+    # Volume=$(amixer get Master | grep -o "\[.*%\]" | grep -o "[0-9]*" | head -n1)
     Volume=$(pamixer --get-volume)
     echo $Volume
 }
@@ -15,7 +15,8 @@ trim_volume() {
     fi
 }
 set_volume() {
-    pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo $1%
+    defaultSink=$(pactl info |grep "Default Sink"|awk '{print$3}' )
+    pactl set-sink-volume $defaultSink $1%
 }
 if [ $1 = "get" ]; then
     echo $(get_volume)

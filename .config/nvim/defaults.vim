@@ -23,7 +23,6 @@ set t_CO=256
 set tabstop=4
 set termguicolors
 set title
-set timeoutlen=300
 set whichwrap=b,s,<,>,[,]
 set wildignorecase
 set wildmenu

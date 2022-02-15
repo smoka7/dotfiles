@@ -6,11 +6,11 @@ window:
   position:
     x: 0
     y: 0
-  startup_mode: Windowed
   padding:
     x: 0
     y: 0
-
+  startup_mode: Maximized
+  opacity: 0.8
   dynamic_padding: true
   decorations: none
 scrolling:
@@ -33,7 +33,7 @@ font:
   glyph_offset:
     x: 0
     y: 0
-  use_thin_strokes: true
+  use_thin_strokes: false
 cursor:
    # Cursor style
   style:
@@ -42,12 +42,9 @@ cursor:
      #   - ▇ Block
      #   - _ Underline
      #   - | Beam
-    shape: Underline
+    shape: Block
     thickness: 0.05
 draw_bold_text_with_bright_colors: true
-background_opacity: 0.8
-key_bindings:
-  - { key: W, mods: Control, action: Quit }
 # Colors (Ayu Mirage)
 colors:
   # Default colors
@@ -101,7 +98,7 @@ colors:
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+# window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -123,7 +120,7 @@ colors:
   #
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
-  #padding:
+  # padding:
   #  x: 0
   #  y: 0
 
@@ -145,7 +142,7 @@ colors:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  #opacity: 1.0
+  # opacity: 0.8
 
   # Startup Mode (changes require restart)
   #
@@ -815,10 +812,11 @@ live_config_reload: true
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
-  #- { key: L,         mods: Control,                    action: ClearLogNotice }
+  - { key: W, mods: Control|Alt, action: Quit }
+  - { key: N,         mods: Alt ,                   action: SpawnNewInstance }
   #- { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
   #- { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp,  }
   #- { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
@@ -921,7 +919,7 @@ live_config_reload: true
   #- { key: M,              mods: Command,                    action: Minimize              }
   #- { key: Q,              mods: Command,                    action: Quit                  }
   #- { key: W,              mods: Command,                    action: Quit                  }
-  #- { key: N,              mods: Command,                    action: SpawnNewInstance      }
+  # - { key: N,              mods: Command,                    action: SpawnNewInstance      }
   #- { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   #- { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   #- { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }

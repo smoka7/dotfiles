@@ -1,41 +1,42 @@
 {
-    "height": 30, // Waybar height (to be removed for auto height)
+    "height": 32, // Waybar height (to be removed for auto height)
         "modules-left": ["sway/workspaces", "network","custom/networkspeed"],
-        "modules-center": ["clock"],
+        "modules-center": ["clock","idle_inhibitor"],
         "modules-right": ["mpd", "pulseaudio","temperature", "cpu","memory", "sway/language", "tray"],
 
         // Modules configuration
         "sway/workspaces": {
             "disable-scroll": false,
             "all-outputs": true,
-            "format": "{index}",
+            "format": "{icon}",
             "format-icons": {
-                "1": " ",
-                "2": " ",
-                "3": " ﭮ",
-                "4": " ",
-                "5": " ",
-                "6": " ",
-                "7": " ",
-                "8": " ",
-                "9": " ",
-                "10": " ",
-                "urgent": " ",
-                "focused": " ",
-                "default": " "
+                "1":"𝟭",
+                "2":"𝟮",
+                "3":"𝟯",
+                "4":"𝟰",
+                "5":"𝟱",
+                "6":"𝟲",
+                "7":"𝟳",
+                "8":"𝟴",
+                "9":"𝟵",
+                "10":"𝟬",
+                "urgent": "◍",
+                "focused": "◉",
+                "default": "Ⓐ"
             }
         },
         "sway/mode": {
             "format": "<span style=\"italic\">{}</span>"
         },
         "sway/language": {
-            "format": "{short} "
+            "format": "{short}"
+                /* "format": "{short} " */
         },
         "idle_inhibitor": {
             "format": "{icon}",
             "format-icons": {
-                "activated": " ",
-                "deactivated": " "
+                "deactivated": " ",
+                "activated": " ",
             }
         },
         "tray": {
@@ -43,7 +44,7 @@
         },
         "clock": {
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-            "format": "{:%H:%M} ",
+            "format": "{:%H:%M}",
             "format-alt": "{:%A, %B %m-%d, %Y}  ",
             "on-click-right":"notify-send $(.config/scripts/pcal/pcal.sh -t) -a date"
         },
@@ -89,7 +90,7 @@
             "format-wifi": "直 {essid}",
             "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
             "format-linked": "{ifname} (No IP)  ",
-            "format-disconnected": "睊 ",
+            "format-disconnected": " 睊 ",
             "format-alt": "{ifname}: {ipaddr}/{cidr}",
             "tooltip-format": "{essid} {signalStrength}%"
         },

@@ -1,12 +1,10 @@
+local u = require("utils")
 local on_attach = function(client, bufnr)
 	require("lsp_signature").on_attach({
 		handler_opts = {
 			border = "double", -- double, single, shadow, none
 		},
 	})
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
@@ -14,17 +12,18 @@ local on_attach = function(client, bufnr)
 	-- Mappings.
 	local opts = { noremap = true, silent = true }
 	-- buf_set_keymap("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<Leader><space>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "<Leader>[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "<Leader>]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap("n", "<Leader>d", "<Cmd>Telescope lsp_definitions<CR>", opts)
-	buf_set_keymap("n", "<Leader>la", "<cmd>Telescope lsp_code_actions<CR>", opts)
-	buf_set_keymap("n", "<Leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
-	buf_set_keymap("n", "<Leader>ll", "<cmd>Telescope diagnostics<CR>", opts)
-	buf_set_keymap("n", "<Leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
-	buf_set_keymap("n", "<Leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<Leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader><space>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>d", "<Cmd>Telescope lsp_definitions<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>la", "<cmd>Telescope lsp_code_actions<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>ll", "<cmd>Telescope diagnostics<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	u.buff_map(bufnr, "n", "<Leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	if client.resolved_capabilities.document_highlight then
 		vim.api.nvim_exec(
 			[[
@@ -38,11 +37,39 @@ local on_attach = function(client, bufnr)
 		)
 	end
 end
+
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local kind_icons = {
+	Class = "ﴯ",
+	Color = "",
+	Constant = "",
+	Constructor = "𝌸",
+	Enum = "",
+	EnumMember = "",
+	Event = "",
+	Field = "",
+	File = "",
+	Folder = "",
+	Function = "",
+	Interface = "",
+	Keyword = "",
+	Method = "",
+	Module = "",
+	Operator = "",
+	Property = "ﰠ",
+	Reference = "",
+	Snippet = "",
+	Struct = "",
+	Text = "£",
+	TypeParameter = "",
+	Unit = "",
+	Value = "",
+	Variable = "$",
+}
 require("luasnip/loaders/from_vscode").load({})
 local luasnip = require("luasnip")
 local cmp = require("cmp")
@@ -52,11 +79,29 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+	formatting = {
+		format = function(_, vim_item)
+			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+			return vim_item
+		end,
+	},
+	sorting = {
+		comparators = {
+			cmp.config.compare.exact,
+			cmp.config.compare.offset,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.kind,
+			cmp.config.compare.length,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.order,
+		},
+	},
 	mapping = {
-		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+		["<C-y>"] = cmp.config.disable,
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
@@ -71,11 +116,7 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
-
+		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
@@ -84,19 +125,19 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" }, -- For vsnip users.
-	}, {
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "nvim_lsp", group_index = 1 },
+		{ name = "luasnip", group_index = 1 },
+		{ name = "buffer", group_index = 2 },
+		{ name = "path", group_index = 2 },
 	}),
+	experimental = {
+		native_menu = false,
+		ghost_text = { hl_group = "Comment" },
+	},
 })
 cmp.setup.cmdline("/", {
 	sources = {
@@ -126,28 +167,43 @@ local function setup_servers()
 		"cssls",
 		"emmet_ls",
 		"gopls",
+		"golangci_lint_ls",
 		"html",
-		"intelephense",
+		-- "intelephense",
 		"jsonls",
 		"tailwindcss",
 		"rust_analyzer",
 		"tsserver",
 		"vimls",
-		"vuels",
+		-- "vuels",
 		-- "volar",
+		"ccls",
 	}
 	local nvim_lsp = require("lspconfig")
 	nvim_lsp.phpactor.setup({
 		cmd = { "/home/smoka/.local/share/nvim/site/pack/packer/opt/phpactor/bin/phpactor", "language-server" },
 	})
-	-- nvim_lsp.volar.setup({
-	-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-	-- 	init_options = {
-	-- 		typescript = {
-	-- 			serverPath = "/home/smoka/.node_modules/lib/node_modules/typescript/lib/tsserverlibrary.js",
-	-- 		},
-	-- 	},
-	-- })
+	nvim_lsp.volar.setup({
+		filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+		init_options = {
+			typescript = {
+				serverPath = "/home/smoka/.node_modules/lib/node_modules/typescript/lib/tsserverlibrary.js",
+			},
+		},
+	})
+	local nullLs = require("null-ls")
+	nullLs.setup({
+		sources = {
+			nullLs.builtins.diagnostics.write_good,
+			nullLs.builtins.code_actions.gitsigns,
+			nullLs.builtins.code_actions.eslint_d,
+			nullLs.builtins.formatting.fish_indent,
+			nullLs.builtins.diagnostics.eslint_d,
+			nullLs.builtins.formatting.eslint_d,
+			nullLs.builtins.formatting.gofumpt,
+		},
+	})
+
 	-- nvim_lsp.html.setup({ filetypes = {
 	-- 	"php",
 	-- 	"vue",
@@ -170,14 +226,15 @@ local function setup_servers()
 		nvim_lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
 	end
 end
+
 local runtime_path = vim.split(package.path, ";")
+
 require("lspconfig").sumneko_lua.setup({
 	cmd = { "/usr/bin/lua-language-server" },
 	settings = {
 		Lua = {
 			runtime = { version = "LuaJIT", path = runtime_path },
 			diagnostics = {
-				-- Get the language server to recognize the `vim` global
 				globals = { "vim", "love" },
 			},
 			workspace = {

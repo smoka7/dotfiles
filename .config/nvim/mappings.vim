@@ -22,23 +22,17 @@ nmap <A-Right> <C-w>l
 noremap <C-e> :NvimTreeToggle<cr>
 nmap <C-p> :Telescope live_grep<cr>
 nmap <Leader>p :Telescope find_files<cr>
+nmap <Leader>hh :Telescope help_tags<cr>
 nmap <Leader>u :UndotreeToggle<cr>
 nmap <Leader>f :Neoformat<cr>
 nmap <Leader>s :Telescope lsp_document_symbols<cr>
 
-""-------------------------commenting
-vnoremap  :Commentary<cr>
-nnoremap  :Commentary<cr>
-inoremap  <Esc>:Commentary<cr>i
-vnoremap <C-/> :Commentary<cr>
-nnoremap <C-/> :Commentary<cr>
-inoremap <C-/> <Esc>:Commentary<cr>i
 ""-------------------------mappings for gui
 map <C-s> ysiw
 imap <C-\> <C-W>
 imap <C-BS> <C-W>
 nnoremap <C-v> "+p
-inoremap <C-v> <C-o>"+p
+inoremap <C-v> <Left><C-o>"+p
 
 ""---------------delete and change without clipboard
 " nnoremap d "_d
@@ -58,7 +52,7 @@ nnoremap N Nzzzv
 ""---------------save and quit
 map zz :w<cr>
 map qq :q!<cr>
-nmap <Leader>q :bdelete!<cr>
+nmap <Leader>q :Bdelete!<cr>
 nmap <Leader>w :q<cr>
 nmap <Leader>c :close<cr>
 if !exists(":W")
@@ -105,10 +99,3 @@ endfunction
 cnoremap <expr> <Leader>/ CCR()
 "replace word under cursur with prompt on the file
 nnoremap <Leader>R :%s/\<<C-r><C-w>\>//g<Left><Left>
-"---------------------------hop
-lua << EOF
-vim.api.nvim_set_keymap('n', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false })<cr>", {})
-vim.api.nvim_set_keymap('n', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false })<cr>", {})
-vim.api.nvim_set_keymap('o', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = false, inclusive_jump = false })<cr>", {})
-vim.api.nvim_set_keymap('o', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = false, inclusive_jump = false })<cr>", {})
-EOF

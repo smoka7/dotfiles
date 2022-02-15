@@ -28,7 +28,7 @@ truncate_to_repo = false
 [username]
 style_user = "white bold"
 style_root = "red bold"
-format = "[$user]($style) "
+format = "[ $user ]($style) "
 disabled = false
 show_always = true
 
@@ -56,17 +56,18 @@ disabled = true
 [gcloud]
 disabled = true
 
-[git_branch]
-symbol = "🥦 "
 
 [git_status]
 format = "[$ahead_behind$untracked$modified]($style) "
-untracked = "🤷"
+untracked = "🤭"
 modified = " 📝 "
 
+[git_branch]
+symbol = "🥦 "
+
 [character]
-success_symbol = "[➜](bold green) "
-error_symbol = "[💥](bold red) "
+success_symbol = "[>>> 👍](bold green)"
+error_symbol = "[>>> 👎](bold red) "
 
 [helm]
 disabled = true

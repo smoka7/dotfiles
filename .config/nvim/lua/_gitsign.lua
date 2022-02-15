@@ -1,11 +1,13 @@
+local u = require("utils")
 require("gitsigns").setup({
 	signs = {
 		add = { text = "+" },
+		numHl = true,
 	},
 	on_attach = function(bufnr)
 		local function map(mode, lhs, rhs, opts)
 			opts = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
-			vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
+			u.buff_map(bufnr, mode, lhs, rhs, opts)
 		end
 
 		-- Navigation
@@ -32,6 +34,8 @@ require("gitsigns").setup({
 		map("x", "ih", ":<C-U>Gitsigns select_hunk<CR>")
 	end,
 })
+-- nvim v0.7
+--
 -- on_attach = function(bufnr)
 -- 	local function map(mode, lhs, rhs, opts)
 -- 		opts = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})

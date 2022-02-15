@@ -2,10 +2,12 @@ require("nvim-treesitter.configs").setup({
 	refactor = {
 		smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
 	},
+
 	highlight = {
 		enable = true,
 		custom_captures = {},
 	},
+
 	incremental_selection = {
 		enable = true,
 		keymaps = {
@@ -15,9 +17,11 @@ require("nvim-treesitter.configs").setup({
 			node_decremental = "grd",
 		},
 	},
+
 	indent = {
 		enable = true,
 	},
+
 	textobjects = {
 		enable = true,
 		select = {
@@ -31,6 +35,7 @@ require("nvim-treesitter.configs").setup({
 				["ic"] = "@class.inner",
 			},
 		},
+
 		move = {
 			enable = true,
 			set_jumps = true, -- whether to set jumps in the jumplist

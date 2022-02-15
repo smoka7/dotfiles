@@ -21,7 +21,6 @@ config=(
     'mpv'
     'nvim'
     'picom.conf'
-    'picom.conf'
     'polybar'
     'redshift'
     'rofi'
@@ -33,6 +32,7 @@ config=(
     'sway'
 )
 for i in "${config[@]}"; do
+    rm -rfv ./.config/${i}
     cp -v -r $HOME/.config/${i} ./.config/
 done
 echo "-------------------------------" && echo ""

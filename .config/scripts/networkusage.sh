@@ -21,9 +21,9 @@ netspeed() {
 }
 status() {
     # for using networkmanager
-    # ssid=`nmcli device show wlp9s0 | grep CONNECTION `
+    ssid=`nmcli device show wlp9s0 | grep CONNECTION | awk '{ print$2 }' `
     # other nms
-    ssid=$(iw dev wlp9s0 info | grep ssid | awk '{ print$2 }')
+    # ssid=$(iw dev wlp9s0 info | grep ssid | awk '{ print$2 }')
     echo $ssid
 }
 case "$1" in

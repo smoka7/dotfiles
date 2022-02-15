@@ -1,9 +1,5 @@
-local black = "#1b222d"
-local green = "#c0ca33"
--- local gray = "#757575"
--- local white = "#f1faee"
--- local orange = "#f4511e"
-
+local cl = require("colors")
+local map = require("utils").map
 require("bufferline").setup({
 	options = {
 		offsets = { { filetype = "nvimtree", text = "", padding = 1 } },
@@ -23,29 +19,29 @@ require("bufferline").setup({
 		-- mappings = "true"
 	},
 	highlights = {
-		-- background = { guifg = black, guibg = "NONE" },
+		-- background = { guifg = green, guibg = green },
 		-- buffer_visible = { guifg = gray, guibg = "NONE" },
 		-- close_button = { guifg = gray, guibg = "NONE" },
 		-- close_button_visible = { guifg = white, guibg = "NONE" },
 		-- duplicate_visible = { guifg = gray, guibg = "NONE" },
-		-- fill = { guifg = gray, guibg = "NONE" },
 		-- modified = { guifg = orange, guibg = "NONE" },
 		-- modified_visible = { guifg = orange, guibg = "NONE" },
 		-- separator = { guifg = gray, guibg = "NONE" },
 		-- separator_visible = { guifg = black, guibg = green },
 		-- tab = { guifg = black, guibg = white },
 		-- tab_close = { guifg = orange, guibg = "NONE" },
-		buffer_selected = { guifg = black, guibg = green, gui = "bold" },
-		close_button_selected = { guifg = black, guibg = green },
-		duplicate_selected = { guifg = black, guibg = green, gui = "bold" },
-		indicator_selected = { guifg = black, guibg = green },
-		modified_selected = { guifg = black, guibg = green },
-		separator_selected = { guifg = black, guibg = green },
-		tab_selected = { guifg = black, guibg = green },
+
+		fill = { guibg = "NONE" },
+		buffer_selected = { guifg = cl.black, guibg = cl.green_l },
+		close_button_selected = { guifg = cl.black, guibg = cl.green_l },
+		duplicate_selected = { guifg = cl.black, guibg = cl.green_l },
+		indicator_selected = { guifg = cl.black, guibg = cl.green_l },
+		modified_selected = { guifg = cl.black, guibg = cl.green_l },
+		separator_selected = { guifg = "NONE", guibg = "NONE" },
+		tab_selected = { guifg = cl.black, guibg = cl.green_l },
 	},
 })
 local opt = { silent = true }
-local map = vim.api.nvim_set_keymap
 map("n", "<TAB>", [[<Cmd>BufferLineCycleNext<CR>]], opt)
 -- map("n", "<S-TAB>", [[<Cmd>BufferLineCyclePrev<CR>]], opt)
 require("nvim-tree").setup({
@@ -59,6 +55,6 @@ require("nvim-tree").setup({
 	},
 	view = {
 		auto_resize = true,
-		relativenumber = true,
+		relativenumber = false,
 	},
 })

@@ -1,35 +1,35 @@
 starship init fish | source
+mcfly init fish | source
+
 source ~/.config/fish/conf.d/done.fish
+source ~/.config/fish/colors.fish
+
 set GOPATH /home/smoka/go
 fish_add_path -a $GOPATH/bin
 fish_add_path -a $HOME/.node_modules/bin
+fish_add_path -a $HOME/.cargo/bin
 fish_add_path -a $HOME/.config/composer/vendor/bin 
 set -gx npm_config_prefix ~/.node_modules
 set -gx MPD_HOST "0.0.0.0"
 set -gx MPD_PORT 6601
 set -gx EDITOR nvim
-#set -gx MANPAGER "nvim -R"
 set -gx VISUAL "$EDITOR"
 
-alias chromium="chromium --ozone-platform=wayland" 
-alias brave-beta="brave-beta --ozone-platform=wayland" 
-alias vim="nvim"
-alias pas="sudo pacman -S"
-alias pay="sudo pacman -Syu"
-alias pau="sudo pacman -Sy"
-alias pai="pacman -Si"
-alias par="sudo pacman -Rusnc"
+#set -gx MANPAGER "nvim -R"
 
-alias sail="./vendor/bin/sail"
+alias vim="nvim"
+alias sublime_text="/opt/sublime_text/sublime_text" 
+alias sublime_merge="/opt/sublime_merge/sublime_merge" 
+
+
+
 alias arti="php artisan"
 alias pf="php artisan test --filter"
 alias pe="php artisan test --stop-on-error"
 
-alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias cpr='cp -r'
-alias down='wget -c'
 
 function mkcd
     mkdir $argv
@@ -43,4 +43,16 @@ end
 
 function backup
     cp $argv[1] $argv[1].back
+end
+
+function likee
+    set file (mpc current -f "%file%")
+    set liked (mpc sticker -h 0.0.0.0 -p 6601 $file get liked)
+    if test "$liked" = "liked=true"
+        mpc sticker $file set liked false
+        notify-send -a disliked --hint=string:x-dunst-stack-tag:mpd -t 700 -u critical "liked:d"
+    else
+        mpc sticker $file set liked true
+        notify-send -a liked --hint=string:x-dunst-stack-tag:mpd -t 700 "liked:s"
+    end
 end

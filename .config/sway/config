@@ -16,7 +16,9 @@ set $scripts $HOME/.config/scripts
 default_border pixel 3
 floating_maximum_size 1000 x 800
 focus_follows_mouse yes
-for_window [floating] move absolute position center,border pixel 3
+# for_window [floating] move absolute position center,border pixel 3
+for_window [app_id="FootDropDown*"] floating enable,move absolute position center
+for_window [floating] border pixel 3
 for_window [shell=".*"] title_format "%title :%app_id:%shell"
 hide_edge_borders --i3 smart_no_gaps
 mouse_warping output
@@ -78,18 +80,19 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-         input "2:8:AlpsPS/2_ALPS_GlidePoint" {
-             dwt enabled
-                 tap enabled
-                 middle_emulation enabled
-         }
+input "2:8:AlpsPS/2_ALPS_GlidePoint" {
+    dwt enabled
+    tap enabled
+    middle_emulation enabled
+    pointer_accel 0.433
+}
 
 input * {
     xkb_layout us,ir
-        xkb_options grp:alt_shift_toggle
-        xkb_numlock enable
+    xkb_options grp:alt_shift_toggle
+    xkb_numlock enable
 }
-font pango:Jetbrains Mono 6
+font pango:Iosevka 8
 #class                  border  bground text    indicator child_border
 client.urgent           #d81b60 #d81b60 #1b222d #FF5555   #FF5555
 client.focused          #fdd835 #fdd835 #1b222d #6272A4   #fdd835
@@ -117,13 +120,17 @@ bindsym --to-code $alt+F4  kill
 bindsym --to-code $mod+q  kill
 # bindsym --to-code $mod+grave exec $scripts/altf4.sh&>/dev/null show
 # bindsym --to-code --release Control+button3 kill
-bindsym $mod+k exec alacritty --class 'launcher' --command kill.sh
-bindsym $mod+Semicolon exec alacritty --class 'launcher' --command killfzf.sh
-bindsym $mod+i exec alacritty --class 'launcher' --command zealfzf.sh
+bindsym --to-code $mod+k exec foot --app-id 'launcher'  kill.sh
+bindsym --to-code $mod+Semicolon exec foot --app-id 'launcher'  killfzf.sh
+bindsym --to-code $mod+i exec foot --app-id 'launcher'  zealfzf.sh
+bindsym --to-code $mod+$shift+u exec foot --app-id 'dropp'
+bindsym --to-code $mod+u [app_id="dropp"] scratchpad show
+bindsym --to-code $mod+$shift+i exec foot --app-id 'launcher'  zealfzf.sh search
+bindsym --to-code $mod+y exec swayHelper dropdown
 # bindsym $mod+Semicolon exec albert show "kill "
-bindsym $mod+l exec swaylock.sh
-bindsym $mod+w exec alacritty --class 'launcher' --command nmclisway.sh
-bindsym $mod+$shift+w exec alacritty --class 'launcher' --command nmclisway.sh search
+bindsym --to-code  $mod+l exec swaylock.sh
+bindsym --to-code  $mod+w exec foot --app-id 'launcher'  nmclisway.sh
+bindsym --to-code  $mod+$shift+w exec foot --app-id 'launcher'  nmclisway.sh search
 for_window [app_id="^launcher$"] floating enable, border none, resize set width 60 ppt height 60 ppt, move position 20 ppt 20 ppt
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button+$mod.
@@ -141,10 +148,15 @@ bindsym --to-code $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit 
 # Moving around:
 #
 # Or use $mod+[up|down|left|right]
-bindsym --to-code $mod+Left focus left
-bindsym --to-code $mod+Down focus down
-bindsym --to-code $mod+Up focus up
-bindsym --to-code $mod+Right focus right
+bindsym --to-code $mod+Left exec swayHelper focus prev
+bindsym --to-code $mod+Down exec swayHelper focus prev
+bindsym --to-code $mod+Up exec swayHelper focus next
+bindsym --to-code $mod+Right exec swayHelper focus next
+
+bindsym --to-code $mod+F1 exec swayHelper snap left
+bindsym --to-code $mod+F2 exec swayHelper snap top
+bindsym --to-code $mod+F3 exec swayHelper snap bottom
+bindsym --to-code $mod+F4 exec swayHelper snap right
 
 # Ditto, with arrow keys
 bindsym --to-code $mod+Shift+Left move left
@@ -213,7 +225,7 @@ bindsym --to-code $mod+$shift+h scratchpad show
 bindsym --to-code $mod+v split toggle
 bindsym --to-code $mod+c layout tabbed
 bindsym --to-code $mod+b exec swayr execute-swayr-command
-# bindsym --to-code $mod+b exec alacritty --class 'launcher' --command switch-sway.sh
+# bindsym --to-code $mod+b exec foot --app-id 'launcher'  switch-sway.sh
 bindsym --to-code $mod+a focus parent
 bindsym --to-code $mod+space focus mode_toggle
 #
@@ -237,7 +249,8 @@ bindsym --to-code $mod+$alt+Right resize grow width 10 px or 10 ppt
 bindsym --to-code $mod+$alt+Left resize shrink width 10 px or 10 ppt
 
 bindsym --to-code $mod+KP_5 exec cantata
-bindsym --to-code $mod+d exec albert show
+# bindsym --to-code $mod+d exec albert show
+bindsym --to-code $mod+d exec appsmenu.sh
 bindsym --to-code $mod+t exec gnome-system-monitor
 # bindsym --to-code Control+KP_Enter exec albert show "cq "
 bindsym --to-code Control+KP_Enter exec copyq toggle
@@ -283,6 +296,9 @@ for_window [app_id="Devtools" window_type="normal"] floating enable, resize set 
 
 
 exec env RUST_BACKTRACE=1 swayrd > /tmp/swayrd.log 2>&1
+bar {
+    swaybar_command waybar
+}
 exec ~/.config/scripts/startup-sway.sh
 include ./floating.conf
 include /etc/sway/config.d/*

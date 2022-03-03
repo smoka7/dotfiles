@@ -1,0 +1,144 @@
+* {
+  border: none;
+  font-size: 18px;
+}
+
+window#waybar {
+  background-color: rgba(34, 39, 46, 0.2);
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces,
+#cpu,
+#temperature,
+#memory,
+#custom-networkspeed,
+#clock,
+#idle_inhibitor,
+#language,
+#pulseaudio,
+#backlight,
+#battery,
+#network,
+#mpd,
+#tray {
+  color: #1b222d;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 0 4px;
+}
+
+#tray {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+#workspaces {
+  background-color: #1b222d;
+  margin: 2px 4px;
+  margin-right: 0px;
+  padding: 2px 5px;
+}
+#workspaces button {
+  font-family: "Font Awesome 5 Free";
+  padding: 0px;
+  margin: 0px 5px;
+  min-width: 10px;
+  color: #f1faee;
+}
+
+#workspaces button:hover {
+  color: #ece2e1;
+}
+
+#workspaces button.focused {
+  color: #fdd835;
+}
+
+#workspaces button.urgent {
+  color: #ff9292;
+}
+
+#network {
+  background-color: #fdd835;
+  margin: 2px 0px;
+}
+
+#network.disconnected {
+  background-color: #fcd1d1;
+}
+
+#cpu,
+#memory,
+#temperature {
+  font-family: "Iosevka", "Font Awesome 5 Free";
+  background-color: #50fa7b;
+}
+
+#temperature {
+  margin-left: 4px;
+}
+
+#language {
+  background-color: #f1fa8c;
+  margin-left: 0;
+}
+
+#cpu.warning {
+  background-color: #ffcc1d;
+}
+
+#cpu.critical,
+#temperature.critical {
+  background-color: #f90716;
+}
+
+#custom-networkspeed {
+  background-color: #1a223a;
+  color: #f1faee;
+  margin-left: 4px;
+  padding: 0px 10px 0px 10px;
+}
+
+#clock {
+  background-color: #fbf46d;
+  font-family: "Cascadia Code", "Font Awesome 5 Free";
+}
+
+#idle_inhibitor {
+  background-color: #44475a;
+}
+
+#idle_inhibitor.activated {
+  background-color: #ff9292;
+}
+
+#pulseaudio {
+  background-color: #44475a;
+  color: #f7f7f7;
+}
+
+#pulseaudio.muted {
+  background-color: #ff5555;
+}
+
+#backlight {
+  background-color: #61afef;
+}
+
+#mpd {
+  background-color: #f7f7f7;
+  color: #44475a;
+}
+
+#battery {
+  background-color: #98c379;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: #98c379;
+  color: #1e222a;
+}

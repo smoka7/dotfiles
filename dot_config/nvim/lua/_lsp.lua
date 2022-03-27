@@ -1,41 +1,57 @@
 local u = require("utils")
-local on_attach = function(client, bufnr)
+
+local opts = { noremap = true, silent = true }
+u.map("n", "<Leader><space>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+u.map("n", "<Leader>[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+u.map("n", "<Leader>]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+u.map("n", "<Leader>d", "<Cmd>Telescope lsp_definitions<CR>", opts)
+u.map("n", "<Leader>la", "<cmd>Telescope lsp_code_actions<CR>", opts)
+u.map("n", "<Leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+u.map("n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
+u.map("n", "<Leader>ll", "<cmd>Telescope diagnostics<CR>", opts)
+u.map("n", "<Leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
+u.map("n", "<Leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+u.map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+u.map("n", "<Leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+local on_attach = function(_, bufnr)
 	require("lsp_signature").on_attach({
 		handler_opts = {
-			border = "double", -- double, single, shadow, none
+			border = "shadow", -- double, single, shadow, none
 		},
 	})
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-	-- Mappings.
-	local opts = { noremap = true, silent = true }
+	-- local function buf_set_option(...)
+	-- 	vim.api.nvim_buf_set_option(bufnr, ...)
+	-- end
+	-- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+	-- Mappings
+	-- local opts = { noremap = true, silent = true, buffer = true }
+	-- u.map("n", "<Leader><space>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	-- u.map("n", "<Leader>[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	-- u.map("n", "<Leader>]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	-- u.map("n", "<Leader>d", "<Cmd>Telescope lsp_definitions<CR>", opts)
+	-- u.map("n", "<Leader>la", "<cmd>Telescope lsp_code_actions<CR>", opts)
+	-- u.map("n", "<Leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	-- u.map("n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
+	-- u.map("n", "<Leader>ll", "<cmd>Telescope diagnostics<CR>", opts)
+	-- u.map("n", "<Leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
+	-- u.map("n", "<Leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	-- u.map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	-- u.map("n", "<Leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	-- buf_set_keymap("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader><space>", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>d", "<Cmd>Telescope lsp_definitions<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>la", "<cmd>Telescope lsp_code_actions<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>ld", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>ll", "<cmd>Telescope diagnostics<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>lr", "<cmd>Telescope lsp_references<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	u.buff_map(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	u.buff_map(bufnr, "n", "<Leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-	  augroup lsp_document_highlight
-	  autocmd! * <buffer>
-	  autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-	  autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-	  augroup END
-	  ]],
-			false
-		)
-	end
+	-- if client.resolved_capabilities.document_highlight then
+	-- 	vim.api.nvim_exec(
+	-- 		[[
+	--   augroup lsp_document_highlight
+	--   autocmd! * <buffer>
+	--   autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+	--   autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+	--   augroup END
+	--   ]],
+	-- 		false
+	-- 	)
+	-- end
 end
 
 local has_words_before = function()
@@ -70,7 +86,8 @@ local kind_icons = {
 	Value = "",
 	Variable = "$",
 }
-require("luasnip/loaders/from_vscode").load({})
+
+-- require("luasnip/loaders/from_vscode").lazy_load({})
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 cmp.setup({
@@ -133,25 +150,27 @@ cmp.setup({
 		{ name = "luasnip", group_index = 1 },
 		{ name = "buffer", group_index = 2 },
 		{ name = "path", group_index = 2 },
+		{ name = "spell", group_index = 3 },
 	}),
 	experimental = {
 		native_menu = false,
 		ghost_text = { hl_group = "Comment" },
 	},
 })
+
 cmp.setup.cmdline("/", {
 	sources = {
 		{ name = "buffer" },
 	},
 })
--- cmp.setup.cmdline(":", {
--- 	sources = cmp.config.sources({
--- 		{ name = "path" },
--- 	}, {
--- 		{ name = "cmdline" },
--- 	}),
--- })
-
+cmp.setup.cmdline(":", {
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
+})
+--
 -- Setup lspconfig.
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -168,21 +187,23 @@ local function setup_servers()
 		"emmet_ls",
 		"gopls",
 		"golangci_lint_ls",
-		-- "html",
-		-- "intelephense",
 		"jsonls",
 		"tailwindcss",
 		"rust_analyzer",
 		"tsserver",
 		"vimls",
+		-- "html",
+		-- "intelephense",
 		-- "vuels",
 		-- "volar",
 		"ccls",
 	}
 	local nvim_lsp = require("lspconfig")
+
 	nvim_lsp.phpactor.setup({
 		cmd = { "/home/smoka/.local/share/nvim/site/pack/packer/opt/phpactor/bin/phpactor", "language-server" },
 	})
+
 	nvim_lsp.volar.setup({
 		filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 		init_options = {
@@ -191,12 +212,32 @@ local function setup_servers()
 			},
 		},
 	})
+
 	nvim_lsp.html.setup({ filetypes = {
 		"php",
 		"vue",
 		"html",
 	} })
-	-- nvim_lsp.emmet_ls.setup({ filetypes = { "php", "vue", "html" } })
+
+	nvim_lsp.sumneko_lua.setup({
+		cmd = { "/usr/bin/lua-language-server" },
+		settings = {
+			Lua = {
+				runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+				diagnostics = {
+					globals = { "vim", "love" },
+				},
+				workspace = {
+					library = {
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+					},
+				},
+			},
+		},
+	})
+
+	nvim_lsp.emmet_ls.setup({ filetypes = { "php", "vue", "html" } })
 	-- nvim_lsp.tsserver.setup({
 	-- 	filetypes = {
 	-- 		"javascript",
@@ -214,42 +255,17 @@ local function setup_servers()
 	end
 end
 
-local runtime_path = vim.split(package.path, ";")
-
-require("lspconfig").sumneko_lua.setup({
-	cmd = { "/usr/bin/lua-language-server" },
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT", path = runtime_path },
-			diagnostics = {
-				globals = { "vim", "love" },
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-				},
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = { enable = false },
-		},
-	},
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
 setup_servers()
+--
 local nullLs = require("null-ls")
-	nullLs.setup({
-		sources = {
-			nullLs.builtins.diagnostics.write_good,
-			nullLs.builtins.code_actions.gitsigns,
-			nullLs.builtins.code_actions.eslint_d,
-			nullLs.builtins.formatting.fish_indent,
-			nullLs.builtins.diagnostics.eslint_d,
-			nullLs.builtins.formatting.eslint_d,
-			nullLs.builtins.formatting.gofumpt,
-		},
-	})
-
+nullLs.setup({
+	sources = {
+		nullLs.builtins.diagnostics.write_good,
+		nullLs.builtins.code_actions.gitsigns,
+		nullLs.builtins.code_actions.eslint_d,
+		nullLs.builtins.formatting.fish_indent,
+		nullLs.builtins.diagnostics.eslint_d,
+		nullLs.builtins.formatting.eslint_d,
+		nullLs.builtins.formatting.gofumpt,
+	},
+})

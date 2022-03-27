@@ -1,15 +1,24 @@
 vim.cmd([[packadd packer.nvim]])
-local config = {
-	-- compile_path = util.join_paths(vim.fn.stdpath("config"), "lua", "packer_compiled.lua"),
-}
-local fy = "go,html,json,css,vue,rs,js,ts,php,sh,fish,lua,vim"
-return require("packer").startup(function(use)
+
+local fy = { "go", "html", "json", "css", "vue", "rs", "js", "ts", "php", "sh", "fish", "lua", "vim" }
+
+local packer = require("packer")
+packer.init({
+	compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+	-- profile = {
+	-- 	enable = true,
+	-- 	threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
+	-- },
+})
+local use = packer.use
+return packer.startup(function()
 	use("lewis6991/impatient.nvim")
-	-- use("dstein64/vim-startuptime")
+	use("dstein64/vim-startuptime")
 	---------------------------completion and snippert
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
+	use("github/copilot.vim")
 	use("hrsh7th/cmp-cmdline")
 	use("L3MON4D3/LuaSnip")
 	use("saadparwaiz1/cmp_luasnip")
@@ -23,6 +32,7 @@ return require("packer").startup(function(use)
 		end,
 		ft = "go",
 	})
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, ft = "go", after = "nvim-dap" })
 	use({
 		"ThePrimeagen/refactoring.nvim",
 		requires = {
@@ -31,7 +41,6 @@ return require("packer").startup(function(use)
 		},
 		config = function()
 			require("refactoring").setup({})
-			-- load refactoring Telescope extension
 			require("telescope").load_extension("refactoring")
 			vim.api.nvim_set_keymap(
 				"v",
@@ -40,8 +49,8 @@ return require("packer").startup(function(use)
 				{ noremap = true }
 			)
 		end,
+		ft = fy,
 	})
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 	use({ "buoto/gotests-vim", opt = true, ft = "go" })
 	use({ "vim-test/vim-test", opt = true, ft = fy })
 	use({ "fatih/vim-go", opt = true, ft = "go" })
@@ -52,24 +61,8 @@ return require("packer").startup(function(use)
 		"folke/tokyonight.nvim",
 	})
 	----------------------------file
-	use({
-		"booperlv/nvim-gomove",
-		config = function()
-			require("gomove").setup({
-				map_defaults = true,
-				reindent = true,
-				undojoin = true,
-				move_past_end_col = false,
-				ignore_indent_lh_dup = true,
-			})
-		end,
-	})
-	use({
-		"phaazon/hop.nvim",
-		config = function()
-			require("_hop")
-		end,
-	})
+	use({ "booperlv/nvim-gomove" })
+	use({ "phaazon/hop.nvim" })
 	use("mg979/vim-visual-multi")
 	use("famiu/bufdelete.nvim")
 	use({
@@ -77,13 +70,7 @@ return require("packer").startup(function(use)
 		"akinsho/nvim-bufferline.lua",
 		requires = "kyazdani42/nvim-web-devicons",
 	})
-	use({
-		"hoob3rt/lualine.nvim",
-		config = function()
-			require("_bufferline")
-			require("_lualine")
-		end,
-	})
+	use({ "hoob3rt/lualine.nvim" })
 	use("kyazdani42/nvim-web-devicons")
 	---------------------------- ui niceties
 	use({
@@ -95,19 +82,7 @@ return require("packer").startup(function(use)
 		end,
 		cmd = "Twilight,ZenMode",
 	})
-	use({
-		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup({
-				plugins = {
-					spelling = {
-						enabled = true,
-						suggestions = 20,
-					},
-				},
-			})
-		end,
-	})
+	use({ "folke/which-key.nvim" })
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -123,41 +98,24 @@ return require("packer").startup(function(use)
 		end,
 		cmd = "Neogit",
 	})
-	use({
-		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("indent_blankline").setup({
-				space_char_blankline = " ",
-				show_current_context = true,
-				show_current_context_start = true,
-				indent_blankline_show_first_indent_level = false,
-				filetype_exclude = { "NvimTree" },
-			})
-		end,
-	})
+	use({ "lukas-reineke/indent-blankline.nvim" })
 	use({
 		"norcalli/nvim-colorizer.lua",
 		ft = { "css", "javascript", "vim", "html" },
 		config = function()
-			require("colorizer").setup({ "css", "javascript", "vim", "html" })
+			require("colorizer").setup()
 		end,
 		cmd = "ColorizerAttachToBuffer",
 	})
+	use({ "mattn/emmet-vim", opt = true, ft = fy })
 	-- "auto rename tag
 	use({
 		"AndrewRadev/tagalong.vim",
 		ft = {
-			"eco",
-			"eelixir",
-			"ejs",
-			"eruby",
 			"html",
-			"htmldjango",
-			"javascriptreact",
 			"jsx",
 			"vue",
 			"php",
-			"typescriptreact",
 			"xml",
 		},
 	})
@@ -165,22 +123,16 @@ return require("packer").startup(function(use)
 	------------------------------ code
 	use({
 		"neovim/nvim-lspconfig",
-		config = function()
-			require("_lsp")
-		end,
 	})
 	use({ "ray-x/lsp_signature.nvim" })
+	use("nvim-treesitter/playground")
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		"nvim-treesitter/playground",
 		requires = {
 			"nvim-treesitter/nvim-treesitter-refactor",
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"theHamsta/nvim-treesitter-pairs",
 		},
-		config = function()
-			require("treesitter")
-		end,
 	})
 	use({
 		"theHamsta/nvim-treesitter-pairs",
@@ -197,13 +149,6 @@ return require("packer").startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use({
 		"~/gits/neogen",
-		config = function()
-			require("neogen").setup({
-				enabled = true,
-			})
-			local opts = { noremap = true, silent = true }
-			require("utils").map("n", "<Leader>n", ":lua require('neogen').generate()<CR>", opts)
-		end,
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
 	use({
@@ -211,14 +156,10 @@ return require("packer").startup(function(use)
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
 	use({ "lambdalisue/suda.vim" })
-	use({ "mattn/emmet-vim", opt = true, ft = "html,htm,php,vue" })
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+		requires = { "nvim-lua/popup.nvim" },
 		wants = { "popup.nvim", "plenary.nvim" },
-		config = function()
-			require("_telescope")
-		end,
 	})
 	use({ "mbbill/undotree", cmd = "UndotreeToggle", config = [[vim.g.undotree_SetFocusWhenToggle = 1]] })
 	use("Raimondi/delimitMate")
@@ -229,12 +170,7 @@ return require("packer").startup(function(use)
 		end,
 		cmd = "Neoformat",
 	})
-	use({
-		"numToStr/Comment.nvim",
-		config = function()
-			require("_comment")
-		end,
-	})
+	use("numToStr/Comment.nvim")
 	use("tpope/vim-repeat")
 	use("tpope/vim-surround")
-end, config)
+end)

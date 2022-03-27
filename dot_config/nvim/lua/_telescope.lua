@@ -46,19 +46,20 @@ require("telescope").setup({
 		color_devicons = true,
 	},
 })
-vim.cmd([[
-highlight TelescopeNormal guibg=#d6dde1 guifg=#202328
-highlight TelescopeBorder NONE
-highlight TelescopeMatching guifg=#e91e63
-highlight TelescopePreviewBorder NONE
-highlight TelescopePreviewNormal NONE
-highlight TelescopePreviewTitle NONE
-highlight link TelescopePreviewBorder Normal
-highlight link TelescopePreviewTitle Normal
-highlight link TelescopePreviewNormal Normal
-highlight TelescopePromptNormal guifg=#d6dde1 guibg=#202328
-highlight TelescopePromptBorder guifg=#d6dde1 guibg=#202328
-highlight TelescopePromptCounter guifg=#d6dde1 guibg=#202328
-highlight TelescopePromptPrefix guifg=#d6dde1 guibg=#202328
-highlight TelescopePromptTitle guifg=#d6dde1 guibg=#202328
-    ]])
+
+-- vim.cmd([[
+-- highlight TelescopeNormal guibg=#d6dde1 guifg=#202328
+-- highlight TelescopeBorder NONE
+-- highlight TelescopeMatching guifg=#e91e63
+-- highlight TelescopePreviewBorder NONE
+-- highlight TelescopePreviewNormal NONE
+-- highlight TelescopePreviewTitle NONE
+-- highlight link TelescopePreviewBorder Normal
+-- highlight link TelescopePreviewTitle Normal
+-- highlight link TelescopePreviewNormal Normal
+-- highlight TelescopePromptNormal guifg=#d6dde1 guibg=#202328
+-- highlight TelescopePromptBorder guifg=#d6dde1 guibg=#202328
+-- highlight TelescopePromptCounter guifg=#d6dde1 guibg=#202328
+-- highlight TelescopePromptPrefix guifg=#d6dde1 guibg=#202328
+-- highlight TelescopePromptTitle guifg=#d6dde1 guibg=#202328
+--     ]])

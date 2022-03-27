@@ -1,9 +1,8 @@
 local U = {}
 
-U.map = vim.api.nvim_set_keymap
-
-U.buff_map = function(...)
-	vim.api.nvim_buf_set_keymap(...)
+U.map = function(mode, l, r, opts)
+	opts = opts or {}
+	vim.keymap.set(mode, l, r, opts)
 end
 
 U.buffer_not_empty = function()

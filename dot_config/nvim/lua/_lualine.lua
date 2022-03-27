@@ -3,32 +3,49 @@ local colorList = require("colors")
 local conditions = require("utils")
 local gps = require("nvim-gps")
 gps.setup({ disable_icons = true })
+
+local mode_map = {
+	["n"] = "NORMAL",
+	["no"] = "O-PENDING",
+	["nov"] = "O-PENDING",
+	["noV"] = "O-PENDING",
+	["no"] = "O-PENDING",
+	["niI"] = "NORMAL",
+	["niR"] = "NORMAL",
+	["niV"] = "NORMAL",
+	["nt"] = "NORMAL",
+	["v"] = "VISUAL",
+	["vs"] = "VISUAL",
+	["V"] = "V-LINE",
+	["Vs"] = "V-LINE",
+	[""] = "V-BLOCK",
+	["s"] = "V-BLOCK",
+	["s"] = "SELECT",
+	["S"] = "S-LINE",
+	[""] = "S-BLOCK",
+	["i"] = "INSERT",
+	["ic"] = "INSERT",
+	["ix"] = "INSERT",
+	["R"] = "REPLACE",
+	["Rc"] = "REPLACE",
+	["Rx"] = "REPLACE",
+	["Rv"] = "V-REPLACE",
+	["Rvc"] = "V-REPLACE",
+	["Rvx"] = "V-REPLACE",
+	["c"] = "COMMAND",
+	["cv"] = "EX",
+	["ce"] = "EX",
+	["r"] = "REPLACE",
+	["rm"] = "MORE",
+	["r?"] = "CONFIRM",
+	["!"] = "SHELL",
+	["t"] = "TERMINAL",
+}
+
 local function returnmod()
-	local mode = require("lualine.utils.mode").get_mode()
-	local mode_color = {
-		n = colorList.blue,
-		i = colorList.green,
-		v = colorList.yellow,
-		[""] = colorList.orange,
-		V = colorList.orange,
-		c = colorList.magenta,
-		no = colorList.red,
-		s = colorList.orange,
-		S = colorList.orange,
-		[""] = colorList.orange,
-		ic = colorList.yellow,
-		R = colorList.violet,
-		Rv = colorList.violet,
-		cv = colorList.red,
-		ce = colorList.red,
-		r = colorList.red,
-		rm = colorList.cyan,
-		["r?"] = colorList.cyan,
-		["!"] = colorList.red,
-		t = colorList.yellow,
-	}
-	vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colorList.bg)
-	return "  " .. mode
+	local mode_code = vim.api.nvim_get_mode().mode
+	local mode = mode_map[mode_code]
+	return mode
 end
 
 local function search_result()
@@ -48,7 +65,8 @@ end
 
 local config = {
 	options = {
-		theme = "onedark",
+		theme = colorList.celeste,
+        globalstatus = true,
 		component_separators = "",
 		section_separators = "",
 		-- component_separators = { left = "\\", right = "\\" },
@@ -61,9 +79,9 @@ local config = {
 		lualine_a = {
 			{
 				function()
-					return returnmod()
+					return "  " .. returnmod()
 				end,
-				color = "LualineMode",
+				-- color = { bg = colorList.blue, fg = colorList.shade1 },
 				padding = { right = 1 },
 			},
 		},
@@ -139,8 +157,8 @@ local config = {
 			{ "filetype", colored = true },
 		},
 		lualine_z = {
-			{ "progress", color = { fg = colorList.fg, bg = colorList.shade1 }, padding = 0 },
-			{ "location", color = "LualineMode" },
+			{ "progress", color = { fg = colorList.fg, bg = colorList.shade1 }, padding = 1 },
+			{ "location", color = { fg = colorList.fg, bg = colorList.shade3 } },
 		},
 	},
 }

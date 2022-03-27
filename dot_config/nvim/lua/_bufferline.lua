@@ -2,7 +2,14 @@ local cl = require("colors")
 local map = require("utils").map
 require("bufferline").setup({
 	options = {
-		offsets = { { filetype = "nvimtree", text = "", padding = 1 } },
+		offsets = {
+			{
+				filetype = "NvimTree",
+				text = "Files",
+				highlight = "Directory",
+				text_align = "left",
+			},
+		},
 		buffer_close_icon = "",
 		modified_icon = "",
 		close_icon = "",
@@ -44,17 +51,22 @@ require("bufferline").setup({
 local opt = { silent = true }
 map("n", "<TAB>", [[<Cmd>BufferLineCycleNext<CR>]], opt)
 -- map("n", "<S-TAB>", [[<Cmd>BufferLineCyclePrev<CR>]], opt)
+
 require("nvim-tree").setup({
 	hijack_cursor = true,
 	update_cwd = true,
 	diagnostics = {
 		enable = true,
+		show_on_dirs = true,
 	},
 	filters = {
 		custom = { ".git", "node_modules", ".cache", "vendor" },
 	},
 	view = {
-		auto_resize = true,
-		relativenumber = false,
+		preserve_window_proportions = true,
+		hide_root_folder = true,
+	},
+	actions = {
+		open_file = { quit_on_open = true },
 	},
 })

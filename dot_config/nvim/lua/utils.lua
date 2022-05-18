@@ -5,6 +5,7 @@ U.map = function(mode, l, r, opts)
 	vim.keymap.set(mode, l, r, opts)
 end
 
+
 U.buffer_not_empty = function()
 	return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
 end

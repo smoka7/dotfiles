@@ -6,16 +6,26 @@ require("indent_blankline").setup({
 	filetype_exclude = { "NvimTree" },
 })
 
-local hour = tonumber(os.date("%H"))
--- vim.cmd([[colorscheme celeste-dark]])
-if hour < 18 and hour > 7 then
+local function lighten()
 	vim.cmd([[colorscheme celeste-nvim]])
-else
+end
+
+local function darken()
 	vim.g.tokyonight_style = "storm"
+    vim.o.background = "dark"
 	vim.g.tokyonight_italic_functions = true
 	vim.cmd([[colorscheme tokyonight]])
 end
 
+local hour = tonumber(os.date("%H"))
+-- vim.cmd([[colorscheme celeste-dark]])
+if hour < 18 and hour > 7 then
+	lighten()
+else
+    darken()
+end
+vim.api.nvim_create_user_command("Golight", lighten, {})
+vim.api.nvim_create_user_command("GoDark", darken, {})
 local ColorList = {
 	bg = "#202328",
 	black = "#1b222d",

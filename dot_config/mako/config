@@ -1,0 +1,11 @@
+font=Anka/Coder
+default-timeout=5
+background-color=#D9E0EE
+text-color=#1E1D2F
+progress-color= over #302D41
+border-size=0
+border-radius=5
+
+[urgency=high]
+text-color=#1E1D2F
+background-color=#F8BD96

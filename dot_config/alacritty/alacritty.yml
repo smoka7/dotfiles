@@ -18,18 +18,18 @@ scrolling:
   multiplier: 3
 font:
   normal:
-    family: JetBrains Mono
-    style: regular
+    family: Cascadia Mono
+    style: SemiLight
   bold:
     family: JetBrains Mono
-    style: bold
+    style: Medium
   italic:
     family: JetBrains Mono
     style: Italic
   size: 12.0
   offset:
     x: 0
-    y: 0
+    y: 2
   glyph_offset:
     x: 0
     y: 0

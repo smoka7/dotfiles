@@ -37,7 +37,7 @@ window#waybar.hidden {
 }
 #workspaces {
   background-color: #1b222d;
-  margin: 2px 4px;
+  margin: 2px 0px;
   margin-right: 0px;
   padding: 2px 5px;
 }
@@ -141,4 +141,7 @@ window#waybar.hidden {
 #battery.plugged {
   background-color: #98c379;
   color: #1e222a;
+}
+#custom-mpd{
+  margin-right: 2px;
 }

@@ -1,9 +1,8 @@
 {
     "height": 32, // Waybar height (to be removed for auto height)
-        "modules-left": ["sway/workspaces", "network","custom/networkspeed"],
-        "modules-center": ["clock","idle_inhibitor"],
-        "modules-right": ["mpd", "pulseaudio","temperature", "cpu","memory", "sway/language", "tray"],
-
+        "modules-left": ["clock","idle_inhibitor","sway/workspaces","river/tags", "network","custom/networkspeed"],
+        //"modules-center": ["clock","idle_inhibitor"],
+        "modules-right": ["custom/mpd","mpd", "pulseaudio","temperature", "cpu","memory", "sway/language", "tray"],
         // Modules configuration
         "sway/workspaces": {
             "disable-scroll": false,
@@ -131,10 +130,15 @@
             "format": "{}",
             "exec": "$HOME/.config/scripts/networkusage.sh --speed",
             "escape": true,
-
+        },
+        "custom/mpd": {
+            "format": "{}",
+            "exec": "$HOME/.config/scripts/mpdliked",
+            "escape": true,
         },
         "mpd": {
             "interval": 5,
+            "max-length": 40,
             "server": "0.0.0.0",
             "port":6601,
             "format":"",

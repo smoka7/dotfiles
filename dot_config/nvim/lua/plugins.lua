@@ -42,7 +42,7 @@ return packer.startup(function()
     },
     config = function()
       require('refactoring').setup({})
-      require('telescope').load_extension('refactoring')
+      -- require('telescope').load_extension('refactoring')
     end,
     ft = fy,
   })
@@ -92,7 +92,7 @@ return packer.startup(function()
         width = 1,
         handlers = {
           search = {
-            enable = false,
+            enable = true,
           },
           marks = {
             enable = true,
@@ -103,11 +103,11 @@ return packer.startup(function()
           },
           gitsigns = {
             enable = true,
-            highlight = {
-              add = 'TSMethod',
-              delete = 'TSTag',
-              change = 'TSKeyword',
-            },
+            -- highlight = {
+            --   add = 'TSMethod',
+            --   delete = 'TSTag',
+            --   change = 'TSKeyword',
+            -- },
           },
         },
       })
@@ -170,6 +170,7 @@ return packer.startup(function()
   use({
     'theHamsta/nvim-treesitter-pairs',
     'RRethy/nvim-treesitter-textsubjects',
+    'nvim-treesitter/nvim-treesitter-context',
     'nvim-treesitter/nvim-treesitter-refactor',
     'nvim-treesitter/nvim-treesitter-textobjects',
   })
@@ -182,7 +183,8 @@ return packer.startup(function()
   })
   use('jose-elias-alvarez/null-ls.nvim')
   use({
-    'danymat/neogen',
+    -- 'danymat/neogen',
+    '~/gits/neogen',
     requires = 'nvim-treesitter/nvim-treesitter',
   })
   use({
@@ -192,31 +194,13 @@ return packer.startup(function()
   use({ 'lambdalisue/suda.vim' })
   use({
     'ibhagwan/fzf-lua',
-    -- optional for icon support
     requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function()
-      require('fzf-lua').setup({
-        winopts = {
-          border = false,
-          hl = {
-            normal = 'Normal', -- window normal color (fg+bg)
-            border = 'Normal', -- border color (try 'FloatBorder')
-            cursor = 'Cursor', -- cursor highlight (grep/LSP matches)
-            cursorline = 'CursorLine', -- cursor line
-            search = 'Search', -- search matches (ctags)
-            -- title       = 'Normal',        -- preview border title (file/buffer)
-            -- scrollbar_f = 'PmenuThumb',    -- scrollbar "full" section highlight
-            -- scrollbar_e = 'PmenuSbar',     -- scrollbar "empty" section highlight
-          },
-        },
-      })
-    end,
   })
-  use({
-    'nvim-telescope/telescope-ui-select.nvim',
-    'nvim-telescope/telescope.nvim',
-    wants = { 'plenary.nvim' },
-  })
+  -- use({
+  --   'nvim-telescope/telescope-ui-select.nvim',
+  --   'nvim-telescope/telescope.nvim',
+  --   wants = { 'plenary.nvim' },
+  -- })
   use({ 'mbbill/undotree', cmd = 'UndotreeToggle', config = [[vim.g.undotree_SetFocusWhenToggle = 1]] })
   use({
     'windwp/nvim-autopairs',

@@ -4,7 +4,7 @@ require("lsp.cmp")
 require("lsp.nullls")
 
 vim.diagnostic.config({
-	underline = true,
+	underline = false,
 	float = {
 		show_header = false,
 		source = true,
@@ -13,6 +13,6 @@ vim.diagnostic.config({
 	},
 	virtual_text = { source = false, spacing = 2 },
 	-- virtual_text = {
-	-- 	severity = "error",
+		severity = "error",
 	-- },
 })

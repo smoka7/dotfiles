@@ -27,7 +27,7 @@ local kind_icons = {
 	Struct = "פּ",
 	Event = "",
 	Operator = "",
-	TypeParameter = "",
+	TypeParameter = "T",
 }
 
 local has_words_before = function()

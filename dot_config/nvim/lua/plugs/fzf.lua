@@ -1,22 +1,23 @@
 local colors = {
-  ['fg'] = { 'fg', 'Normal' },
-  ['bg'] = { 'bg', 'Normal' },
-  ['hl'] = { 'fg', 'Search' },
-  ['fg+'] = { 'fg', 'ModeMsg' },
+  ['bg'] = { 'bg', 'TelescopePromptNormal' },
   ['bg+'] = { 'bg', 'CursorLine' },
+  ['fg'] = { 'fg', 'TelescopePromptNormal' },
+  ['fg+'] = { 'fg', 'CursorLine' },
+  ['gutter'] = { 'bg', 'TelescopePromptNormal' },
+  ['header'] = { 'fg', 'TelescopePromptNormal' },
+  ['hl'] = { 'fg', 'Cursor' },
   ['hl+'] = { 'fg', 'Statement' },
-  ['info'] = { 'fg', 'PreProc' },
-  ['prompt'] = { 'fg', 'Function' },
+  ['info'] = { 'fg', 'TelescopePromptNormal' },
+  ['marker'] = { 'fg', 'Cursor' },
   ['pointer'] = { 'fg', 'Const' },
-  ['marker'] = { 'fg', 'Statement' },
+  ['prompt'] = { 'fg', 'TelescopePromptNormal' },
+  ['query'] = { 'fg', 'TelescopePromptNormal' },
   ['spinner'] = { 'fg', 'Label' },
-  ['header'] = { 'fg', 'Comment' },
-  ['gutter'] = { 'bg', 'Normal' },
 }
 require('fzf-lua').setup({
   fzf_colors = colors,
   winopts = {
-    border = 'single',
+    border = 'none',
     hl = {
       normal = 'TelescopeNormal', -- window normal color (fg+bg)
       border = 'TelescopeNormal', -- border color (try 'FloatBorder')

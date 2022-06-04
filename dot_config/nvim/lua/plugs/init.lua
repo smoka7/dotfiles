@@ -1,5 +1,7 @@
 require("plugs.bufferline")
 require("plugs.lualine")
--- require("plugs.telescope")
+require("plugs.telescope")
 require("plugs.treesitter")
 require("plugs.fzf")
+require("plugs.comment")
+require("plugs.neotree")

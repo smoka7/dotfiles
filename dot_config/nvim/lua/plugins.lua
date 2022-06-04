@@ -15,16 +15,21 @@ return packer.startup(function()
   use('lewis6991/impatient.nvim')
   use('dstein64/vim-startuptime')
   ---------------------------completion and snippet
-  use({ 'hrsh7th/nvim-cmp' })
-  use({ 'hrsh7th/cmp-path' })
-  use({ 'hrsh7th/cmp-buffer' })
-  use({ 'hrsh7th/cmp-copilot' })
-  use({ 'hrsh7th/cmp-cmdline' })
-  use({ 'hrsh7th/cmp-nvim-lsp' })
-  use({ 'saadparwaiz1/cmp_luasnip' })
+  use({
+    'hrsh7th/nvim-cmp',
+    requires = {
+      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
+      -- { 'hrsh7th/cmp-copilot', after = 'nvim-cmp' },
+      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+      -- { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+    },
+  })
   use({ 'rafamadriz/friendly-snippets' })
   use({ 'L3MON4D3/LuaSnip' })
-  use({ 'github/copilot.vim' })
+  -- use({ 'github/copilot.vim' })
   ----------------------------language helpers
   use({
     'mfussenegger/nvim-dap',
@@ -42,19 +47,31 @@ return packer.startup(function()
     },
     config = function()
       require('refactoring').setup({})
-      -- require('telescope').load_extension('refactoring')
+      require('telescope').load_extension('refactoring')
     end,
     ft = fy,
   })
   use({ 'buoto/gotests-vim', opt = true, ft = 'go' })
-  use({ 'vim-test/vim-test', opt = false })
-  -- use({ "vim-test/vim-test"})
-  use({ 'fatih/vim-go', opt = true, ft = 'go' })
-  use({ 'phpactor/phpactor', opt = true, ft = 'php' })
+  use({ 'vim-test/vim-test', opt = true, ft = fy })
+  use({
+    'ray-x/go.nvim',
+    opt = true,
+    ft = 'go',
+    config = function()
+      require('go').setup()
+    end,
+  })
+
+  use({ 'phpactor/phpactor', opt = true, ft = 'php', run = 'composer install --no-dev -o' })
   ----------------------------color scheme
   use({
     '~/celeste-nvim',
+    '~/gits/neolara',
     'folke/tokyonight.nvim',
+    {
+      '~/gits/catppuccin',
+      as = 'catppuccin',
+    },
   })
   ----------------------------file
   use('famiu/bufdelete.nvim')
@@ -68,6 +85,7 @@ return packer.startup(function()
     requires = 'kyazdani42/nvim-web-devicons',
   })
   use({ 'hoob3rt/lualine.nvim' })
+  use({ 'nvim-neo-tree/neo-tree.nvim', requires = 'MunifTanjim/nui.nvim' })
   use('kyazdani42/nvim-web-devicons')
   ---------------------------- ui niceties
   use({
@@ -84,33 +102,28 @@ return packer.startup(function()
     -- "lewis6991/satellite.nvim",
     '~/gits/satellite.nvim',
     config = function()
-      require('satellite').setup({
-        current_only = false,
-        winblend = 70,
-        zindex = 40,
-        excluded_filetypes = {},
-        width = 1,
-        handlers = {
-          search = {
-            enable = true,
-          },
-          marks = {
-            enable = true,
-            show_builtins = false,
-          },
-          diagnostic = {
-            enable = true,
-          },
-          gitsigns = {
-            enable = true,
-            -- highlight = {
-            --   add = 'TSMethod',
-            --   delete = 'TSTag',
-            --   change = 'TSKeyword',
-            -- },
-          },
-        },
-      })
+      --   require('satellite').setup({
+      --     current_only = false,
+      --     winblend = 70,
+      --     zindex = 40,
+      --     excluded_filetypes = {},
+      --     width = 1,
+      --     handlers = {
+      --       search = {
+      --         enable = true,
+      --       },
+      --       marks = {
+      --         enable = true,
+      --         show_builtins = false,
+      --       },
+      --       diagnostic = {
+      --         enable = true,
+      --       },
+      --       gitsigns = {
+      --         enable = true,
+      --       },
+      --     },
+      --   })
     end,
   })
   use({
@@ -138,7 +151,6 @@ return packer.startup(function()
     cmd = 'ColorizerAttachToBuffer',
   })
   use({ 'mattn/emmet-vim', opt = true, ft = fy })
-  -- use({ "~/gits/nvim-gomove" })
   use({ 'booperlv/nvim-gomove' })
   use({ 'phaazon/hop.nvim' })
   -- "auto rename tag
@@ -173,6 +185,7 @@ return packer.startup(function()
     'nvim-treesitter/nvim-treesitter-context',
     'nvim-treesitter/nvim-treesitter-refactor',
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'JoosepAlviste/nvim-ts-context-commentstring',
   })
   use({
     'j-hui/fidget.nvim',
@@ -196,11 +209,11 @@ return packer.startup(function()
     'ibhagwan/fzf-lua',
     requires = { 'kyazdani42/nvim-web-devicons' },
   })
-  -- use({
-  --   'nvim-telescope/telescope-ui-select.nvim',
-  --   'nvim-telescope/telescope.nvim',
-  --   wants = { 'plenary.nvim' },
-  -- })
+  use({
+    'nvim-telescope/telescope-ui-select.nvim',
+    'nvim-telescope/telescope.nvim',
+    wants = { 'plenary.nvim' },
+  })
   use({ 'mbbill/undotree', cmd = 'UndotreeToggle', config = [[vim.g.undotree_SetFocusWhenToggle = 1]] })
   use({
     'windwp/nvim-autopairs',

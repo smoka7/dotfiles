@@ -34,7 +34,7 @@ map('n', ';', ':')
 local cmdnf = function(dir, inclusive)
   return '<cmd>lua package.loaded.hop.hint_char1({ direction = require\'hop.hint\'.HintDirection.'
     .. dir
-    .. ' , current_line_only = false, inclusive_jump = '
+    .. ' , current_line_only = true, inclusive_jump = '
     .. inclusive
     .. '  })<cr>'
 end
@@ -81,12 +81,13 @@ map({ 'i', 'n' }, '<A-Right>', '<C-w>l')
 --
 -- -- lsp and file navigation
 map('n', '<Space>p', ':FzfLua live_grep_native<cr>')
+map('n', '<Space>g', ':FzfLua git_status<cr>')
 map('n', '<C-p>', ':FzfLua grep_last<cr>')
-map('n', '<Space>e', ':NvimTreeToggle<cr>')
+-- map('n', '<Space>e', ':NvimTreeToggle<cr>')
+map('n', '<Space>e', ':NeoTreeRevealToggle<cr>')
 map('n', '<Leader>f', ':Neoformat<cr>')
 map('n', '<Leader>hh', ':FzfLua help_tags<cr>')
 map('n', '<Leader>p', ':FzfLua files<cr>')
-map('n', '<Leader>s', ':FzfLua lsp_document_symbols<cr>')
 map('n', '<Leader>u', ':UndotreeToggle<cr>')
 
 --

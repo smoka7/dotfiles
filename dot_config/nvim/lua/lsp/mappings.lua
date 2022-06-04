@@ -11,10 +11,11 @@ u.map('n', '<Leader>la', '<cmd>FzfLua lsp_code_actions<CR>', opts)
 u.map('n', '<Leader>ld', '<Cmd>FzfLua lsp_declarations<CR>', opts)
 u.map('n', '<Leader>li', '<cmd>FzfLua lsp_implementations<CR>', opts)
 u.map('n', '<Leader>ll', '<cmd>FzfLua lsp_document_diagnostics<CR>', opts)
-u.map('n', '<Leader>lr', '<cmd>FzfLua lsp_references<CR>', opts)
+u.map('n', '<Space>r', '<cmd>FzfLua lsp_references<CR>', opts)
 u.map('n', '<Leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 u.map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 u.map('n', '<Leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+u.map('n', '<Leader>s', ':Telescope lsp_document_symbols<cr>')
 vim.api.nvim_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 u.map(
   'v',

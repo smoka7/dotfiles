@@ -1,17 +1,17 @@
-local nvim_lsp = require("lspconfig")
+local nvim_lsp = require('lspconfig')
 local servers = {
-	"bashls",
-	"ccls",
-	"emmet_ls",
-	"golangci_lint_ls",
-	"gopls",
-    "html",
-	"jsonls",
-	"phpactor",
-	"rust_analyzer",
-	"tailwindcss",
-	-- "tsserver",
-	"vimls",
+  'bashls',
+  'ccls',
+  'emmet_ls',
+  'golangci_lint_ls',
+  'gopls',
+  'html',
+  'jsonls',
+  'phpactor',
+  'rust_analyzer',
+  -- 'tailwindcss',
+  -- "tsserver",
+  'vimls',
 }
 
 -- nvim_lsp.rust_analyzer.setup({
@@ -29,22 +29,22 @@ local servers = {
 -- })
 
 nvim_lsp.cssls.setup({
-	settings = {
-		css = {
-			lint = {
-				unknownAtRules = "ignore",
-			},
-		},
-	},
+  settings = {
+    css = {
+      lint = {
+        unknownAtRules = 'ignore',
+      },
+    },
+  },
 })
 
 nvim_lsp.volar.setup({
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-	init_options = {
-		typescript = {
-			serverPath = "/home/smoka/.node_modules/lib/node_modules/typescript/lib/tsserverlibrary.js",
-		},
-	},
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+  init_options = {
+    typescript = {
+      serverPath = '/home/smoka/.node_modules/lib/node_modules/typescript/lib/tsserverlibrary.js',
+    },
+  },
 })
 
 -- nvim_lsp.html.setup({
@@ -52,36 +52,38 @@ nvim_lsp.volar.setup({
 -- })
 
 nvim_lsp.sumneko_lua.setup({
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-			diagnostics = {
-				globals = { "vim", "love" },
-			},
-			workspace = {
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-				},
-			},
-		},
-	},
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
+      diagnostics = {
+        globals = { 'vim', 'love' },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+    },
+  },
 })
 
 nvim_lsp.emmet_ls.setup({
-	filetypes = { "vue", "html" },
+  filetypes = { 'vue', 'html' },
 })
 
 local on_attach = function()
-	require("lsp_signature").on_attach({
-		handler_opts = {
-			border = "single", -- double, single, shadow, none
-		},
-	})
+  require('lsp_signature').on_attach({
+    handler_opts = {
+      border = 'single', -- double, single, shadow, none
+    },
+  })
 end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 for _, server in pairs(servers) do
-	nvim_lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
+  nvim_lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
 end
+
+require('lsp.tailwind')

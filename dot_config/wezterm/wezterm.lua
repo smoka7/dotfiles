@@ -1,0 +1,62 @@
+local wezterm = require('wezterm')
+return {
+  font = wezterm.font_with_fallback({
+    {
+      family = 'JetBrains Mono',
+      weight = 'Medium',
+    },
+    {
+      family = 'Vazirmatn RD',
+      weight = 'Black',
+      size = 14,
+    },
+    'Noto Color Emoji',
+  }),
+  window_padding = {
+    left = 0,
+    right = 0,
+    top = 0,
+    bottom = 0,
+  },
+  window_frame = {
+    inactive_titlebar_bg = '#353535',
+    active_titlebar_bg = '#2b2042',
+    inactive_titlebar_fg = '#cccccc',
+    active_titlebar_fg = '#ffffff',
+    inactive_titlebar_border_bottom = '#2b2042',
+    active_titlebar_border_bottom = '#2b2042',
+    button_fg = '#cccccc',
+    button_bg = '#2b2042',
+    button_hover_fg = '#ffffff',
+    button_hover_bg = '#3b3052',
+  },
+  window_decorations = 'NONE',
+  use_fancy_tab_bar = false,
+  enable_tab_bar = true,
+  hide_tab_bar_if_only_one_tab = true,
+  font_size = 11.0,
+  line_height = 1.2,
+  window_background_opacity = 0.8,
+  color_scheme = 'Dracula',
+  bidi_enabled = true,
+  scrollback_lines = 3500,
+  bidi_direction = 'LeftToRight',
+  keys = {
+    { key = 'UpArrow', mods = 'CTRL', action = wezterm.action({ ScrollToPrompt = -1 }) },
+    { key = 'DownArrow', mods = 'CTRL', action = wezterm.action({ ScrollToPrompt = 1 }) },
+    { key = 'f', mods = 'CTRL', action = wezterm.action.Search({ CaseInSensitiveString = '' }) },
+    { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection('Next') },
+    { key = 'RightArrow', mods = 'CTRL|SHIFT', action = wezterm.action.ActivatePaneDirection('Prev') },
+    { key = 'q', mods = 'CTRL', action = wezterm.action.CloseCurrentPane({ confirm = true }) },
+    {
+      key = 'v',
+      mods = 'ALT',
+      action = wezterm.action.SplitPane({
+        direction = 'Left',
+        size = { Percent = 50 },
+      }),
+    },
+    { key = 'l', mods = 'ALT', action = 'ShowLauncher' },
+    { key = 'a', mods = 'CTRL', action = 'QuickSelect' },
+  },
+}

@@ -1,10 +1,9 @@
 local U = {}
 
 U.map = function(mode, l, r, opts)
-	opts = opts or {}
+	opts = opts or { noremap = true, silent = true }
 	vim.keymap.set(mode, l, r, opts)
 end
-
 
 U.buffer_not_empty = function()
 	return vim.fn.empty(vim.fn.expand("%:t")) ~= 1

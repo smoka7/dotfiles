@@ -1,21 +1,32 @@
 -- don't load the plugins below
 vim.g.loaded_2html_plugin = 1
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
 vim.g.loaded_gzip = 1
+vim.g.loaded_logiPat = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 vim.g.loaded_netrw = 1
+vim.g.loaded_netrwFileHandlers = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+vim.g.loaded_rrhelper = 1
 vim.g.loaded_tar = 1
 vim.g.loaded_tarPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_zip = 1
 vim.g.loaded_zipPlugin = 1
+
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0
-
 -- vim.opt.clipboard = "unnamedplus" -- sync with system clipboard
 vim.opt.arabicshape = false
 vim.opt.completeopt = "menu,menuone"
+vim.opt.cmdheight = 1
 vim.opt.cursorline = true -- Enable highlighting of the current line
 vim.opt.encoding = "utf-8"
 vim.opt.fillchars = { eob = " " }
@@ -47,8 +58,6 @@ vim.opt.wildignorecase = true
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
 vim.opt.wrap = true -- Enable line wrap
-vim.opt.guifont = "JetBrains Mono,Iosevka Term:h13"
--- vim.opt.guifont = "FiraCode Nerd Font:h12"
 -- vim.opt.foldmethod = "indent" -- TreeSitter folding
 -- vim.opt.foldlevel = 1
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- TreeSitter folding

@@ -17,9 +17,19 @@ let g:neoformat_css_prettier = {
         \ 'stdin': 1,
         \ 'try_node_exe': 1,
         \ }
-let g:neoformat_lua_stylua ={
-        \ 'exe': 'stylua',
-        \ 'args': ['--indent-type' ,'Spaces' ,'--quote-style' ,'ForceSingle' ,'--indent-width' ,'2','--search-parent-directories', '--stdin-filepath', '"%:p"', '--', '-'],
-        \ 'stdin': 1,
-        \ }
-]])
+
+let  g:neoformat_enabled_php = [ 'phpcbf' ]
+
+let g:neoformat_php_phpcbf= {
+           \ 'exe': 'phpcbf',
+           \ 'stdin': 1,
+           \ 'args': ['--standard=PSR12'],
+           \ 'valid_exit_codes': [0,1],
+           \ }
+
+" let g:neoformat_lua_stylua ={
+"         \ 'exe': 'stylua',
+"         \ 'args': ['--indent-type' ,'Spaces' ,'--quote-style' ,'ForceSingle' ,'--indent-width' ,'2','--search-parent-directories', '--stdin-filepath', '"%:p"', '--', '-'],
+"         \ 'stdin': 1,
+"         \ }
+" ]])

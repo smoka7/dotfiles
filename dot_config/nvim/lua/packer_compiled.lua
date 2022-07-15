@@ -126,6 +126,14 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/cmp-path",
     url = "https://github.com/hrsh7th/cmp-path"
   },
+  ["cmp-spell"] = {
+    after_files = { "/home/smoka/.local/share/nvim/site/pack/packer/opt/cmp-spell/after/plugin/cmp-spell.lua" },
+    load_after = {},
+    loaded = true,
+    needs_bufread = false,
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/cmp-spell",
+    url = "https://github.com/f3fora/cmp-spell"
+  },
   cmp_luasnip = {
     after_files = { "/home/smoka/.local/share/nvim/site/pack/packer/opt/cmp_luasnip/after/plugin/cmp_luasnip.lua" },
     load_after = {},
@@ -133,13 +141,6 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
-  },
-  ["emmet-vim"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/emmet-vim",
-    url = "https://github.com/mattn/emmet-vim"
   },
   ["fidget.nvim"] = {
     config = { "\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vfidget\frequire\0" },
@@ -152,7 +153,7 @@ _G.packer_plugins = {
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/friendly-snippets",
-    url = "https://github.com/rafamadriz/friendly-snippets"
+    url = "/home/smoka/gits/friendly-snippets"
   },
   ["fzf-lua"] = {
     loaded = true,
@@ -172,13 +173,6 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/go.nvim",
     url = "https://github.com/ray-x/go.nvim"
-  },
-  ["gotests-vim"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/gotests-vim",
-    url = "https://github.com/buoto/gotests-vim"
   },
   ["hop.nvim"] = {
     loaded = true,
@@ -210,15 +204,6 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
     url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
   },
-  neoformat = {
-    commands = { "Neoformat" },
-    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20plugs.neoformat\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/neoformat",
-    url = "https://github.com/sbdchd/neoformat"
-  },
   neogen = {
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/neogen",
@@ -249,7 +234,6 @@ _G.packer_plugins = {
     url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-autopairs"] = {
-    config = { "\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0" },
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
     url = "https://github.com/windwp/nvim-autopairs"
@@ -307,11 +291,6 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/kyazdani42/nvim-tree.lua"
-  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -340,7 +319,7 @@ _G.packer_plugins = {
   ["nvim-treesitter-textsubjects"] = {
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-treesitter-textsubjects",
-    url = "https://github.com/RRethy/nvim-treesitter-textsubjects"
+    url = "/home/smoka/gits/nvim-treesitter-textsubjects"
   },
   ["nvim-ts-context-commentstring"] = {
     loaded = true,
@@ -352,16 +331,12 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
-  phpactor = {
+  playground = {
+    commands = { "TSPlaygroundToggle" },
     loaded = false,
     needs_bufread = true,
     only_cond = false,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/phpactor",
-    url = "https://github.com/phpactor/phpactor"
-  },
-  playground = {
-    loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/playground",
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/playground",
     url = "https://github.com/nvim-treesitter/playground"
   },
   ["plenary.nvim"] = {
@@ -377,16 +352,15 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/refactoring.nvim",
     url = "https://github.com/ThePrimeagen/refactoring.nvim"
   },
-  ["satellite.nvim"] = {
-    config = { "\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0" },
-    loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/satellite.nvim",
-    url = "/home/smoka/gits/satellite.nvim"
-  },
   ["suda.vim"] = {
     loaded = true,
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/suda.vim",
     url = "https://github.com/lambdalisue/suda.vim"
+  },
+  ["syntax-tree-surfer"] = {
+    loaded = true,
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/syntax-tree-surfer",
+    url = "https://github.com/ziontee113/syntax-tree-surfer"
   },
   ["tagalong.vim"] = {
     loaded = false,
@@ -405,15 +379,17 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["tokyonight.nvim"] = {
+  ["textobj-diagnostic.nvim"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\23textobj-diagnostic\frequire\0" },
     loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
-    url = "https://github.com/folke/tokyonight.nvim"
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/textobj-diagnostic.nvim",
+    url = "/home/smoka/gits/textobj-diagnostic.nvim"
   },
-  ["twilight.nvim"] = {
+  ["toggleterm.nvim"] = {
+    config = { "\27LJ\2\n”\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\3=\3\a\2B\0\2\1K\0\1\0\15highlights\vNormal\1\0\0\1\0\1\nguibg\f#1b222D\1\0\2\14direction\btab\20shade_terminals\1\nsetup\15toggleterm\frequire\0" },
     loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/twilight.nvim",
-    url = "https://github.com/folke/twilight.nvim"
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
   },
   undotree = {
     commands = { "UndotreeToggle" },
@@ -430,8 +406,11 @@ _G.packer_plugins = {
     url = "https://github.com/tpope/vim-repeat"
   },
   ["vim-startuptime"] = {
-    loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/vim-startuptime",
+    commands = { "StartupTime" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/opt/vim-startuptime",
     url = "https://github.com/dstein64/vim-startuptime"
   },
   ["vim-surround"] = {
@@ -440,6 +419,7 @@ _G.packer_plugins = {
     url = "https://github.com/tpope/vim-surround"
   },
   ["vim-test"] = {
+    config = { "\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16plugs.tests\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
@@ -456,22 +436,22 @@ _G.packer_plugins = {
     path = "/home/smoka/.local/share/nvim/site/pack/packer/start/which-key.nvim",
     url = "https://github.com/folke/which-key.nvim"
   },
-  ["zen-mode.nvim"] = {
+  ["winbar.nvim"] = {
     loaded = true,
-    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/zen-mode.nvim",
-    url = "https://github.com/folke/zen-mode.nvim"
+    path = "/home/smoka/.local/share/nvim/site/pack/packer/start/winbar.nvim",
+    url = "https://github.com/fgheng/winbar.nvim"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: satellite.nvim
-time([[Config for satellite.nvim]], true)
-try_loadstring("\27LJ\2\n\v\0\0\1\0\0\0\1K\0\1\0\0", "config", "satellite.nvim")
-time([[Config for satellite.nvim]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-try_loadstring("\27LJ\2\nM\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\rcheck_ts\2\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
-time([[Config for nvim-autopairs]], false)
+-- Config for: textobj-diagnostic.nvim
+time([[Config for textobj-diagnostic.nvim]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\23textobj-diagnostic\frequire\0", "config", "textobj-diagnostic.nvim")
+time([[Config for textobj-diagnostic.nvim]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+try_loadstring("\27LJ\2\n”\1\0\0\5\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\5\0005\4\4\0=\4\6\3=\3\a\2B\0\2\1K\0\1\0\15highlights\vNormal\1\0\0\1\0\1\nguibg\f#1b222D\1\0\2\14direction\btab\20shade_terminals\1\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
+time([[Config for toggleterm.nvim]], false)
 -- Config for: gitsigns.nvim
 time([[Config for gitsigns.nvim]], true)
 try_loadstring("\27LJ\2\n-\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\18plugs.gitsign\frequire\0", "config", "gitsigns.nvim")
@@ -479,18 +459,20 @@ time([[Config for gitsigns.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-cmp ]]
-vim.cmd [[ packadd cmp-path ]]
-vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd cmp-cmdline ]]
+vim.cmd [[ packadd cmp-buffer ]]
 vim.cmd [[ packadd cmp_luasnip ]]
 vim.cmd [[ packadd cmp-nvim-lsp ]]
+vim.cmd [[ packadd cmp-spell ]]
+vim.cmd [[ packadd cmp-path ]]
 time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file ColorizerAttachToBuffer lua require("packer.load")({'nvim-colorizer.lua'}, { cmd = "ColorizerAttachToBuffer", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file TSPlaygroundToggle lua require("packer.load")({'playground'}, { cmd = "TSPlaygroundToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file StartupTime lua require("packer.load")({'vim-startuptime'}, { cmd = "StartupTime", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Neogit lua require("packer.load")({'neogit'}, { cmd = "Neogit", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
-pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file Neoformat lua require("packer.load")({'neoformat'}, { cmd = "Neoformat", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file UndotreeToggle lua require("packer.load")({'undotree'}, { cmd = "UndotreeToggle", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args>, mods = "<mods>" }, _G.packer_plugins)]])
 time([[Defining lazy-load commands]], false)
 
@@ -498,22 +480,22 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType lua ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "lua" }, _G.packer_plugins)]]
-vim.cmd [[au FileType fish ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "fish" }, _G.packer_plugins)]]
+vim.cmd [[au FileType css ++once lua require("packer.load")({'nvim-colorizer.lua', 'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "css" }, _G.packer_plugins)]]
+vim.cmd [[au FileType sh ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "sh" }, _G.packer_plugins)]]
+vim.cmd [[au FileType lua ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "lua" }, _G.packer_plugins)]]
+vim.cmd [[au FileType fish ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "fish" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'nvim-colorizer.lua', 'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "vue" }, _G.packer_plugins)]]
 vim.cmd [[au FileType javascript ++once lua require("packer.load")({'nvim-colorizer.lua'}, { ft = "javascript" }, _G.packer_plugins)]]
-vim.cmd [[au FileType xml ++once lua require("packer.load")({'tagalong.vim'}, { ft = "xml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType css ++once lua require("packer.load")({'nvim-colorizer.lua', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "css" }, _G.packer_plugins)]]
-vim.cmd [[au FileType rs ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "rs" }, _G.packer_plugins)]]
-vim.cmd [[au FileType js ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "js" }, _G.packer_plugins)]]
-vim.cmd [[au FileType php ++once lua require("packer.load")({'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test', 'phpactor'}, { ft = "php" }, _G.packer_plugins)]]
-vim.cmd [[au FileType ts ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "ts" }, _G.packer_plugins)]]
-vim.cmd [[au FileType go ++once lua require("packer.load")({'nvim-dap-ui', 'nvim-dap', 'gotests-vim', 'go.nvim', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "go" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vim ++once lua require("packer.load")({'nvim-colorizer.lua', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "vim" }, _G.packer_plugins)]]
-vim.cmd [[au FileType sh ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "sh" }, _G.packer_plugins)]]
-vim.cmd [[au FileType json ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "json" }, _G.packer_plugins)]]
-vim.cmd [[au FileType html ++once lua require("packer.load")({'nvim-colorizer.lua', 'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "html" }, _G.packer_plugins)]]
 vim.cmd [[au FileType jsx ++once lua require("packer.load")({'tagalong.vim'}, { ft = "jsx" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'emmet-vim', 'vim-test'}, { ft = "vue" }, _G.packer_plugins)]]
+vim.cmd [[au FileType ts ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "ts" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vim ++once lua require("packer.load")({'nvim-colorizer.lua', 'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "vim" }, _G.packer_plugins)]]
+vim.cmd [[au FileType go ++once lua require("packer.load")({'nvim-dap', 'nvim-dap-ui', 'refactoring.nvim', 'go.nvim', 'fidget.nvim', 'vim-test'}, { ft = "go" }, _G.packer_plugins)]]
+vim.cmd [[au FileType php ++once lua require("packer.load")({'tagalong.vim', 'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "php" }, _G.packer_plugins)]]
+vim.cmd [[au FileType js ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "js" }, _G.packer_plugins)]]
+vim.cmd [[au FileType json ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "json" }, _G.packer_plugins)]]
+vim.cmd [[au FileType xml ++once lua require("packer.load")({'tagalong.vim'}, { ft = "xml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rs ++once lua require("packer.load")({'refactoring.nvim', 'fidget.nvim', 'vim-test'}, { ft = "rs" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

@@ -14,6 +14,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = id,
 })
 
+vim.api.nvim_create_autocmd("TermOpen", {
+	callback = function()
+		local opts = { noremap = true }
+		vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+	end,
+	pattern = "term://*",
+})
+
 vim.api.nvim_create_autocmd("BufWritePost", {
 	command = "source <afile> | PackerCompile",
 	pattern = "plugins.lua",

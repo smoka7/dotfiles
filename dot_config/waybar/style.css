@@ -1,10 +1,11 @@
 * {
   border: none;
-  font-size: 18px;
+  font-size: 16px;
+  font-family: "Iosevka,Cascadia Code", "Font Awesome 5 Free";
 }
 
 window#waybar {
-  background-color: rgba(34, 39, 46, 0.2);
+  background-color: rgba(34, 39, 46, 0);
 }
 
 window#waybar.hidden {
@@ -26,23 +27,23 @@ window#waybar.hidden {
 #mpd,
 #tray {
   color: #1b222d;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  padding: 0 4px;
+  margin: 0px;
+  border-radius: 5px;
+  padding: 4px 4px;
 }
 
 #tray {
   margin-left: 4px;
   margin-right: 4px;
 }
-#workspaces {
-  background-color: #1b222d;
-  margin: 2px 0px;
-  margin-right: 0px;
-  padding: 2px 5px;
-}
+
+
 #workspaces button {
   font-family: "Font Awesome 5 Free";
+  transition-property: padding;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in-out;
+  border-radius: 5px;
   padding: 0px;
   margin: 0px 5px;
   min-width: 10px;
@@ -50,23 +51,26 @@ window#waybar.hidden {
 }
 
 #workspaces button:hover {
-  color: #ece2e1;
+  color: #fdd835;
+  background-color: #2b2e3b;
+  border-radius: 5px;
+  padding: 0px 5px;
 }
 
 #workspaces button.focused {
   color: #fdd835;
+  background-color: #2b2e3b;
+  padding: 0px 5px;
+  border-radius: 5px;
 }
 
 #workspaces button.urgent {
   color: #ff9292;
 }
 
-#network {
-  background-color: #fdd835;
-  margin: 2px 0px;
-}
 
 #network.disconnected {
+  padding: 3px;
   background-color: #fcd1d1;
 }
 
@@ -74,20 +78,12 @@ window#waybar.hidden {
 #memory,
 #temperature {
   font-family: "Iosevka", "Font Awesome 5 Free";
-  background-color: #50fa7b;
 }
 
-#temperature {
-  margin-left: 4px;
-}
 
-#language {
-  background-color: #f1fa8c;
-  margin-left: 0;
-}
 
 #cpu.warning {
-  background-color: #ffcc1d;
+  color: #ffcc1d;
 }
 
 #cpu.critical,
@@ -98,17 +94,19 @@ window#waybar.hidden {
 #custom-networkspeed {
   background-color: #1a223a;
   color: #f1faee;
-  margin-left: 4px;
   padding: 0px 10px 0px 10px;
 }
 
 #clock {
-  background-color: #fbf46d;
   font-family: "Cascadia Code", "Font Awesome 5 Free";
 }
 
 #idle_inhibitor {
-  background-color: #44475a;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+#workspaces:hover {
+  background-color: #fdd835;
 }
 
 #idle_inhibitor.activated {
@@ -116,7 +114,6 @@ window#waybar.hidden {
 }
 
 #pulseaudio {
-  background-color: #44475a;
   color: #f7f7f7;
 }
 
@@ -124,13 +121,8 @@ window#waybar.hidden {
   background-color: #ff5555;
 }
 
-#backlight {
-  background-color: #61afef;
-}
-
 #mpd {
-  background-color: #f7f7f7;
-  color: #44475a;
+  color: #f7f7f7;
 }
 
 #battery {
@@ -142,6 +134,7 @@ window#waybar.hidden {
   background-color: #98c379;
   color: #1e222a;
 }
-#custom-mpd{
-  margin-right: 2px;
+
+#custom-mpd {
+  margin-right: 0px;
 }

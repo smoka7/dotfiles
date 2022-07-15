@@ -1,8 +1,8 @@
 {
-    "height": 32, // Waybar height (to be removed for auto height)
-        "modules-left": ["clock","idle_inhibitor","sway/workspaces","river/tags", "network","custom/networkspeed"],
+    "height": 30, // Waybar height (to be removed for auto height)
+        "modules-left": ["idle_inhibitor","clock","sway/workspaces", "network","custom/networkspeed"],
         //"modules-center": ["clock","idle_inhibitor"],
-        "modules-right": ["custom/mpd","mpd", "pulseaudio","temperature", "cpu","memory", "sway/language", "tray"],
+        "modules-right": ["tray","custom/mpd","mpd", "pulseaudio", "sway/language","temperature", "cpu","memory"],
         // Modules configuration
         "sway/workspaces": {
             "disable-scroll": false,
@@ -89,7 +89,7 @@
             "format-wifi": "直 {essid}",
             "format-ethernet": "{ifname}: {ipaddr}/{cidr}  ",
             "format-linked": "{ifname} (No IP)  ",
-            "format-disconnected": " 睊 ",
+            "format-disconnected": "睊",
             "format-alt": "{ifname}: {ipaddr}/{cidr}",
             "tooltip-format": "{essid} {signalStrength}%"
         },
@@ -101,7 +101,7 @@
             "format-source": "",
             "format-source-muted": "",
             "format-icons": {
-                "headphone": "",
+                "headphone": "🎧",
                 "hands-free": "",
                 "headset": "",
                 "phone": "",

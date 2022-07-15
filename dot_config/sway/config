@@ -10,9 +10,9 @@
 set $mod Mod4
 set $alt Mod1
 set $shift Shift
-set $term foot
+set $term wezterm
 set $scripts $HOME/.config/scripts
-set $screenshot grim -g (slurp)
+set $screenshot  /usr/share/sway/scripts/grimshot  save area
 set $launcher foot --app-id 'launcher'
 
     default_border pixel 0
@@ -78,7 +78,7 @@ input * {
         xkb_numlock enable
 }
 
-font pango:Iosevka 8
+font pango:Iosevka 1
 #class                  border  bground text    indicator child_border
 client.urgent           #d81b60 #d81b60 #1b222d #FF5555   #FF5555
 client.focused          #fdd835 #fdd835 #1b222d #6272A4   #fdd835
@@ -151,6 +151,7 @@ bindsym --to-code {
 
         $mod+Tab workspace back_and_forth
         $alt+Tab exec swayr switch-window
+        $mod+Escape exec swayr switch-to-urgent-or-lru-window
 
 #
 # Switch to workspace
@@ -219,7 +220,7 @@ bindsym --to-code {
 #
 # notification
         $mod+grave exec dunstctl history-pop
-        $mod+Print exec $screenshot
+        Print exec $screenshot
         Control+Shift+space exec dunstctl context
         Control+space exec dunstctl close-all
 
@@ -243,24 +244,9 @@ bindsym --to-code {
         $shift+XF86MonBrightnessDown exec brightnessctl -d acpi_video1 s 0
 }
 
-for_window [app_id="copyq"] floating enable
-for_window [app_id="telegram"] floating enable
-for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="Blueman-manager"] floating enable
-for_window [app_id="nm-connection-editor"] floating enable
-for_window [app_id="gnome-system-monitor"] floating enable,resize set 700px 600px
-for_window [title="About Mozilla Firefox Developer Edition"] floating enable
-for_window [app_id="albert"] floating enable , border pixel 0
-for_window [app_id="feh"] floating enable , resize set 800px 600px
-for_window [app_id="Cisco AnyConnect Secure Mobile Client"] floating enable
-for_window [app_id="Nautilus"] floating enable , resize set width 60 ppt height 80 ppt, border pixel 0
-for_window [app_id="Devtools" window_type="normal"] floating enable, resize set 1336px 345px
-for_window [shell=".*"] title_format "%app_id:%title"
-for_window [app_id="FootDropDown*"] floating enable,move absolute position center
-for_window [app_id="^launcher$"] floating enable, border none, resize set width 60 ppt height 60 ppt, move position 20 ppt 20 ppt
 
+exec env RUST_BACKTRACE=1 swayrd > /tmp/swayrd.log 2>&1
 
-# exec env RUST_BACKTRACE=1 swayrd > /tmp/swayrd.log 2>&1
 bar {
     swaybar_command waybar
 }

@@ -9,7 +9,7 @@ local servers = {
 	"phpactor",
 	"rust_analyzer",
 	"vimls",
-	-- 'tailwindcss',
+	"tailwindcss",
 	-- 'tsserver',
 	-- 'volar',
 }
@@ -47,15 +47,12 @@ nvim_lsp.volar.setup({
 nvim_lsp.sumneko_lua.setup({
 	settings = {
 		Lua = {
-			runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+			runtime = { version = "LuaJIT"},
 			diagnostics = {
 				globals = { "vim", "love" },
 			},
 			workspace = {
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-				},
+				library = vim.api.nvim_get_runtime_file("",true)
 			},
 		},
 	},
@@ -75,5 +72,5 @@ for _, server in pairs(servers) do
 	nvim_lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
 end
 
-local t = require("lsp.tailwind")
-nvim_lsp.tailwindcss.setup({ on_attach = t.buf_attach(), capabilities = capabilities })
+-- local t = require("lsp.tailwind")
+-- nvim_lsp.tailwindcss.setup({ on_attach = t.buf_attach(), capabilities = capabilities })

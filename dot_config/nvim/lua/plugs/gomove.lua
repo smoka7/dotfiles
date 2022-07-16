@@ -17,21 +17,10 @@ end
 local function smDown()
 	smart.NormalDown(false, vim.v.count1)
 end
-local function vmDown()
-	base.VisualMoveLineVertical(vim.v.count1)
-end
-local function vmUp()
-	base.VisualMoveLineVertical(-vim.v.count1)
-end
-local function vleft()
-	smart.VisualLeft(false, vim.v.count1)
-end
-local function vright()
-	smart.VisualRight(false, vim.v.count1)
-end
+
 vim.keymap.set({ "i", "n" }, "<S-Down>", smDown)
 vim.keymap.set({ "n", "i" }, "<S-Up>", smUp)
-vim.keymap.set({ "x" }, "<S-Up>", vmUp)
-vim.keymap.set({ "x" }, "<S-Down>", vmDown)
-vim.keymap.set({ "x" }, "<S-Left>", vleft)
-vim.keymap.set({ "x" }, "<S-Right>", vright)
+vim.keymap.set({ "x" }, "<S-Up>", '<Plug>GoVMLineUp' )
+vim.keymap.set({ "x" }, "<S-Down>", '<Plug>GoVMLineDown' )
+vim.keymap.set({ "x" }, "<S-Left>", '<Plug>GoVSMLeft' )
+vim.keymap.set({ "x" }, "<S-Right>", '<Plug>GoVSMRight' )

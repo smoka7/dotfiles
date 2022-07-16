@@ -64,3 +64,11 @@ vim.api.nvim_create_user_command("EslintD", function()
 		nullLs.register(nullLs.builtins.diagnostics.eslint_d)
 	end
 end, {})
+
+vim.api.nvim_create_user_command("Phpcbf", function()
+	if nullLs.is_registered(nullLs.builtins.formatting.phpcbf) then
+		nullLs.deregister(nullLs.builtins.formatting.phpcbf)
+	else
+		nullLs.register(nullLs.builtins.formatting.phpcbf)
+	end
+end, {})

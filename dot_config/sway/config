@@ -107,8 +107,8 @@ bindsym --to-code {
         $mod+k exec $launcher  kill.sh
         $mod+i exec $launcher  zealfzf.sh
         $mod+w exec $launcher  nmclisway.sh
-        $mod+Semicolon exec $launcher  killfzf.sh
-        $mod+Colon exec $launcher  killfzf.sh all
+        $mod+Semicolon exec $launcher  killfzf.fish
+        $mod+Colon exec $launcher  killfzf.fish all
         $mod+$shift+i exec $launcher  zealfzf.sh search
         $mod+$shift+w exec $launcher  nmclisway.sh search
         $mod+y exec swayHelper dropdown

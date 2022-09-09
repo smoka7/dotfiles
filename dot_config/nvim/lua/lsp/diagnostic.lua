@@ -13,9 +13,12 @@ vim.api.nvim_create_user_command("HideAll", function()
 	vim.diagnostic.reset()
 end, {})
 
-vim.cmd([[
-	sign define DiagnosticSignError text=⛔ texthl= linehl= numhl=DiagnosticSignError
-	sign define DiagnosticSignWarn text=🚦 texthl= linehl= numhl=DiagnosticSignWarn
-	sign define DiagnosticSignInfo text=🚩 texthl= linehl= numhl=DiagnosticSignInfo
-	sign define DiagnosticSignHint text=💡 texthl= linehl= numhl=DiagnosticSignHint
-]])
+
+vim.fn.sign_define("DiagnosticSignError", { text = "⛔", numhl = "DiagnosticSignErrorr" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "🚦", numhl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "🚩", numhl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "💡", numhl = "DiagnosticSignHint" })
+vim.fn.sign_define("LspDiagnosticSignError", { text = "⛔", numhl = "DiagnosticSignErrorr" })
+vim.fn.sign_define("LspDiagnosticSignWarn", { text = "🚦", numhl = "DiagnosticSignWarn" })
+vim.fn.sign_define("LspDiagnosticSignInfo", { text = "🚩", numhl = "DiagnosticSignInfo" })
+vim.fn.sign_define("LspDiagnosticSignHint", { text = "💡", numhl = "DiagnosticSignHint" })

@@ -38,8 +38,16 @@ require("nvim-treesitter.configs").setup({
 		"vue",
 		"yaml",
 	},
+
 	refactor = {
 		smart_rename = { enable = true, keymaps = { smart_rename = "grr" } },
+		navigation = {
+			enable = true,
+			keymaps = {
+				goto_next_usage = "g1",
+				goto_previous_usage = "g2",
+			},
+		},
 	},
 
 	highlight = {
@@ -65,7 +73,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		select = {
 			enable = true,
-			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+			lookahead = false, -- Automatically jump forward to textobj, similar to targets.vim
 			keymaps = {
 				-- You can use the capture groups defined in textobjects.scm
 				["af"] = "@function.outer",

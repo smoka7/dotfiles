@@ -68,6 +68,27 @@ return packer.startup(function()
 		ft = fy,
 	})
 	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"olimorris/neotest-phpunit",
+			"nvim-treesitter/nvim-treesitter",
+			"antoinemadec/FixCursorHold.nvim",
+		},
+		config = function()
+			require("neotest").setup({
+				adapters = {
+					require("neotest-phpunit"),
+				},
+				icons = {
+					failed = "❌",
+					passed = "✅",
+					running = "🔄",
+				},
+			})
+		end,
+	})
+	use({
 		"vim-test/vim-test",
 		opt = true,
 		ft = fy,
@@ -87,19 +108,17 @@ return packer.startup(function()
 	use({
 		"~/celeste-nvim",
 		"~/gits/neolara",
-		{
-			"~/gits/catppuccin",
-			as = "catppuccin",
-		},
+		-- {
+		-- 	"~/gits/catppuccin",
+		-- 	as = "catppuccin",
+		-- },
 	})
-	use({
-		"~/gits/textobj-diagnostic.nvim",
-		config = function()
-			require("textobj-diagnostic").setup()
-		end,
-	})
+	use({ "catppuccin/nvim", as = "catppuccin", run = function ()
+	   require("ui.colors").compile()
+	end })
 	----------------------------file
 	use({ "famiu/bufdelete.nvim" })
+	use({ "Pocco81/true-zen.nvim" })
 	use({
 		"akinsho/nvim-bufferline.lua",
 		tag = "*",
@@ -152,7 +171,6 @@ return packer.startup(function()
 	})
 	------------------------------ code
 	use({ "neovim/nvim-lspconfig" })
-	use({ "ray-x/lsp_signature.nvim" })
 	use({ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" })
 	use("ziontee113/syntax-tree-surfer")
 	use({
@@ -190,6 +208,10 @@ return packer.startup(function()
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
 	use({ "lambdalisue/suda.vim" })
+	use({
+		"nvim-pack/nvim-spectre",
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
 	use({
 		"ibhagwan/fzf-lua",
 		requires = { "kyazdani42/nvim-web-devicons" },

@@ -2,7 +2,7 @@ local map = require("utils").map
 local cm = require("Comment.api")
 
 require("Comment").setup({
-	pre_hook = function(ctx)
+    	pre_hook = function(ctx)
 		local U = require("Comment.utils")
 		local tsc = require("ts_context_commentstring.utils")
 		local location = nil
@@ -21,10 +21,10 @@ require("Comment").setup({
 
 local function comment_it()
 	if vim.v.count == 0 then
-		cm.toggle_current_linewise()
+		cm.toggle.linewise.current(nil,{})
 		return
 	end
-	cm.toggle_linewise_count()
+	cm.toggle.linewise.count(vim.v.count,{})
 end
 
 map({ "n", "i", "x" }, "<C-/>", function()

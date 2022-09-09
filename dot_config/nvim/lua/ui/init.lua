@@ -12,5 +12,5 @@ vim.g.neovide_floating_opacity = 1
 
 vim.keymap.set({ "i" }, "<C-\\>", "<C-W>")
 vim.keymap.set({ "i" }, "<C-BS>", "<C-W>")
-vim.keymap.set({ "i" }, "<C-v>", '<Left><C-o>"+p')
+vim.keymap.set({ "i" }, "<C-v>", '<C-r>+')
 vim.keymap.set({ "n" }, "<C-v>", '"+p')

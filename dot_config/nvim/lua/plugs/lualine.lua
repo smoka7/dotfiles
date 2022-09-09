@@ -1,5 +1,5 @@
+local colorList = require("catppuccin.palettes").get_palette() -- fetch colors from palette
 local lualine = require("lualine")
-local colorList = require("ui.colors")
 local conditions = require("utils")
 
 local function search_result()
@@ -19,7 +19,7 @@ end
 
 local config = {
 	options = {
-		theme = colorList.celeste,
+		theme = "catppuccin",
 		globalstatus = true,
 		component_separators = "",
 		section_separators = "",
@@ -31,13 +31,6 @@ local config = {
 	},
 	sections = {
 		lualine_a = {
-			{
-				color = "lualine_a_insert",
-				function()
-					return "  "
-				end,
-				padding = { left = 0 },
-			},
 			{
 				"mode",
 			},
@@ -70,22 +63,23 @@ local config = {
 					modified = { fg = colorList.blue },
 					removed = { fg = colorList.red },
 				},
-				symbols = { added = " ", modified = "柳", removed = " " },
+				symbols = { added = "  ", modified = "柳 ", removed = "  " },
 			},
 		},
 		lualine_x = {
 			{
 				"diagnostics",
 				sources = { "nvim_diagnostic" },
-				-- color = { bg = "Normal" },
 				cond = conditions.buffer_not_empty and conditions.hide_in_width,
 				sections = { "error", "warn", "info", "hint" },
 				symbols = { error = "⛔ ", warn = "🚦 ", info = "🚩 ", hint = "💡 " },
 				-- symbols = { error = "✘ ", warn = "⚠ ", info = "⚑ ", hint = "✰ " },
-				color_error = { fg = colorList.red },
-				color_warn = { fg = colorList.yellow },
-				color_info = { fg = colorList.cyan },
-				color_hint = { fg = colorList.green },
+				diagnostics_color = {
+					error = { fg = colorList.red },
+					warn = { fg = colorList.yellow },
+					info = { fg = colorList.cyan },
+					hint = { fg = colorList.green },
+				},
 			},
 			{
 				function()
@@ -95,12 +89,14 @@ local config = {
 			},
 			{
 				"fileformat",
-				cond = conditions.buffer_not_empty and conditions.hide_in_width,
+				padding = 2,
+				cond = conditions.buffer_not_empty or conditions.hide_in_width,
+				color = { bg = colorList.shade1 },
 			},
 			{
 				"filesize",
 				cond = conditions.buffer_not_empty and conditions.hide_in_width,
-				color = { bg = colorList.shade3 },
+				color = { bg = colorList.shade1 },
 			},
 		},
 		lualine_y = {
@@ -109,11 +105,19 @@ local config = {
 				cond = conditions.buffer_not_empty and conditions.hide_in_width,
 				color = { bg = colorList.shade2 },
 			},
-			{ "filetype", colored = true },
+			{ "filetype", colored = true, color = { bg = colorList.shade2 } },
 		},
 		lualine_z = {
-			{ "progress", color = { fg = colorList.fg, bg = colorList.shade1 }, padding = 1 },
-			{ "location", color = { fg = colorList.fg, bg = colorList.shade3 } },
+			{
+				"progress",
+				color = { fg = colorList.fg, bg = colorList.shade3 },
+				cond = conditions.buffer_not_empty,
+			},
+			{
+				"location",
+				color = { fg = colorList.fg, bg = colorList.shade3 },
+				cond = conditions.buffer_not_empty,
+			},
 		},
 	},
 }

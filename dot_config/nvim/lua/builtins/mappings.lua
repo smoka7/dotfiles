@@ -44,6 +44,16 @@ map("n", "<Leader>u", ":UndotreeToggle<cr>")
 -- -- delete and change without clipboard
 map({ "n", "v" }, "c", '"_c')
 map({ "n", "v" }, "c", '"_c')
+
+map("n", "dd", function()
+	local line = vim.api.nvim_get_current_line()
+	if line == "" then
+		vim.pretty_print("ss")
+		return '"_dd'
+	end
+	return "dd"
+end, { expr = true })
+
 -- map({ "n", "v" }, "d", '"_d')
 
 --
@@ -65,7 +75,7 @@ map("n", "N", "Nzzzv")
 -- -- save file
 map({ "n" }, "zz", ":w<cr>")
 map({ "n" }, "qq", ":q!<cr>")
-map({ "n" }, "<Leader>q", ":bdelete!<cr>")
+map({ "n" }, "<Leader>q", ":Bdelete<cr>")
 map({ "n" }, "<Leader>c", ":close<cr>")
 vim.cmd([[
 if !exists(":W")
@@ -87,3 +97,12 @@ map({ "n" }, "[b", ":bprevious<CR>")
 --
 -- -- spell check
 map({ "n" }, "<Space>u", ":set spell!<CR>")
+--
+-- -- indention
+map({ "n" }, "<Space>i", function()
+	if vim.opt.list._value then
+		vim.opt.list = false
+		return
+	end
+	vim.opt.list = true
+end)

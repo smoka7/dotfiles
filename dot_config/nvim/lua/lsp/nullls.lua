@@ -40,12 +40,15 @@ local prettier = h.make_builtin({
 selene.args = { "--display-style", "quiet", "-", "--config", "~/.config/selene/selene.toml" }
 
 nullLs.setup({
-	debug = true,
+	debug = false,
 	sources = {
 		nullLs.builtins.formatting.fish_indent,
 		nullLs.builtins.formatting.gofumpt,
 		nullLs.builtins.formatting.pint,
+		nullLs.builtins.formatting.shfmt,
+        nullLs.builtins.formatting.rustfmt,
 		nullLs.builtins.formatting.stylua,
+        nullLs.builtins.diagnostics.fish,
 		prettier,
 		selene,
 		-- nullLs.builtins.formatting.phpcbf,

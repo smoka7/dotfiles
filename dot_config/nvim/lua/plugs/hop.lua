@@ -2,25 +2,24 @@ local hop = require("hop")
 local map = require("utils").map
 
 hop.setup({})
-local cmdnf = function(dir, inclusive)
+local cmdnf = function(dir, hint_offset, current_line_only)
 	package.loaded.hop.hint_char1({
 		direction = dir,
-		current_line_only = true,
-		inclusive_jump = inclusive,
+		hint_offset = hint_offset,
+		current_line_only = current_line_only,
 	})
 end
 
-map("n", "f", function()
-	cmdnf(2, true)
+map({ "n", "o" }, "-", function()
+	cmdnf(2, -1, false)
 end, {})
-map("n", "F", function()
-	cmdnf(1, true)
+
+map({ "n", "o" }, "f", function()
+	cmdnf(2, -1, true)
 end, {})
-map("o", "f", function()
-	cmdnf(2, false)
-end, {})
-map("o", "F", function()
-	cmdnf(1, false)
+
+map({ "n", "o" }, "F", function()
+	cmdnf(1, -1, true)
 end, {})
 -- map('o', 'y', function() cmdnf(2, true) end, {})
 -- map('o', 'Y', function() cmdnf(1, true) end, {})

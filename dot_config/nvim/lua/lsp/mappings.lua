@@ -23,9 +23,6 @@ u.map("n", "<Leader>r", function()
 	vim.lsp.buf.rename()
 end, opts)
 
-u.map("n", "<Leader>ls", function()
-	vim.lsp.buf.signature_help()
-end, opts)
 
 u.map("n", "<Space>r", "<cmd>Telescope lsp_references<cr>")
 u.map("n", "<Leader>s", "<cmd>Telescope lsp_document_symbols<cr>")

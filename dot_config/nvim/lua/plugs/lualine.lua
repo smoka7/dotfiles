@@ -1,4 +1,4 @@
-local colorList = require("catppuccin.palettes").get_palette() -- fetch colors from palette
+local colorList = require("catppuccin.palettes").get_palette() 
 local lualine = require("lualine")
 local conditions = require("utils")
 
@@ -14,7 +14,8 @@ local function search_result()
 	if searchcount.total == 0 then
 		return ""
 	end
-	return "🔎 " .. searchcount.current .. "/" .. searchcount.total
+	--return "🔎 " .. searchcount.current .. "/" .. searchcount.total
+	return "‽ " .. searchcount.current .. "/" .. searchcount.total
 end
 
 local config = {
@@ -46,7 +47,7 @@ local config = {
 			},
 			{
 				"branch",
-				icon = " 🥦",
+				icon = " 🌲",
 				-- icon = '',
 				condition = conditions.check_git_workspace,
 				color = { fg = colorList.blue, bg = colorList.shade2 },
@@ -72,7 +73,8 @@ local config = {
 				sources = { "nvim_diagnostic" },
 				cond = conditions.buffer_not_empty and conditions.hide_in_width,
 				sections = { "error", "warn", "info", "hint" },
-				symbols = { error = "⛔ ", warn = "🚦 ", info = "🚩 ", hint = "💡 " },
+				symbols = { error = "● ", warn = "● ", info = "● ", hint = "● " },
+				--symbols = { error = "⛔ ", warn = "🚦 ", info = "🚩 ", hint = "💡 " },
 				-- symbols = { error = "✘ ", warn = "⚠ ", info = "⚑ ", hint = "✰ " },
 				diagnostics_color = {
 					error = { fg = colorList.red },

@@ -30,68 +30,26 @@ nvim_lsp.volar.setup({
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 	init_options = {
 		typescript = {
-			serverPath = "/home/smoka/node_modules/.pnpm/typescript@4.6.3/node_modules/typescript/lib/tsserverlibrary.js",
+			tsdk = "/home/smoka/node_modules/.pnpm/typescript@4.6.3/node_modules/typescript/lib",
 		},
 	},
 })
 nvim_lsp.tailwindcss.setup({
 	filetypes = {
-		-- html
-		--"aspnetcorerazor",
-		--"astro",
-		--"astro-markdown",
 		"blade",
-		--"django-html",
-		--"htmldjango",
-		--[[ "edge", ]]
-		--[[ "eelixir", -- vim ft ]]
-		--[[ "ejs", ]]
-		--[[ "erb", ]]
-		--[[ "eruby", -- vim ft ]]
 		"gohtml",
-		--[[ "haml", ]]
-		--[[ "handlebars", ]]
-		--[[ "hbs", ]]
 		"html",
-		-- 'HTML (Eex)',
-		-- 'HTML (EEx)',
-		--[[ "html-eex", ]]
-		--[[ "heex", ]]
-		--[[ "jade", ]]
-		--[[ "leaf", ]]
-		--[[ "liquid", ]]
-		--[[ "markdown", ]]
-		--[[ "mdx", ]]
-		--[[ "mustache", ]]
-		--[[ "njk", ]]
-		--[[ "nunjucks", ]]
-		--[[ "razor", ]]
-		--[[ "slim", ]]
-		--[[ "twig", ]]
-		-- css
 		"css",
 		"less",
 		"postcss",
 		"sass",
 		"scss",
 		"stylus",
-		"sugarss",
-		-- js
-		--[[ "javascript", ]]
-		--[[ "javascriptreact", ]]
-		--[[ "reason", ]]
-		--[[ "rescript", ]]
-		--[[ "typescript", ]]
-		--[[ "typescriptreact", ]]
-		-- mixed
 		"vue",
 		"svelte",
 	},
 })
--- nvim_lsp.psalm.setup({
---       cmd = { 'psalm' ,
---       '--language-server' },
--- })
+
 -- nvim_lsp.tsserver.setup({
 -- 	filetypes = {
 -- 		"javascript",
@@ -119,7 +77,7 @@ nvim_lsp.sumneko_lua.setup({
 
 local on_attach = function() end
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 for _, server in pairs(servers) do
 	nvim_lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })

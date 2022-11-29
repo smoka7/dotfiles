@@ -36,11 +36,11 @@ return packer.startup(function()
 		tag = "v2.*",
 		config = function()
 			require("toggleterm").setup({
-				direction = "tab",
+				direction = "vertical",
 				highlights = {
-					Normal = {
-						guibg = "#1b222D",
-					},
+					-- Normal = {
+					-- 	guibg = "#1b222D",
+					-- },
 				},
 				shade_terminals = false,
 			})
@@ -63,7 +63,6 @@ return packer.startup(function()
 		},
 		config = function()
 			require("refactoring").setup({})
-			require("telescope").load_extension("refactoring")
 		end,
 		ft = fy,
 	})
@@ -100,9 +99,6 @@ return packer.startup(function()
 		"ray-x/go.nvim",
 		opt = true,
 		ft = "go",
-		config = function()
-			require("go").setup()
-		end,
 	})
 	----------------------------color scheme
 	use({
@@ -113,9 +109,13 @@ return packer.startup(function()
 		-- 	as = "catppuccin",
 		-- },
 	})
-	use({ "catppuccin/nvim", as = "catppuccin", run = function ()
-	   require("ui.colors").compile()
-	end })
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+		run = function()
+			require("ui.colors").compile()
+		end,
+	})
 	----------------------------file
 	use({ "famiu/bufdelete.nvim" })
 	use({ "Pocco81/true-zen.nvim" })
@@ -131,6 +131,13 @@ return packer.startup(function()
 	use({ "kyazdani42/nvim-web-devicons" })
 	---------------------------- ui niceties
 	use({ "folke/which-key.nvim" })
+	use({
+		"folke/noice.nvim",
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
+	})
 	use({
 		"lewis6991/gitsigns.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
@@ -189,13 +196,6 @@ return packer.startup(function()
 		"nvim-treesitter/nvim-treesitter-refactor",
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"JoosepAlviste/nvim-ts-context-commentstring",
-	})
-	use({
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup({})
-		end,
-		ft = fy,
 	})
 	use("jose-elias-alvarez/null-ls.nvim")
 	use({

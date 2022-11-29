@@ -1,37 +1,25 @@
 local map = require("utils").map
-local cm = require("Comment.api")
-
-require("Comment").setup({
-    	pre_hook = function(ctx)
-		local U = require("Comment.utils")
-		local tsc = require("ts_context_commentstring.utils")
-		local location = nil
-		if ctx.ctype == U.ctype.block then
-			location = tsc.get_cursor_location()
-		elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-			location = tsc.get_visual_start_location()
-		end
-
-		return require("ts_context_commentstring.internal").calculate_commentstring({
-			key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
-			location = location,
-		})
-	end,
+local cm = require("Comment")
+local api = require("Comment.api")
+local ft = require("Comment.ft")
+ft.set("lua", { "-- %s", "--%s" })
+cm.setup({
+	pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
 
 local function comment_it()
 	if vim.v.count == 0 then
-		cm.toggle.linewise.current(nil,{})
+		api.toggle.linewise.current(nil, {})
 		return
 	end
-	cm.toggle.linewise.count(vim.v.count,{})
+	api.toggle.linewise.count(vim.v.count, {})
 end
 
-map({ "n", "i", "x" }, "<C-/>", function()
+map({ "n", "i" }, "<C-/>", function()
 	comment_it()
 end)
-map({ "n", "i", "x" }, "", function()
+map({ "n", "i" }, "", function()
 	comment_it()
 end)
-map("x", "<C-/>",'<Plug>(comment_toggle_linewise_visual)')
-map("x", "",'<Plug>(comment_toggle_linewise_visual)')
+map("x", "<C-/>", "<Plug>(comment_toggle_linewise_visual)")
+map("x", "", "<Plug>(comment_toggle_linewise_visual)")

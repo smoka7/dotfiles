@@ -1,27 +1,28 @@
+local autocmd = vim.api.nvim_create_autocmd
 local id = vim.api.nvim_create_augroup("packer", {
 	clear = true,
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+autocmd("BufWritePost", {
 	command = "source %",
 	pattern = "{init,mappings,defaults}.lua",
 	group = id,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
 	command = "source <afile>",
 	pattern = "plugins.lua",
 	group = id,
 })
 
-vim.api.nvim_create_autocmd("OptionSet", {
+autocmd("OptionSet", {
 	pattern = "background",
 	callback = function()
 		vim.cmd("Catppuccin " .. (vim.v.option_new == "light" and "latte" or "frappe"))
 	end,
 })
 
-vim.api.nvim_create_autocmd("TermOpen", {
+autocmd("TermOpen", {
 	callback = function()
 		local opts = { noremap = true }
 		vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
@@ -29,15 +30,26 @@ vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "term://*",
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+autocmd("BufWritePost", {
 	command = "source <afile> | PackerCompile",
 	pattern = "plugins.lua",
 	group = id,
 })
-
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("VimResized", {
 	callback = function()
-		require("go.format").goimport()
+		vim.cmd("wincmd =")
 	end,
-	pattern = "*.go",
+	group = id,
+})
+
+autocmd("ModeChanged", {
+	callback = function()
+		local cmd_type = vim.fn.getcmdtype()
+		if cmd_type == "/" or cmd_type == "?" then
+			vim.opt.hlsearch = true
+			return
+		end
+		vim.opt.hlsearch = false
+	end,
+	group = id,
 })

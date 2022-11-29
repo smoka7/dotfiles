@@ -26,7 +26,7 @@ vim.g.loaded_ruby_provider = 0
 -- vim.opt.clipboard = "unnamedplus" -- sync with system clipboard
 vim.opt.arabicshape = false
 vim.opt.completeopt = "menu,menuone,preview"
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.cursorline = true -- Enable highlighting of the current line
 vim.opt.encoding = "utf-8"
 vim.opt.fillchars = { eob = " " }

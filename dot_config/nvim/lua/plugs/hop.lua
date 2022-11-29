@@ -10,9 +10,12 @@ local cmdnf = function(dir, hint_offset, current_line_only)
 	})
 end
 
-map({ "n", "o" }, "-", function()
-	cmdnf(2, -1, false)
-end, {})
+-- map({ "n", "o" }, "s", function()
+-- 	cmdnf(2, 0, false)
+-- end, {})
+-- map({ "n", "o" }, "S", function()
+-- 	cmdnf(1, 0, false)
+-- end, {})
 
 map({ "n", "o" }, "f", function()
 	cmdnf(2, -1, true)

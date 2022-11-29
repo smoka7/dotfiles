@@ -1,4 +1,5 @@
-require("fzf-lua").setup({
+local fzf = require("fzf-lua")
+fzf.setup({
 	winopts = {
 		border = "none",
 	},
@@ -12,10 +13,21 @@ require("fzf-lua").setup({
 		},
 	},
 })
-vim.keymap.set("n", "<Space>p", ":FzfLua live_grep_native<cr>")
-vim.keymap.set("n", "<Space>g", ":FzfLua git_status<cr>")
-vim.keymap.set("n", "<C-p>", ":FzfLua grep_last<cr>")
-vim.keymap.set("n", "<Leader>hh", ":FzfLua help_tags<cr>")
-vim.keymap.set("n", "<Leader>b", ":FzfLua buffers<cr>")
-vim.keymap.set("n", "<Leader>p", ":FzfLua files<cr>")
-vim.keymap.set("n", "<Leader>j", ":FzfLua jumps<cr>")
+vim.keymap.set("n", "<Leader>p", function()
+	fzf.files()
+end)
+vim.keymap.set("n", "<Space>p", function()
+	fzf.grep()
+end)
+vim.keymap.set("n", "<Space>c", function()
+	fzf.grep_cword()
+end)
+vim.keymap.set("n", "<C-p>", function()
+	fzf.grep_last()
+end)
+vim.keymap.set("n", "<Leader>hh", function()
+	fzf.help_tags()
+end)
+--vim.keymap.set("n", "<Space>g", ":FzfLua git_status<cr>")
+vim.keymap.set("n", "<Space>g", ":Telescope git_status<cr>")
+vim.keymap.set("n", "<Leader>b", ":Telescope buffers<cr>")

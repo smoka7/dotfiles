@@ -1,31 +1,31 @@
 {
     "height": 30, // Waybar height (to be removed for auto height)
-        "modules-left": ["idle_inhibitor","clock","sway/workspaces", "network","custom/networkspeed"],
+        "modules-left": ["idle_inhibitor","clock","sway/mode","sway/workspaces", "network","custom/networkspeed"],
         //"modules-center": ["clock","idle_inhibitor"],
-        "modules-right": ["tray","custom/mpd","mpd", "pulseaudio", "sway/language","temperature", "cpu","memory"],
+        "modules-right": ["tray","custom/playerctl","custom/mpd","mpd", "pulseaudio", "sway/language","temperature", "cpu","memory"],
         // Modules configuration
         "sway/workspaces": {
             "disable-scroll": false,
             "all-outputs": true,
             "format": "{icon}",
             "format-icons": {
-                "1":"𝟭",
-                "2":"𝟮",
-                "3":"𝟯",
-                "4":"𝟰",
-                "5":"𝟱",
-                "6":"𝟲",
-                "7":"𝟳",
-                "8":"𝟴",
-                "9":"𝟵",
-                "10":"𝟬",
+                "1":"1",
+                "2":"2",
+                "3":"3",
+                "4":"4",
+                "5":"5",
+                "6":"6",
+                "7":"7",
+                "8":"8",
+                "9":"9",
+                "10":"0",
                 "urgent": "◍",
                 "focused": "◉",
                 "default": "Ⓐ"
             }
         },
         "sway/mode": {
-            "format": "<span style=\"italic\">{}</span>"
+            "format": "{}"
         },
         "sway/language": {
             "format": "{short}"
@@ -43,8 +43,8 @@
         },
         "clock": {
             "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-            "format": "{:%H:%M}",
-            "format-alt": "{:%A, %B %m-%d, %Y}  ",
+            "format": "{:%H:%M}",
+            "format-alt": "{:%A, %B %m-%d, %Y}",
             "on-click-right":"notify-send $(.config/scripts/pcal/pcal.sh -t) -a date"
         },
         "cpu": {
@@ -62,7 +62,8 @@
         },
         "temperature": {
             "interval":2,
-            "thermal_zone":1,
+            "thermal_zone":0,
+            "hwmon-path":"/sys/class/hwmon/hwmon4/temp1_input",
             "critical-threshold": 80,
             "format": "{temperatureC} {icon}",
             "format-icons": ["", "", ""]
@@ -146,5 +147,21 @@
             "format-paused": "",
             "format-stopped": "⏹️",
             "tooltip-format": "{artist}-{album}-{title}",
-        }
+        },
+        "custom/playerctl": {
+		"interval": "once",
+		"tooltip": true,
+		"return-type": "json",
+		"format" : "{icon}",
+		"format-icons": {
+			"Playing": "",
+			"Paused": ""
+		},
+		"exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
+		"on-click": "playerctl play-pause; pkill -RTMIN+5 waybar",
+		"on-click-right": "playerctl next; pkill -RTMIN+5 waybar",
+		"on-scroll-up": "playerctl position 10+; pkill -RTMIN+5 waybar",
+		"on-scroll-down": "playerctl position 10-; pkill -RTMIN+5 waybar",
+		"signal": 5
+	},
 }

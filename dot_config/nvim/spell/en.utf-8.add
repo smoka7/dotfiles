@@ -2,3 +2,4 @@ json
 bool
 omitempty
 struct
+const/!

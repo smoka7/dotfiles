@@ -1,229 +1,120 @@
-vim.cmd([[packadd packer.nvim]])
+local filetypes = { 'go', 'html', 'json', 'css', 'vue', 'rust', 'js', 'ts', 'php', 'sh', 'fish', 'lua', 'vim' }
+local P = {}
+P.plugins = {
+    { 'neovim/nvim-lspconfig' },
+    { 'jose-elias-alvarez/null-ls.nvim' },
+    {
+        'hrsh7th/nvim-cmp',
+        event = 'InsertEnter',
+        dependencies = {
+            { 'f3fora/cmp-spell' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-cmdline' },
+            { 'hrsh7th/cmp-nvim-lsp' },
 
-local fy = { "go", "html", "json", "css", "vue", "rs", "js", "ts", "php", "sh", "fish", "lua", "vim" }
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'rafamadriz/friendly-snippets' },
+            { 'L3MON4D3/LuaSnip' },
+        },
+    },
+    {
+        'nvim-treesitter/nvim-treesitter',
+        event = 'BufReadPre',
+        dependencies = {
+            { 'JoosepAlviste/nvim-ts-context-commentstring' },
+            { 'RRethy/nvim-treesitter-textsubjects' },
+            { 'danymat/neogen' },
+            { 'mizlan/iswap.nvim' },
+            { 'nvim-treesitter/nvim-treesitter-context' },
+            { 'nvim-treesitter/nvim-treesitter-refactor' },
+            { 'nvim-treesitter/nvim-treesitter-textobjects' },
+            { 'nvim-treesitter/playground', cmd = 'TSPlaygroundToggle', lazy = true },
+            { 'theHamsta/nvim-treesitter-pairs' },
+            { 'ThePrimeagen/refactoring.nvim' },
+            { 'windwp/nvim-autopairs' },
+            { 'mfussenegger/nvim-treehopper' },
+        },
+    },
 
-local packer = require("packer")
-packer.init({
-	compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
-	-- profile = {
-	-- 	enable = true,
-	-- 	threshold = 1, -- the amount in ms that a plugins load time must be over for it to be included in the profile
-	-- },
-})
-local use = packer.use
-return packer.startup(function()
-	use("lewis6991/impatient.nvim")
-	use({ "dstein64/vim-startuptime", cmd = "StartupTime" })
-	---------------------------completion and snippet
-	use({
-		"hrsh7th/nvim-cmp",
-		requires = {
-			{ "hrsh7th/cmp-path", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-			{ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-			{ "f3fora/cmp-spell", after = "nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" },
-			-- { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-		},
-	})
-	-- use({ 'rafamadriz/friendly-snippets' })
-	use({ "~/gits/friendly-snippets" })
-	use({ "L3MON4D3/LuaSnip" })
-	use({
-		"akinsho/toggleterm.nvim",
-		tag = "v2.*",
-		config = function()
-			require("toggleterm").setup({
-				direction = "vertical",
-				highlights = {
-					-- Normal = {
-					-- 	guibg = "#1b222D",
-					-- },
-				},
-				shade_terminals = false,
-			})
-		end,
-	})
-	----------------------------language helpers
-	use({
-		"mfussenegger/nvim-dap",
-		config = function()
-			require("plugs.debugger")
-		end,
-		ft = "go",
-	})
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, ft = "go", after = "nvim-dap" })
-	use({
-		"ThePrimeagen/refactoring.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" },
-		},
-		config = function()
-			require("refactoring").setup({})
-		end,
-		ft = fy,
-	})
-	use({
-		"nvim-neotest/neotest",
-		requires = {
-			"nvim-lua/plenary.nvim",
-			"olimorris/neotest-phpunit",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
-		},
-		config = function()
-			require("neotest").setup({
-				adapters = {
-					require("neotest-phpunit"),
-				},
-				icons = {
-					failed = "❌",
-					passed = "✅",
-					running = "🔄",
-				},
-			})
-		end,
-	})
-	use({
-		"vim-test/vim-test",
-		opt = true,
-		ft = fy,
-		config = function()
-			require("plugs.tests")
-		end,
-	})
-	use({
-		"ray-x/go.nvim",
-		opt = true,
-		ft = "go",
-	})
-	----------------------------color scheme
-	use({
-		"~/celeste-nvim",
-		"~/gits/neolara",
-		-- {
-		-- 	"~/gits/catppuccin",
-		-- 	as = "catppuccin",
-		-- },
-	})
-	use({
-		"catppuccin/nvim",
-		as = "catppuccin",
-		run = function()
-			require("ui.colors").compile()
-		end,
-	})
-	----------------------------file
-	use({ "famiu/bufdelete.nvim" })
-	use({ "Pocco81/true-zen.nvim" })
-	use({
-		"akinsho/nvim-bufferline.lua",
-		tag = "*",
-		requires = "kyazdani42/nvim-web-devicons",
-	})
-	use({ "hoob3rt/lualine.nvim" })
-	use({ "fgheng/winbar.nvim" })
-	use({ "nvim-neo-tree/neo-tree.nvim", requires = "MunifTanjim/nui.nvim" })
-	-- use({ "~/gits/neo-tree.nvim", requires = "MunifTanjim/nui.nvim" })
-	use({ "kyazdani42/nvim-web-devicons" })
-	---------------------------- ui niceties
-	use({ "folke/which-key.nvim" })
-	use({
-		"folke/noice.nvim",
-		requires = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-		},
-	})
-	use({
-		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("plugs.gitsign")
-		end,
-	})
-	use({
-		"TimUntersberger/neogit",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("neogit").setup({})
-		end,
-		cmd = "Neogit",
-	})
-	use({ "lukas-reineke/indent-blankline.nvim" })
-	use({
-		"norcalli/nvim-colorizer.lua",
-		ft = { "css", "javascript", "vim", "html" },
-		config = function()
-			require("colorizer").setup()
-		end,
-		cmd = "ColorizerAttachToBuffer",
-	})
-	use({ "booperlv/nvim-gomove" })
-	use({ "phaazon/hop.nvim" })
-	-- "auto rename tag
-	use("mg979/vim-visual-multi")
-	use({
-		"AndrewRadev/tagalong.vim",
-		ft = {
-			"html",
-			"jsx",
-			"vue",
-			"php",
-			"xml",
-		},
-	})
-	------------------------------ code
-	use({ "neovim/nvim-lspconfig" })
-	use({ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" })
-	use("ziontee113/syntax-tree-surfer")
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		requires = {
-			"nvim-treesitter/nvim-treesitter-refactor",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"theHamsta/nvim-treesitter-pairs",
-		},
-	})
-	use({
-		"theHamsta/nvim-treesitter-pairs",
-		"~/gits/nvim-treesitter-textsubjects",
-		-- 'RRethy/nvim-treesitter-textsubjects',
-		"nvim-treesitter/nvim-treesitter-context",
-		"nvim-treesitter/nvim-treesitter-refactor",
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		"JoosepAlviste/nvim-ts-context-commentstring",
-	})
-	use("jose-elias-alvarez/null-ls.nvim")
-	use({
-		-- 'danymat/neogen',
-		"~/gits/neogen",
-		requires = "nvim-treesitter/nvim-treesitter",
-	})
-	use({
-		"SmiteshP/nvim-gps",
-		requires = "nvim-treesitter/nvim-treesitter",
-	})
-	use({ "lambdalisue/suda.vim" })
-	use({
-		"nvim-pack/nvim-spectre",
-		requires = { "kyazdani42/nvim-web-devicons" },
-	})
-	use({
-		"ibhagwan/fzf-lua",
-		requires = { "kyazdani42/nvim-web-devicons" },
-	})
-	use({
-		"nvim-telescope/telescope-ui-select.nvim",
-		"nvim-telescope/telescope.nvim",
-		wants = { "plenary.nvim" },
-	})
-	use({ "mbbill/undotree", cmd = "UndotreeToggle", config = [[vim.g.undotree_SetFocusWhenToggle = 1]] })
-	use("windwp/nvim-autopairs")
-	use("numToStr/Comment.nvim")
-	use("tpope/vim-repeat")
-	use("tpope/vim-surround")
-end)
+    { 'vim-test/vim-test', lazy = true, ft = filetypes },
+    { 'ray-x/go.nvim', lazy = true, ft = 'go' },
+    { 'simrat39/rust-tools.nvim', lazy = true, ft = 'rust' },
+    { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap' }, ft = 'go', after = 'nvim-dap' },
+
+    { 'hoob3rt/lualine.nvim', dependencies = { 'SmiteshP/nvim-gps' } },
+    {
+        'nvim-neo-tree/neo-tree.nvim',
+        dependencies = { 'MunifTanjim/nui.nvim', 'kyazdani42/nvim-web-devicons' },
+    },
+    {
+        'mbbill/undotree',
+        cmd = 'UndotreeToggle',
+        config = function()
+            vim.g.undotree_SetFocusWhenToggle = 1
+        end,
+        lazy = true,
+    },
+    { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
+    { 'lukas-reineke/indent-blankline.nvim' },
+    { 'luukvbaal/statuscol.nvim' },
+
+    { 'echasnovski/mini.hues' },
+    {
+        'catppuccin/nvim',
+        name = 'catppuccin',
+        config = function()
+            require('ui.colors').set_color_scheme()
+        end,
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        ft = { 'css', 'javascript', 'vim', 'html' },
+        config = function()
+            require('colorizer').setup()
+        end,
+        cmd = 'ColorizerAttachToBuffer',
+        lazy = true,
+    },
+
+    {
+        'lewis6991/gitsigns.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
+    {
+        'TimUntersberger/neogit',
+        lazy = true,
+        cmd = 'Neogit',
+    },
+
+    {
+        'akinsho/toggleterm.nvim',
+        config = function()
+            require('toggleterm').setup({
+                direction = 'vertical',
+                highlights = {},
+                shade_terminals = false,
+            })
+        end,
+    },
+
+    { 'folke/which-key.nvim' },
+    { 'folke/neodev.nvim' },
+    { 'folke/twilight.nvim' },
+    { 'folke/trouble.nvim' },
+    { 'folke/noice.nvim' },
+
+    { 'Pocco81/true-zen.nvim' },
+    { 'booperlv/nvim-gomove' },
+    { 'famiu/bufdelete.nvim', lazy = true },
+    { 'ibhagwan/fzf-lua', lazy = true },
+    { 'mg979/vim-visual-multi' },
+    { 'numToStr/Comment.nvim' },
+    { 'nvim-pack/nvim-spectre', keys = '<Leader>/', lazy = true },
+    { 'nvim-telescope/telescope-ui-select.nvim', lazy = true },
+    { 'nvim-telescope/telescope.nvim', lazy = true },
+    { 'phaazon/hop.nvim', dev = true },
+    { 'tpope/vim-repeat' },
+    { 'tpope/vim-surround' },
+}
+return P

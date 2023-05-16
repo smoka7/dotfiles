@@ -1,40 +1,34 @@
-local u = require("utils")
+local map = require('builtins.maps')
+local nmap = map.nmap
+local vmap = map.vmap
 
-vim.api.nvim_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+nmap('<Leader><space>', vim.lsp.buf.hover, { desc = 'hover doc' })
+nmap('<RightMouse>', vim.lsp.buf.hover, { desc = 'hover doc' })
 
-local opts = { noremap = true, silent = true }
+nmap('[d', vim.diagnostic.goto_prev, { desc = 'prev diagnostic' })
+nmap(']d', vim.diagnostic.goto_next, { desc = 'next diagnostic' })
 
-u.map("n", "<Leader><space>", function()
-	vim.lsp.buf.hover()
-end, opts)
+nmap('[e', function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { desc = 'prev error' })
 
-u.map("n", "[d", function()
-	vim.diagnostic.goto_prev()
-end, opts)
-u.map("n", "]d", function()
-	vim.diagnostic.goto_next()
-end, opts)
+nmap(']e', function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { desc = 'next error' })
 
-u.map("n", "<space>f", function()
-	vim.lsp.buf.format({ async = true, name = "null-ls" })
-end, opts)
--- u.map("n", "<space>f", function()
--- 	vim.lsp.buf.formatting()
--- end, opts)
-u.map("n", "<Leader>r", function()
-	vim.lsp.buf.rename()
-end, opts)
+nmap('<space>f', function()
+    vim.lsp.buf.format({ async = true, name = 'null-ls' })
+end, { desc = 'format document' })
 
+nmap('<Leader>r', vim.lsp.buf.rename, { desc = 'rename lsp' })
 
-u.map("n", "<Space>r", "<cmd>Telescope lsp_references<cr>")
-u.map("n", "<Leader>s", "<cmd>Telescope lsp_document_symbols<cr>")
+nmap('<Space>a', '<cmd>FzfLua lsp_code_actions<CR>', { desc = 'code actions' })
+nmap('<Space>r', '<cmd>Trouble lsp_references<cr>', { desc = 'lsp refrences' })
 
-u.map("n", "<Space>a", "<cmd>FzfLua lsp_code_actions<CR>", opts)
-u.map("n", "<Leader>ld", "<cmd>FzfLua lsp_declarations<CR>", opts)
-u.map("n", "<Leader>li", "<cmd>Telescope lsp_implementations<CR>", opts)
-u.map("n", "<Leader>ll", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts)
-u.map("n", "<Leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
+nmap('<Leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { desc = 'document symbols' })
+nmap('<Leader>d', '<cmd>Telescope lsp_definitions<CR>', { desc = 'lsp definition' })
+nmap('<Leader>ld', '<cmd>FzfLua lsp_declarations<CR>', { desc = 'lsp declaration' })
+nmap('<Leader>li', '<cmd>Telescope lsp_implementations<CR>', { desc = 'lsp implementation' })
+nmap('<Leader>ll', '<cmd>Trouble document_diagnostics<CR>', { desc = 'list diagnostics' })
 
-u.map("v", "<leader>ls", function()
-	require("telescope").extensions.refactoring.refactors()
-end, opts)
+vmap('<leader>ls', require('telescope').extensions.refactoring.refactors, { desc = 'refactor actions' })

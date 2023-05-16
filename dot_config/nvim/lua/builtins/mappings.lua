@@ -1,108 +1,134 @@
-vim.g.mapleader = "\\"
+local util = require('builtins.maps')
+local map = util.map
+local nmap = util.nmap
+local imap = util.imap
+local inmap = util.inmap
 
-local map = require("utils").map
+nmap('i', function()
+    vim.cmd.nohlsearch()
+    print('')
+    return 'i'
+end, { expr = true })
 
-require("neogen").setup({
-	enabled = true,
-})
+nmap('<Esc>', function()
+    vim.cmd.nohlsearch()
 
-map("n", "<Leader>n", function()
-	package.loaded.neogen.generate()
+    if vim.g.vscode or vim.g.neovide then
+        print('')
+        return
+    end
+    vim.cmd([[Noice dismiss]])
 end)
+
 --
+-- better up/down
+nmap('j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+nmap('k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+nmap('gw', '*N')
+map('x', 'gw', '*N')
+
+--
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+nmap('n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+map('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
+nmap('N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+map('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+map('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
+
+map('x', 'g/', '<esc>/\\%V', { silent = false, desc = 'Search inside visual selection' })
+map('x', '*', [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
+map('x', '#', [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
+--
+-- -- center on next
+nmap('n', 'nzzzv')
+nmap('N', 'Nzzzv')
+
+----
 -- easy access to cmd mode
 --
-map({ "n", "x" }, ";", ":")
--- map("n", "<Left>", "<Nop>")
--- map("n", "<Right>", "<Nop>")
--- map("n", "<Up>", "<Nop>")
--- map("n", "<Down>", "<Nop>")
+map({ 'n', 'v' }, ';', ':')
 
-map("n", "<Home>", "^")
-map("i", "<Home>", "<Esc>^i")
-map("n", "<C-Left>", "b")
-map("n", "<C-Right>", "w")
+--nmap( "<Left>", "<Nop>")
+--nmap( "<Right>", "<Nop>")
+--nmap( "<Up>", "<Nop>")
+--nmap( "<Down>", "<Nop>")
+
+nmap('<Home>', '^')
+imap('<Home>', '<C-o>^')
+nmap('<C-Left>', 'b')
+nmap('<C-Right>', 'w')
 
 --
 -- -- split and move between them
-map({ "n" }, "<Leader>v", ":vsplit<cr>")
--- map({ "i", "n" }, "<A-h>", "<C-w>h")
--- map({ "i", "n" }, "<A-j>", "<C-w>j")
--- map({ "i", "n" }, "<A-k>", "<C-w>k")
--- map({ "i", "n" }, "<A-l>", "<C-w>l")
-map({ "i", "n" }, "<A-Left>", "<C-w>h")
-map({ "i", "n" }, "<A-Down>", "<C-w>j")
-map({ "i", "n" }, "<A-UP>", "<C-w>k")
-map({ "i", "n" }, "<A-Right>", "<C-w>l")
+nmap('<Leader>v', ':vsplit<cr>')
+-- inmap( "<A-h>", "<C-w>h")
+-- inmap( "<A-j>", "<C-w>j")
+-- inmap( "<A-k>", "<C-w>k")
+-- inmap( "<A-l>", "<C-w>l")
+inmap('<A-Left>', '<C-w>h')
+inmap('<A-Down>', '<C-w>j')
+inmap('<A-UP>', '<C-w>k')
+inmap('<A-Right>', '<C-w>l')
 
-map("t", "jk", "<C-\\><C-n>")
-
-map("n", "<Space>e", ":NeoTreeRevealToggle<cr>")
-map("n", "<Leader>u", ":UndotreeToggle<cr>")
+nmap('<Leader>u', ':UndotreeToggle<cr>')
 
 --
 -- -- delete and change without clipboard
-map({ "n", "v" }, "c", '"_c')
-map({ "n", "v" }, "c", '"_c')
+map({ 'n', 'v' }, 'c', '"_c')
+nmap('C', '"_C')
 
-map("n", "dd", function()
-	local line = vim.api.nvim_get_current_line()
-	if line == "" then
-		vim.pretty_print("ss")
-		return '"_dd'
-	end
-	return "dd"
+nmap('dd', function()
+    if vim.api.nvim_get_current_line() == '' then
+        return '"_dd'
+    end
+    return 'dd'
 end, { expr = true })
 
 -- map({ "n", "v" }, "d", '"_d')
 
 --
 -- reindent continuously
-map({ "v" }, "<", "<gv")
-map({ "v" }, ">", ">gv")
+map('v', '<', '<gv')
+map('v', '>', '>gv')
 
 --
 -- -- copy to plusregister
-map({ "n", "v" }, "<Leader>y", '"+y')
-map("i", "<C-y>", '<C-o>"+yy')
+map({ 'n', 'x' }, 'gy', '"+y')
 
---
--- -- center on next
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+imap('<C-y>', '<C-o>"+yy')
 
 --
 -- -- save file
-map({ "n" }, "zz", ":w<cr>")
-map({ "n" }, "qq", ":q!<cr>")
-map({ "n" }, "<Leader>q", ":Bdelete<cr>")
-map({ "n" }, "<Leader>c", ":close<cr>")
-vim.cmd([[
-if !exists(":W")
-    command W w suda://%
-endif
-]])
+nmap('zz', ':w<cr>')
+nmap('qq', ':wq<cr>')
+nmap('<Leader>q', ':Bdelete<cr>')
+nmap('<Leader>c', ':close<cr>')
 
 --
 -- -- tabs
-map({ "n" }, "<Leader>tn", ":tabnew<CR>")
-map({ "n" }, "<Leader>td", ":tabclose<CR>")
+nmap('<Leader>tn', ':tabnew<CR>')
+nmap('<Leader>to', ':tabonly<CR>')
+nmap('<Leader>td', ':tabclose<CR>')
 
-map({ "n" }, "]t", ":tabnext<CR>")
-map({ "n" }, "[t", ":tabprevious<CR>")
+nmap(']t', ':tabnext<CR>')
+nmap('[t', ':tabprevious<CR>')
 
-map({ "n" }, "]b", ":bnext<CR>")
-map({ "n" }, "[b", ":bprevious<CR>")
+nmap(']b', ':bnext<CR>')
+nmap('[b', ':bprevious<CR>')
 
+nmap('<Tab>', ':bnext<CR>')
+nmap('<S-Tab>', ':bprevious<CR>')
 --
 -- -- spell check
-map({ "n" }, "<Space>u", ":set spell!<CR>")
+nmap('<Space>u', ':set spell!<CR>')
 --
 -- -- indention
-map({ "n" }, "<Space>i", function()
-	if vim.opt.list._value then
-		vim.opt.list = false
-		return
-	end
-	vim.opt.list = true
+nmap('<Space>i', function()
+    if vim.opt.list._value then
+        vim.opt.list = false
+        return
+    end
+    vim.opt.list = true
 end)

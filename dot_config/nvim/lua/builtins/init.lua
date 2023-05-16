@@ -1,3 +1,3 @@
-require("builtins.autocmds")
-require("builtins.defaults")
-require("builtins.mappings")
+require('builtins.autocmds')
+require('builtins.defaults')
+require('builtins.mappings')

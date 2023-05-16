@@ -1,22 +1,35 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export FZF_DEFAULT_OPTS:\x2d\x2dcolor\x3dbg\x2b\x3a\x23313244\x2cbg\x3a\x231e1e2e\x2cspinner\x3a\x23f5e0dc\x2chl\x3a\x23f38ba8\x20\x2d\x2dcolor\x3dfg\x3a\x23cdd6f4\x2cheader\x3a\x23f38ba8\x2cinfo\x3a\x23cba6f7\x2cpointer\x3a\x23f5e0dc\x20\x2d\x2dcolor\x3dmarker\x3a\x23f5e0dc\x2cfg\x2b\x3a\x23cdd6f4\x2cprompt\x3a\x23cba6f7\x2chl\x2b\x3a\x23f38ba8
+SETUVAR QT_QPA_PLATFORMTHEME:qt5ct
 SETUVAR __fish_initialized:3400
-SETUVAR _fish_abbr_arti:php\x20artisan
 SETUVAR _fish_abbr_cpr:cp\x20\x2dr
-SETUVAR _fish_abbr_dow:/mnt/3755A28D6D707C97/
-SETUVAR _fish_abbr_down:wget\x20\x2dc
+SETUVAR _fish_abbr_g:git
+SETUVAR _fish_abbr_gc:git\x20checkout
+SETUVAR _fish_abbr_gf:git\x20fetch
 SETUVAR _fish_abbr_gos:/home/smoka/go/src/github\x2ecom/smoka7/
+SETUVAR _fish_abbr_gp:git\x20push
+SETUVAR _fish_abbr_gr:go\x20run\x20main\x2ego
+SETUVAR _fish_abbr_gshow:git\x20show\x20\x2d\x2dext\x2ddiff
 SETUVAR _fish_abbr_la:lsd\x20\x2da
 SETUVAR _fish_abbr_ll:lsd\x20\x2dla
-SETUVAR _fish_abbr_md:megadl
+SETUVAR _fish_abbr_ls:lsd
+SETUVAR _fish_abbr_nv:NO_LSP\x3dtrue\x20nvim
 SETUVAR _fish_abbr_pai:sudo\x20pacman\x20\x2dSi
 SETUVAR _fish_abbr_par:sudo\x20pacman\x20\x2dRunsc
 SETUVAR _fish_abbr_pas:sudo\x20pacman\x20\x2dS
 SETUVAR _fish_abbr_pay:sudo\x20pacman\x20\x2dSyu
+SETUVAR _fish_abbr_pb:pnpm\x20run\x20build
+SETUVAR _fish_abbr_pd:pnpm\x20run\x20dev
 SETUVAR _fish_abbr_pe:php\x20artisan\x20test\x20\x2d\x2dstop\x2don\x2derror
 SETUVAR _fish_abbr_pf:php\x20artisan\x20test\x20\x2d\x2dfilter
+SETUVAR _fish_abbr_rd:RUST_BACKTRACE\x3d1
+SETUVAR _fish_abbr_sdr:systemctl\x20restart
+SETUVAR _fish_abbr_sds:systemctl\x20status
+SETUVAR _fish_abbr_serve:php\x20artisan\x20serve
+SETUVAR _fish_abbr_trr:sudo\x20systemctl\x20restart\x20tor\x2eservice
+SETUVAR _fish_abbr_trs:sudo\x20systemctl\x20status\x20tor\x2eservice
 SETUVAR _fish_abbr_v:nvim
-SETUVAR _fish_abbr_vim:nvim
 SETUVAR fish_color_autosuggestion:586e75
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:93a1a1
@@ -47,4 +60,4 @@ SETUVAR fish_pager_color_description:B3A06D
 SETUVAR fish_pager_color_prefix:cyan\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/usr/local/bin\x1e/home/smoka/\x2elocal/bin\x1e/usr/bin\x1e/usr/local/sbin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl\x1e/home/smoka/go/bin\x1e/home/smoka/\x2econfig/composer/vendor/bin\x1e/home/smoka/\x2econfig/scripts\x1e/home/smoka/\x2enode_modules/bin\x1e/home/smoka/\x2ecargo/bin
+SETUVAR fish_user_paths:/usr/local/bin\x1e/home/smoka/\x2elocal/bin\x1e/usr/bin\x1e/usr/local/sbin\x1e/usr/bin/site_perl\x1e/usr/bin/vendor_perl\x1e/usr/bin/core_perl\x1e/home/smoka/go/bin\x1e/home/smoka/\x2econfig/composer/vendor/bin\x1e/home/smoka/\x2econfig/scripts\x1e/home/smoka/\x2enode_modules/bin\x1e/home/smoka/\x2ecargo/bin\x1e/home/smoka/\x2elocal/share/pnpm

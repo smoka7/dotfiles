@@ -1,10 +1,10 @@
 local opts = {
     tools = { -- rust-tools options
-        executor = require('rust-tools.executors').termopen,
+        execute = require('rust-tools.executors').termopen,
         on_initialized = nil,
         reload_workspace_from_cargo_toml = true,
         inlay_hints = {
-            auto = true,
+            auto = false,
             only_current_line = true,
             show_parameter_hints = true,
             parameter_hints_prefix = '●',
@@ -31,5 +31,5 @@ local opts = {
         },
     },
 }
-
+-- 
 require('rust-tools').setup(opts)

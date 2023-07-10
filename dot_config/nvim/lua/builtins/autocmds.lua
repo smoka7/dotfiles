@@ -1,20 +1,35 @@
+local colors = require 'ui.colors'
 local autocmd = vim.api.nvim_create_autocmd
-local id = vim.api.nvim_create_augroup('vim', {
+
+local group = vim.api.nvim_create_augroup('vim', {
     clear = true,
 })
 
 autocmd('BufWritePost', {
     command = 'source %',
-    pattern = '{init,mappings,defaults}.lua',
-    group = id,
+    pattern = '~/.config/nvim/{init,mappings,defaults}.lua',
+    group = group,
 })
 
 autocmd('TextYankPost', {
     callback = function()
-        vim.highlight.on_yank({ higroup = 'lualine_a_normal', timeout = 200 })
+        vim.highlight.on_yank { higroup = 'lualine_a_normal', timeout = 200 }
     end,
-    group = id,
+    group = group,
 })
+
+autocmd('BufReadPost', {
+    group = group,
+    desc = 'go to last loc when opening a buffer',
+    callback = function()
+        local mark = vim.api.nvim_buf_get_mark(0, '"')
+        local lcount = vim.api.nvim_buf_line_count(0)
+        if mark[1] > 0 and mark[1] <= lcount then
+            pcall(vim.api.nvim_win_set_cursor, 0, mark)
+        end
+    end,
+})
+
 -- autocmd('BufWritePre', {
 --     callback = function()
 --         if vim.o.modified then
@@ -25,35 +40,28 @@ autocmd('TextYankPost', {
 --     group = id,
 -- })
 
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'WinEnter', 'CmdlineLeave' }, {
+autocmd({ 'InsertLeave', 'WinEnter', 'CmdlineLeave' }, {
     desc = 'Show cursorline only in active window',
     pattern = '*',
     command = 'set cursorline',
-    group = id,
+    group = group,
 })
 
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'WinLeave', 'CmdlineEnter' }, {
+autocmd({ 'InsertEnter', 'WinLeave', 'CmdlineEnter' }, {
     desc = 'Hide cursorline only in inactive window',
     pattern = '*',
     command = 'set nocursorline',
-    group = id,
+    group = group,
 })
 
--- autocmd("BufEnter", {
--- 	command = "source <afile>",
--- 	pattern = "plugins.lua",
--- 	group = id,
--- })
---
--- autocmd("BufWritePost", {
---         command = "source <afile> | PackerCompile",
---         pattern = "plugins.lua",
---         group = id,
--- })
 autocmd('OptionSet', {
     pattern = 'background',
     callback = function()
-        vim.cmd('Catppuccin ' .. (vim.v.option_new == 'light' and 'latte' or 'frappe'))
+        if vim.v.option_new == 'light' then
+            colors.lighten()
+            return
+        end
+        colors.darken()
     end,
 })
 
@@ -65,21 +73,21 @@ autocmd('TermOpen', {
     pattern = 'term://*',
 })
 
-autocmd('VimResized', {
+autocmd({ 'WinNew', 'VimResized' }, {
     callback = function()
-        vim.cmd('wincmd =')
+        vim.cmd 'wincmd ='
     end,
-    group = id,
+    group = group,
 })
 
--- autocmd("ModeChanged", {
--- 	callback = function()
--- 		local cmd_type = vim.fn.getcmdtype()
--- 		if cmd_type == "/" or cmd_type == "?" then
--- 			vim.opt.hlsearch = true
--- 			return
--- 		end
--- 		vim.opt.hlsearch = false
--- 	end,
--- 	group = id,
--- })
+autocmd({ 'BufWritePre' }, {
+    desc = 'Auto create dir when saving a file, in case some intermediate directory does not exist',
+    group = group,
+    callback = function(event)
+        if event.match:match '^%w%w+://' then
+            return
+        end
+        local file = vim.uv.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ':p:h'), 'p')
+    end,
+})

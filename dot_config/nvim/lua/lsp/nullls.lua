@@ -1,10 +1,10 @@
-local nullLs = require('null-ls')
-local h = require('null-ls.helpers')
+local nullLs = require 'null-ls'
+local h = require 'null-ls.helpers'
 local FORMATTING = 'NULL_LS_FORMATTING'
 local RANGE_FORMATTING = 'NULL_LS_RANGE_FORMATTING'
 
 local selene = nullLs.builtins.diagnostics.selene
-local prettier = h.make_builtin({
+local prettier = h.make_builtin {
     name = 'pr',
     method = { FORMATTING, RANGE_FORMATTING },
     filetypes = {
@@ -35,11 +35,11 @@ local prettier = h.make_builtin({
         to_stdin = true,
     },
     factory = h.formatter_factory,
-})
+}
 
 selene.args = { '--display-style', 'quiet', '-', '--config', '~/.config/selene/selene.toml' }
 
-nullLs.setup({
+nullLs.setup {
     debug = false,
     sources = {
         nullLs.builtins.formatting.fish_indent,
@@ -60,7 +60,7 @@ nullLs.setup({
         -- nullLs.builtins.diagnostics.phpstan,
         -- nullLs.builtins.code_actions.eslint_d,
     },
-})
+}
 
 vim.api.nvim_create_user_command('Prettier', function()
     if nullLs.is_registered(prettier) then

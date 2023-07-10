@@ -1,9 +1,3 @@
-local cmp = require('lsp.cmp')
---require("lsp.coq")
-
-cmp.setup_cmp()
-cmp.lazy_load_snippets()
-
 require('lsp.diagnostic')
 require('lsp.helpers')
 

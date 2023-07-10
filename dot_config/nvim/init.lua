@@ -1,5 +1,5 @@
 vim.loader.enable()
-require('lazy_config')
-require('builtins')
-require('ui')
-require('lsp')
+
+require 'builtins'
+require 'lazy_config'
+require('ui.colors').set_color_scheme()

@@ -1,19 +1,39 @@
 local M = {}
 
-local def_opts = { noremap = true, silent = true }
+M.opts = { noremap = true, silent = true }
 
-M.map = function(mode, l, r, opts)
-    if opts ~= nil then
-        opts = vim.tbl_extend('keep', opts, def_opts)
+local function check_opts(opts)
+    if opts == nil then
+        opts = M.opts
+    elseif next(opts) == nil then
+        opts = {}
     else
-        opts = def_opts
+        opts = vim.tbl_extend('force', M.opts, opts)
     end
-
-    vim.keymap.set(mode, l, r, opts)
+    return opts
 end
 
+---@param mode string|table
+---@param l string
+---@param r string|function
+---@param opts table?
+M.map = function(mode, l, r, opts)
+    vim.keymap.set(mode, l, r, check_opts(opts))
+end
+
+--- adds a mapping in normal mode
+---@param l string
+---@param r string|function
+---@param opts table
 M.nmap = function(l, r, opts)
     M.map('n', l, r, opts)
+end
+
+---returns the string wraped in a vim cmd
+---@param cmd string
+---@return string
+M.cmd = function(cmd)
+    return '<cmd>' .. cmd .. '<cr>'
 end
 
 M.imap = function(l, r, opts)
